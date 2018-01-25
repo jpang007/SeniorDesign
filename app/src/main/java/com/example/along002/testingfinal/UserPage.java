@@ -68,7 +68,7 @@ public class UserPage extends AppCompatActivity {
             String userUID = curruser.getUid();
             //myRef.child(userUID).child("Food").child("Favorite Food").child(newFood).setValue("True");
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child(userUID).child("Favorite Food").child(newFood).setValue("True");
+            mDatabase.child("users").child(userUID).child("Favorite Food").child(newFood).setValue("True");
             itemTextView.setText("");
 
             Toast.makeText(getApplicationContext(),"Added Item", Toast.LENGTH_SHORT).show();
