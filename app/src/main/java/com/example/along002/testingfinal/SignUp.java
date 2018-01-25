@@ -1,13 +1,16 @@
 package com.example.along002.testingfinal;
+import android.support.v7.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.MainActivity;
+import com.example.along002.testingfinal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener{
+public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     EditText editTextEmail, editTextPass, nameTextView;
     private FirebaseAuth mAuth;
@@ -37,7 +40,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             this.username = username;
             this.email = email;
         }
-
     }
 
     @Override
@@ -64,25 +66,22 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         mAuth.createUserWithEmailAndPassword(eMail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Account Successfully Made", Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Account Successfully Made", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     String currUID = user.getUid();
-                    User newuser = new User(name,eMail);
+                    User newuser = new User(name, eMail);
                     mDatabase.child("users").child(currUID).setValue(newuser);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Account Unsuccessfully Made", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Account Unsuccessfully Made", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
     }
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.textViewLogin:
                 startActivity(new Intent(this, MainActivity.class));
                 break;
