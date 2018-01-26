@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.Vector;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,8 +23,10 @@ public class UserPage extends AppCompatActivity {
     private static final String TAG = "UserPage";
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    Button logOutButton, addItemBtn;
-    EditText itemTextView;
+    private final Vector<String> termHolder = new Vector<String>();
+    private final Vector<String> defHolder = new Vector<String>();
+    Button logOutButton, addItemBtn, displayFoods;
+    EditText itemTextView, itemTextView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,9 @@ public class UserPage extends AppCompatActivity {
 
         Button logOutButton = (Button) findViewById(R.id.logoutButton);
         Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
+        Button addSet = (Button) findViewById(R.id.addSet);
         final EditText itemTextView = (EditText) findViewById(R.id.itemTextView);
+        final EditText itemTextView2 = (EditText) findViewById(R.id.itemTextView2);
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -63,17 +68,33 @@ public class UserPage extends AppCompatActivity {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            String newFood = itemTextView.getText().toString();
-            FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
-            String userUID = curruser.getUid();
-            //myRef.child(userUID).child("Food").child("Favorite Food").child(newFood).setValue("True");
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("users").child(userUID).child("Favorite Food").child(newFood).setValue("True");
+            String term = itemTextView.getText().toString();
+            String definition = itemTextView2.getText().toString();
+            termHolder.addElement(term);
+            defHolder.addElement(definition);
             itemTextView.setText("");
+            itemTextView2.setText("");
 
-            Toast.makeText(getApplicationContext(),"Added Item", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Added Flashcard!", Toast.LENGTH_SHORT).show();
             }
         });
+        addSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
+                FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
+                String userUID = curruser.getUid();
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Name").setValue(flashcardSetName);
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Creator").setValue(userUID);
+                for(int i = 0;i < termHolder.size(); ++i ) {
+                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child(termHolder.get(i)).setValue(defHolder.get(i));
+                }
+
+                Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
