@@ -82,11 +82,13 @@ public class UserPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
+                String flashcardSetTags = getIntent().getStringExtra("flashcardTags");
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
                 String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Name").setValue(flashcardSetName);
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Creator").setValue(userUID);
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Tags").setValue(flashcardSetTags);
                 for(int i = 0;i < termHolder.size(); ++i ) {
                     mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child(termHolder.get(i)).setValue(defHolder.get(i));
                 }
