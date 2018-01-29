@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\dd157abf238c08fe8ab2b1cfe6d5eec9\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\modules-2\files-2.1\android.arch.core\common\1.0.0\a2d487452376193fc8c103dd2b9bd5f2b1b44563\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-database-11.0.4.aar\91af3d2bb5993c12ce24be20ac4dec59\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7c24e2e9773fb498e390ce973db382c3ddcf748e">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.0.0\e414a4cb28434e25c4f6aa71426eb20cf4874ae9\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-common-11.0.4.aar\eea3a4cb2988eb2b35984b24306e5590\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="43e9789bd3240271265ab30ce1be9f224843f5a8">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.1.0\814258103cf26a15fcc26ecce35f5b7d24b73f8\support-annotations-26.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\0c1ebd8ab44763712e2edad927c53c05\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="508f50705b4fde51a16259f29c854201a3044516">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.0.4.aar\1f7a048e412e95dbc08cdb4e06eb151b\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2430e711762a749feb00b3d64858ca4768251b9d">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\241976b3b9b21e76babb0f1c8af2bdc7\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\e0619edd1789b3a241106668130f72fa\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-auth-11.0.4.aar\fb12f643b1fe84ce604f2dd31ca8909c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b5b6af36bacf1d812cd3dc45f9dcab9ea471ed91">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\2b8bc2eb9f44e09dc4715e82ddd8017e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\0df3d818912f9a5160544791081b866a\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-database-connection-11.0.4.aar\d1bea545841024079c62c0d713efbc55\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1b12397bc9f342b29d9e9108978828f99a6da579">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-11.0.4.aar\de4480d039a553fa3f38a1754a834790\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e1625e48a836779b5fa141d22e5d05563aaccc9a">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\6e0a99b0c7449c5d694e22235474eb6d\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-iid-11.0.4.aar\b856377178614022bb5fddedef9ecd10\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ed87ccdcb70c17d71ba4e6e4ac16afa62d3c49fb">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-analytics-11.0.4.aar\bbb6516e1cdcad61e1b08e41b7fc8ff7\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e5b429c146094a612134910688d169ec08deeefb">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\2dfef5202d4c6b315b67a83734f231e6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-fragment-26.1.0.aar\3a92303f35fde319468bd739b503740d\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\6be9d42bab17834209d5f0ba2b307eec\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\play-services-base-11.0.4.aar\be02968868658369992a4be0dd6e59f5\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="70ffe00aaf049893f59d1dad57bd82992faa38ef">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\f049be1c69c32dc4e735d688517aaadf\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.0.4.aar\345efa62092749df5acb94f0ab3532a7\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="364364bf77b4a71afc5930fc3ae57b3f0eea637c">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+
+</items>
