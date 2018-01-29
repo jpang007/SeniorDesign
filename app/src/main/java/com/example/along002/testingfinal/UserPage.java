@@ -30,16 +30,16 @@ public class UserPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_page);
-        mAuth = FirebaseAuth.getInstance();
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_user_page);
+            mAuth = FirebaseAuth.getInstance();
 
 //        final FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
 //        String userUID = curruser.getUid();
 //        Toast.makeText(getApplication(),userUID,Toast.LENGTH_SHORT).show();
 
-        Button logOutButton = (Button) findViewById(R.id.logoutButton);
-        Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
+            Button backButton = (Button) findViewById(R.id.backButton);
+            Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
         Button addSet = (Button) findViewById(R.id.addSet);
         final EditText itemTextView = (EditText) findViewById(R.id.itemTextView);
         final EditText itemTextView2 = (EditText) findViewById(R.id.itemTextView2);
@@ -82,26 +82,37 @@ public class UserPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
+                String privacySettings = getIntent().getStringExtra("privacySettings");
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
                 String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Name").setValue(flashcardSetName);
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Creator").setValue(userUID);
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Size").setValue(Integer.toString(termHolder.size()));
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Privacy").setValue(privacySettings);
                 for(int i = 0;i < termHolder.size(); ++i ) {
-                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child(termHolder.get(i)).setValue(defHolder.get(i));
+                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
+                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
                 }
 
                 Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(UserPage.this, UserMenu.class));
             }
         });
 
 
-        logOutButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signOut();
-                startActivity(new Intent(UserPage.this, MainActivity.class));
-                Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show();
+                String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
+                Intent intent = new Intent(UserPage.this, FlashcardInitSettings.class);
+                intent.putExtra("passBackFlashcardSetName", flashcardSetName);
+
+                String privacySettings = getIntent().getStringExtra("privacySettings");
+                intent.putExtra("passBackPrivacySettings", privacySettings);
+
+                startActivity(intent);
+          //      Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show();
             }
         });
 
