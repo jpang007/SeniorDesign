@@ -19,7 +19,8 @@
         <activity android:name=".SignUp" />
         <activity android:name=".UserPage" />
         <activity android:name=".UserMenu" />
-        <activity android:name=".FlashcardInitSettings"></activity>
+        <activity android:name=".FlashcardInitSettings" />
+        <activity android:name=".ViewFlashCards"></activity>
     </application>
 
 </manifest>

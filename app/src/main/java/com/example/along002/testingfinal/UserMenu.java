@@ -13,12 +13,20 @@ public class UserMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_menu);
+        setTitle("User Menu");
 
         Button addNewFlashcard = (Button) findViewById(R.id.addNewFlashcard);
         addNewFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserMenu.this, FlashcardInitSettings.class));
+            }
+        });
+        Button viewFlashCardsBtn = (Button) findViewById(R.id.viewFlashCardsBtn);
+        viewFlashCardsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserMenu.this,ViewFlashCards.class));
             }
         });
     }

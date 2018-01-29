@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
@@ -29,11 +30,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.logoutBtn).setOnClickListener(this);
         findViewById(R.id.button3).setOnClickListener(this);
+        setTitle("Login");
     }
 
     private void loginUser(){
         String eMail = emailTxt.getText().toString().trim();
         String pass = passwordTxt.getText().toString().trim();
+
+        //HARDCODED ACCOUNT CUZ IM LAZY
+//        eMail = "1@gmail.com";
+//        pass = "123456";
 
         //EMAIL AND PASSWORD PARSING GO HERE TO MAKE SURE THEY ARE VALID EMAILS AND PASS
         mAuth.signInWithEmailAndPassword(eMail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

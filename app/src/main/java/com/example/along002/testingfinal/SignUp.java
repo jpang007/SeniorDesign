@@ -31,7 +31,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         public String username;
         public String email;
-        public int a[] = new int[5];
 
         public User() {
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -40,12 +39,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         public User(String username, String email) {
             this.username = username;
             this.email = email;
-            this.a[0] = 0;
-            this.a[1] = 1;
-            this.a[2] = 2;
-            this.a[3] = 3;
-            this.a[4] = 4;
-
         }
     }
 
@@ -60,6 +53,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         findViewById(R.id.textViewLogin).setOnClickListener(this);
         findViewById(R.id.signUpBtn).setOnClickListener(this);
         findViewById(R.id.testArr).setOnClickListener(this);
+        setTitle("Sign-Up");
     }
 
 
@@ -97,28 +91,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 registerUser();
                 break;
             case R.id.testArr:
-                //Toast.makeText(getApplicationContext(), "test",Toast.LENGTH_SHORT).show();
-
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-//                int k = 9;
-                int b[] = new int[3];
-                b[0] = 100;
-                b[1] = 901;
-                b[2] = 781;
-
-//                String p = "testopop";
-//
-//                mDatabase.child("Flashcards").child("TestFlashCard").child(p).setValue("True");
-
-//
-                int a[] = new int[3];
-                a[0] = 001;
-                a[1] = 109;
-                a[2] = 187;
-
-//                mDatabase.child("Flashcards").child("TestFlashCard").child("0").child("100").setValue("True");
-
-
                 Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
                 break;
 

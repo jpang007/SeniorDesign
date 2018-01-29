@@ -33,6 +33,7 @@ public class UserPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
         mAuth = FirebaseAuth.getInstance();
+        setTitle("Add a FlashCard Set");
 
 //        final FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
 //        String userUID = curruser.getUid();
