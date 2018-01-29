@@ -16,6 +16,7 @@ public class UserMenu extends AppCompatActivity {
         setTitle("User Menu");
 
         Button addNewFlashcard = (Button) findViewById(R.id.addNewFlashcard);
+        Button searchFlashcards = (Button) findViewById(R.id.searchFlashcards);
         addNewFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,5 +30,12 @@ public class UserMenu extends AppCompatActivity {
                 startActivity(new Intent(UserMenu.this,ViewFlashCards.class));
             }
         });
+//
+//        searchFlashcards.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(UserMenu.this, searchFlashcards.class));
+//            }
+//        });
     }
 }

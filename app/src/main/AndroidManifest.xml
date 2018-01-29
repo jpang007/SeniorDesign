@@ -21,6 +21,8 @@
         <activity android:name=".UserMenu" />
         <activity android:name=".FlashcardInitSettings" />
         <activity android:name=".ViewFlashCards"></activity>
+        <activity android:name=".FlashcardInitSettings" />
+        <activity android:name=".searchFlashcards"></activity>
     </application>
 
 </manifest>
