@@ -21,7 +21,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
 
         final EditText flashcardSetName = (EditText) findViewById(R.id.flashcardSetName);
         final EditText flashcardTags = (EditText) findViewById(R.id.flashcardTags); //static variables
-        Button backButton = (Button) findViewById(R.id.backButton);
+        final Button backButton = (Button) findViewById(R.id.backButton);
         Button continueButton = (Button) findViewById(R.id.continueButton);
         final RadioGroup radioPrivacyGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
@@ -32,8 +32,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(flashcardSetName.getText())) {
                     flashcardSetName.setError("Please name your flashcard set!");
-                }
-                else {
+                } else {
                     String setName = flashcardSetName.getText().toString();
                     String setTag = flashcardTags.getText().toString(); //change to string
                     Intent intent = new Intent(FlashcardInitSettings.this, UserPage.class);
@@ -45,12 +44,13 @@ public class FlashcardInitSettings extends AppCompatActivity {
                     intent.putExtra("flashcardTags", setTag);
                     startActivity(intent);
                 }
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(FlashcardInitSettings.this, UserMenu.class));
             }
-        });
-    }
+    });
+    backButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startActivity(new Intent(FlashcardInitSettings.this, UserMenu.class));
+        }
+    });
+}
 }
