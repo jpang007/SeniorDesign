@@ -27,7 +27,7 @@ public class UserMenu extends AppCompatActivity {
         viewFlashCardsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(UserMenu.this,ViewFlashCards.class));
+                startActivity(new Intent(UserMenu.this,chooseAFlashcard.class));
             }
         });
 //

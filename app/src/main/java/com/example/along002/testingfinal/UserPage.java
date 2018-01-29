@@ -88,15 +88,28 @@ public class UserPage extends AppCompatActivity {
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
                 String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child("Flashcards").child("Test FlashCard").child("Name").setValue(flashcardSetName);
-                mDatabase.child("Flashcards").child("Test FlashCard").child("Creator").setValue(userUID);
-                mDatabase.child("Flashcards").child("Test FlashCard").child("Size").setValue(Integer.toString(termHolder.size()));
-                mDatabase.child("Flashcards").child("Test FlashCard").child("Privacy").setValue(privacySettings);
-                mDatabase.child("Flashcards").child("Test FlashCard").child("Tags").setValue(flashcardSetTags);
+                String mFlashId = mDatabase.push().getKey();
+//                Toast.makeText(getApplication(),mFlashId,Toast.LENGTH_SHORT).show();
+//                mTempDatabase.child(mFlashId).setValue("True");
+
+                FlashcardInfo newFlashSet = new FlashcardInfo();
+                newFlashSet.setCreator(userUID);
+                newFlashSet.setName(flashcardSetName);
+                newFlashSet.setPrivacy(privacySettings);
+                newFlashSet.setSize(Integer.toString(termHolder.size()));
+
+                mDatabase.child("Flashcards").child(mFlashId).child("Tags").setValue(flashcardSetTags);
+                mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
                 for(int i = 0;i < termHolder.size(); ++i ) {
-                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
-                    mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
+                    mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
+                    mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
                 }
+
+                flashIdAndName flashIdAndName = new flashIdAndName();
+                flashIdAndName.setFlashId(mFlashId);
+                flashIdAndName.setFlashName(flashcardSetName);
+                mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);
+
 
                 Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(UserPage.this, UserMenu.class));

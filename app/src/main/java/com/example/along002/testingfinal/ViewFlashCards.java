@@ -23,10 +23,10 @@ public class ViewFlashCards extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private DatabaseReference mTempDatabase;
     private TextView testTextView, textView3,textViewPrivacy,textViewName,textViewCreator;
-    private int flashSize;
     private static final String TAG = "UserPage";
-    private int currCard = 0;
     private int flashCardSize;
+    private String flashId;
+    private int currCard = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +42,10 @@ public class ViewFlashCards extends AppCompatActivity {
         textViewCreator = findViewById(R.id.textViewCreator);
         textViewName = findViewById(R.id.textViewName);
         textViewPrivacy = findViewById(R.id.textViewPrivacy);
+        flashId = getIntent().getStringExtra("flashId");
+
         mTempDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("Flashcards").child("Test FlashCard");
+                .child("Flashcards").child(flashId);
 
         final ValueEventListener flashcardInfo = new ValueEventListener() {
             @Override
@@ -53,7 +55,6 @@ public class ViewFlashCards extends AppCompatActivity {
                 textViewCreator.setText("Creator: " + tempFlashInfo.getCreator());
                 textViewName.setText("Flashcard Name: " + tempFlashInfo.getName());
                 textViewPrivacy.setText("Privacy: " + tempFlashInfo.getPrivacy());
-//                Toast.makeText(getApplication(),tempFlashInfo.getSize(),Toast.LENGTH_SHORT).show();
                 flashCardSize = Integer.parseInt(tempFlashInfo.getSize());
 
             }
@@ -64,39 +65,28 @@ public class ViewFlashCards extends AppCompatActivity {
         };
         mTempDatabase.addListenerForSingleValueEvent(flashcardInfo);
 
-
-//        mTempDatabase = testListner;
-//        mDatabase.removeEventListener(mTempDatabase);
-
         Button test = (Button) findViewById(R.id.testBtn);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 mDatabase = FirebaseDatabase.getInstance().getReference()
-                        .child("Flashcards").child("Test FlashCard").child(String.valueOf(currCard));
+                        .child("Flashcards").child(flashId).child(String.valueOf(currCard));
                 ValueEventListener testListner = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-//                flashCardSize = Integer.parseInt(testing.getSize());
-//                mTempDatabase = FirebaseDatabase.getInstance().getReference()
-//                                .child("Flashcards").child("Test FlashCard").child(String.valueOf(currCard));
+
                   FlashCard tempFlash = dataSnapshot.getValue(FlashCard.class);
-//                for(int i = 0; i < flashCardSize; ++i){
-//                    mDatabase = FirebaseDatabase.getInstance().getReference()
-//                            .child("Flashcards").child("Test FlashCard").child(String.valueOf(i));
-//                }
                     testTextView.setText(tempFlash.getDefinition());
                         textView3.setText(tempFlash.getTerm());
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 };
                 mDatabase.addListenerForSingleValueEvent(testListner);
                 currCard++;
-                if(currCard > flashCardSize){
+                if(currCard >= flashCardSize){
                     currCard = 0;
                 }
             }
