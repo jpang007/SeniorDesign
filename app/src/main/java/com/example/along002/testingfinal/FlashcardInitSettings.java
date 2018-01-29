@@ -20,6 +20,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
         setContentView(R.layout.activity_flashcard_init_settings);
 
         final EditText flashcardSetName = (EditText) findViewById(R.id.flashcardSetName);
+        final EditText flashcardTags = (EditText) findViewById(R.id.flashcardTags); //static variables
         Button backButton = (Button) findViewById(R.id.backButton);
         Button continueButton = (Button) findViewById(R.id.continueButton);
         final RadioGroup radioPrivacyGroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -34,17 +35,16 @@ public class FlashcardInitSettings extends AppCompatActivity {
                 }
                 else {
                     String setName = flashcardSetName.getText().toString();
+                    String setTag = flashcardTags.getText().toString(); //change to string
                     Intent intent = new Intent(FlashcardInitSettings.this, UserPage.class);
                     intent.putExtra("flashcardSetName", setName);
 
                     int selectedButton = radioPrivacyGroup.getCheckedRadioButtonId();
                     RadioButton radioPrivacyButton = (RadioButton) findViewById(selectedButton);
                     intent.putExtra("privacySettings", radioPrivacyButton.getText());
-
+                    intent.putExtra("flashcardTags", setTag);
                     startActivity(intent);
                 }
-            }
-        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

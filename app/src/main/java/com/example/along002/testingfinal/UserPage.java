@@ -83,6 +83,7 @@ public class UserPage extends AppCompatActivity {
             public void onClick(View view) {
                 String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
                 String privacySettings = getIntent().getStringExtra("privacySettings");
+                String flashcardSetTags = getIntent().getStringExtra("flashcardTags");
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
                 String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -90,6 +91,7 @@ public class UserPage extends AppCompatActivity {
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Creator").setValue(userUID);
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Size").setValue(Integer.toString(termHolder.size()));
                 mDatabase.child("Flashcards").child("Test FlashCard").child("Privacy").setValue(privacySettings);
+                mDatabase.child("Flashcards").child("Test FlashCard").child("Tags").setValue(flashcardSetTags);
                 for(int i = 0;i < termHolder.size(); ++i ) {
                     mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
                     mDatabase.child("Flashcards").child("Test FlashCard").child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
