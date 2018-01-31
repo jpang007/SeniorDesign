@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -46,6 +50,16 @@ public class chooseAFlashcard extends AppCompatActivity {
         listView = findViewById(R.id.flashcardList);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, flashName);
+
+        TextView textViewBackToMenu = (TextView) findViewById(R.id.textViewBackToMenu);
+
+        textViewBackToMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(chooseAFlashcard.this,UserMenu.class);
+                startActivity(intent);
+            }
+        });
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,7 +77,7 @@ public class chooseAFlashcard extends AppCompatActivity {
                         // ListView Clicked item index
                         int itemPosition = position;
                         // ListView Clicked item value
-                        String itemValue = (String) listView.getItemAtPosition(position);
+//                        String itemValue = (String) listView.getItemAtPosition(position);
 
                         Intent intent = new Intent(chooseAFlashcard.this,ViewFlashCards.class);
                         intent.putExtra("flashId", flashId.get(itemPosition));

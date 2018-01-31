@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String pass = passwordTxt.getText().toString().trim();
 
         //HARDCODED ACCOUNT CUZ IM LAZY
-//        eMail = "1@gmail.com";
-//        pass = "123456";
+        eMail = "1@gmail.com";
+        pass = "123456";
 
         //EMAIL AND PASSWORD PARSING GO HERE TO MAKE SURE THEY ARE VALID EMAILS AND PASS
         mAuth.signInWithEmailAndPassword(eMail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -1,5 +1,6 @@
 package com.example.along002.testingfinal;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,7 @@ public class ViewFlashCards extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user1 = mAuth.getCurrentUser();
-        String userUID = user1.getUid();
+        final String userUID = user1.getUid();
 
         setTitle("View FlashCard");
         testTextView = findViewById(R.id.testTextView);
@@ -42,6 +43,10 @@ public class ViewFlashCards extends AppCompatActivity {
         textViewCreator = findViewById(R.id.textViewCreator);
         textViewName = findViewById(R.id.textViewName);
         textViewPrivacy = findViewById(R.id.textViewPrivacy);
+        Button test = (Button) findViewById(R.id.testBtn);
+        Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
+
+
         flashId = getIntent().getStringExtra("flashId");
 
         mTempDatabase = FirebaseDatabase.getInstance().getReference()
@@ -64,8 +69,6 @@ public class ViewFlashCards extends AppCompatActivity {
             }
         };
         mTempDatabase.addListenerForSingleValueEvent(flashcardInfo);
-
-        Button test = (Button) findViewById(R.id.testBtn);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +92,20 @@ public class ViewFlashCards extends AppCompatActivity {
                 if(currCard >= flashCardSize){
                     currCard = 0;
                 }
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
+                                                    .child("Flashcards").child(flashId);
+                DatabaseReference removeUIDtoFlashId = FirebaseDatabase.getInstance().getReference()
+                                                    .child("usersFlash").child(userUID).child(flashId);
+                removeFlashId.removeValue();
+                removeUIDtoFlashId.removeValue();
+                Intent intent = new Intent(ViewFlashCards.this,chooseAFlashcard.class);
+                startActivity(intent);
+
             }
         });
     }
