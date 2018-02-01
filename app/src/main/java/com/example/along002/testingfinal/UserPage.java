@@ -1,7 +1,6 @@
 package com.example.along002.testingfinal;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +26,14 @@ public class UserPage extends AppCompatActivity {
     private final Vector<String> defHolder = new Vector<String>();
     Button logOutButton, addItemBtn, displayFoods;
     EditText itemTextView, itemTextView2;
-
+    /**
+     *disable screen transition
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

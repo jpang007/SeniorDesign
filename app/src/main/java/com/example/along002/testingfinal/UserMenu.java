@@ -8,7 +8,14 @@ import android.widget.Button;
 
 public class UserMenu extends AppCompatActivity {
 
-
+    /**
+     *disable screen transition
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

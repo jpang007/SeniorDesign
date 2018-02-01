@@ -25,7 +25,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     EditText editTextEmail, editTextPass, nameTextView;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
+    /**
+     *disable screen transition
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
     @IgnoreExtraProperties
     public class User {
 

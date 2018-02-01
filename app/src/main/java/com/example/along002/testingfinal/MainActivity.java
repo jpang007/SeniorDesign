@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.Home.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,7 +18,14 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     EditText emailTxt, passwordTxt;
-
+    /**
+     *disable screen transition
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -63,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.loginBtn:
                 loginUser();
-                startActivity(new Intent(this, UserMenu.class));
+                startActivity(new Intent(this, HomeActivity.class));
+
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();

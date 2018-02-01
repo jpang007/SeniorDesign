@@ -10,10 +10,17 @@ import android.widget.RadioButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class FlashcardInitSettings extends AppCompatActivity {
 
+    /**
+     *disable screen transition
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
