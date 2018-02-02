@@ -12,7 +12,7 @@ public class searchFlashcards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flashcards);
 
-        final TextView itemTextView = (TextView) findViewById(R.id.editText);
+//        TextView itemTextView = (TextView) findViewById(R.id.editText);
 
     }
 }

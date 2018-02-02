@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.UserMenu;
@@ -33,6 +34,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         setupBottomNavigationView();
+        Button testerBtn = (Button) findViewById(R.id.testerBtn);
+        testerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplication(),"Test",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // BottomNavigationView setup

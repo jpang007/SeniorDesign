@@ -3,6 +3,16 @@
 
     <item
         is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\e98c9af74ca9b5412dd89e8d2339a7f2\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\dd157abf238c08fe8ab2b1cfe6d5eec9\jars\classes.jar"
         jumboMode="false"
         min-sdk-version="15"
@@ -10,6 +20,16 @@
         revision="26.0.2"
         sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
         <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\e4f533ad96e9e9db96fee21d88c7ff77\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\8.jar" />
     </item>
     <item
         is-multidex="false"
@@ -50,6 +70,16 @@
         revision="26.0.2"
         sha1="43e9789bd3240271265ab30ce1be9f224843f5a8">
         <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\38ffda819c917483aff06ff8976d3009\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\18.jar" />
     </item>
     <item
         is-multidex="false"
@@ -150,6 +180,16 @@
         revision="26.0.2"
         sha1="1b12397bc9f342b29d9e9108978828f99a6da579">
         <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\BottomNavigationViewEx-1.2.4.aar\b9a7e744d63213bfb90949af4286adc4\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e5b6d089eeb8c142de02e78f8fcbe512e95a652f">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\2.jar" />
     </item>
     <item
         is-multidex="false"

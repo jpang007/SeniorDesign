@@ -13,9 +13,9 @@
 
         <!-- top toolbar -->
         <RelativeLayout
+            android:id="@+id/rellayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rellayout1">
+            android:layout_height="wrap_content">
 
             <include layout="@layout/layout_top_tabs" />
 
@@ -26,28 +26,32 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:text="Settings"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                />
         </RelativeLayout>
 
-        <!-- middle section -->
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/rellayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/rellayout1">
-
-            <include layout = "@layout/layout_center_viewpager"/>
 
             <Button
                 android:id="@+id/oldCodeBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="145dp"
                 android:text="Go to old Code" />
 
+            <include layout="@layout/layout_center_viewpager" />
+
         </RelativeLayout>
+
+        <!-- middle section -->
 
         <!-- bottom navigation -->
         <include layout = "@layout/layout_bottom_navigation_view"/>

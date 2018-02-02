@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.along002.testingfinal.searchFlashcards">
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
+    tools:context="com.example.along002.testingfinal.searchFlashcards"
+    android:paddingTop="12dp"
+    android:paddingBottom="20dp"
+    android:scrollbarStyle="outsideOverlay">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter flashcard set tags"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="97dp"
-        tools:layout_editor_absoluteY="16dp" />
-</android.support.constraint.ConstraintLayout>
+        android:orientation="vertical">
+        
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="check"
+            android:gravity="center_vertical|center_horizontal"/>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LayoutParams are used by views to tell their parents how they want to be laid out. See ViewGroup Layout Attributes for a list of all child view attributes that this class supports.
+
+The base LayoutParams class just describes how big the view wants to be for both width and height. For each dimension, it can specify one of:
+
+    FILL_PARENT (renamed MATCH_PARENT in API Level 8 and higher), which means that the view wants to be as big as its parent (minus padding)
+    WRAP_CONTENT, which means that the view wants to be just big enough to enclose its content (plus padding)
+    an exact number
+
+There are subclasses of LayoutParams for different subclasses of ViewGroup. For example, AbsoluteLayout has its own subclass of LayoutParams which adds an X and Y value."
+            android:textSize="36dp"/>
+    </LinearLayout>
+    
+    
+
+</ScrollView>

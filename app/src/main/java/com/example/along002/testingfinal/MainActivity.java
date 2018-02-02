@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.TextViewSignUp).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.logoutBtn).setOnClickListener(this);
+        findViewById(R.id.testingBtn).setOnClickListener(this);
         setTitle("Login");
     }
 
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();
+                break;
+            case R.id.testingBtn:
+                startActivity(new Intent(this,searchFlashcards.class));
                 break;
         }
     }
