@@ -26,8 +26,8 @@
     </item>
 
     <item
-        android:id="@+id/ic_android"
-        android:icon="@drawable/ic_android"
+        android:id="@+id/ic_setting"
+        android:icon="@drawable/ic_setting"
         android:title="">
     </item>
 </menu>

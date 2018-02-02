@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.example.along002.testingfinal.AboutUsActivity;
 import com.example.along002.testingfinal.Home.HomeActivity;
 import com.example.along002.testingfinal.R;
+import com.example.along002.testingfinal.Setting.SettingActivity;
 import com.example.along002.testingfinal.UserMenu;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -50,12 +51,12 @@ public class BottomNavigationViewHelper {
                         break;
 
                     case R.id.ic_alert:
-                        Intent intent4 = new Intent(context, AboutUsActivity.class);//ACTIVITY_NUM = 3
+                        Intent intent4 = new Intent(context, SettingActivity.class);//ACTIVITY_NUM = 3
                         context.startActivity(intent4);
                         break;
 
-                    case R.id.ic_android:
-                        Intent intent5 = new Intent(context, UserMenu.class);//ACTIVITY_NUM = 4
+                    case R.id.ic_setting:
+                        Intent intent5 = new Intent(context, SettingActivity.class);//ACTIVITY_NUM = 4
                         context.startActivity(intent5);
                         break;
                 }

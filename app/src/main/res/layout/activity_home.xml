@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rellayout1">
-            <include layout = "@layout/layout_top_tabs"/>
+
+            <include layout="@layout/layout_top_tabs" />
         </RelativeLayout>
 
         <!-- middle section -->

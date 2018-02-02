@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.TextViewSignUp).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.logoutBtn).setOnClickListener(this);
-        findViewById(R.id.button3).setOnClickListener(this);
         setTitle("Login");
     }
 
@@ -72,16 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.loginBtn:
                 loginUser();
                 startActivity(new Intent(this, HomeActivity.class));
-
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();
                 break;
-            case R.id.button3:
-                FirebaseUser user1 = mAuth.getCurrentUser();
-                String userUID = user1.getUid();
-                Toast.makeText(getApplicationContext(),userUID,Toast.LENGTH_SHORT).show();
-
         }
     }
 }

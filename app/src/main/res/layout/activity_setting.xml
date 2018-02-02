@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.along002.testingfinal.Setting.SettingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- top toolbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rellayout1">
+
+            <include layout="@layout/layout_top_tabs" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Settings"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <!-- middle section -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rellayout2"
+            android:layout_below="@+id/rellayout1">
+
+            <include layout = "@layout/layout_center_viewpager"/>
+
+            <Button
+                android:id="@+id/oldCodeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Go to old Code" />
+
+        </RelativeLayout>
+
+        <!-- bottom navigation -->
+        <include layout = "@layout/layout_bottom_navigation_view"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

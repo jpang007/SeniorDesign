@@ -3,12 +3,16 @@ package com.example.along002.testingfinal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 
@@ -38,7 +43,7 @@ public class chooseAFlashcard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_aflashcard);
-
+        setupBottomNavigationView();
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
@@ -89,4 +94,18 @@ public class chooseAFlashcard extends AppCompatActivity {
             }
         });
     }
+    /**
+     * BottomNavigationView setup
+     */
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(chooseAFlashcard.this,bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
+    }
 }
+
+
