@@ -24,10 +24,11 @@
         <activity android:name=".searchFlashcards" />
         <activity android:name=".chooseAFlashcard" />
         <activity android:name=".Home.HomeActivity" />
-        <activity android:name=".Setting.SettingActivity"/>
-        <activity android:name=".Profile.ProfileActivity"/>
-        <activity android:name=".AboutUsActivity" ></activity>
-
+        <activity android:name=".Setting.SettingActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".Temp.TempActivity" />
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

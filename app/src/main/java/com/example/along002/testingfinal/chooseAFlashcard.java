@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -43,7 +44,6 @@ public class chooseAFlashcard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_aflashcard);
-        setupBottomNavigationView();
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
@@ -52,18 +52,19 @@ public class chooseAFlashcard extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("usersFlash").child(userUID);
         setTitle("Choose A Flashcard");
         listView = findViewById(R.id.flashcardList);
+        ImageView backArrow = (ImageView) findViewById(R.id.backArrow1);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        for(int i = 0; i < 10; i++){
+            flashName.add("Test");
+        }
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, flashName);
 
-        TextView textViewBackToMenu = (TextView) findViewById(R.id.textViewBackToMenu);
-
-        textViewBackToMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(chooseAFlashcard.this,UserMenu.class);
-                startActivity(intent);
-            }
-        });
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,18 +94,6 @@ public class chooseAFlashcard extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-    /**
-     * BottomNavigationView setup
-     */
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(chooseAFlashcard.this,bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
     }
 }
 

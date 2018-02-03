@@ -41,6 +41,15 @@ public class AboutUsActivity extends AppCompatActivity{
         Button testtop = (Button) findViewById(R.id.testtop);
         Button testmid = (Button) findViewById(R.id.testmid);
         Button viewFlashcardBtn = (Button) findViewById(R.id.viewFlashcardBtn);
+        Button makeFlashcardBtn = (Button) findViewById(R.id.makeFlashcardBtn);
+
+        makeFlashcardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AboutUsActivity.this,FlashcardInitSettings.class);
+                startActivity(intent);
+            }
+        });
 
         testtop.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -51,12 +51,24 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvUserName"
-                        android:text="TESTING USERNAME"/>
+                        android:layout_height="50dp"
+                        android:baselineAligned="false"
+                        android:background="@color/dark_blue">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tvUserName"
+                            android:text=" "
+                            android:textSize="30dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            />
                         <!--android:layout_marginBottom=""/>-->
+                    </LinearLayout>
+
                     <Button
                         android:id="@+id/testerBtn"
                         android:layout_width="wrap_content"
@@ -66,20 +78,23 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="LayoutParams are used by views to tell their parents how they want to be laid out. See ViewGroup Layout Attributes for a list of all child view attributes that this class supports.
+                        android:text="Lorem ipsum dolor sit amet, eligendi adolescens in quo. Ex prima mollis tibique his, meis possim in per. Vis novum impedit petentium te, ex per postulant dissentias interpretaris, purto minim deleniti his in. Ut pri dolorum maiestatis. Voluptatum accommodare ad vis, cum ad simul sententiae scribentur, sea quas menandri ne.
 
-The base LayoutParams class just describes how big the view wants to be for both width and height. For each dimension, it can specify one of:
+Pri ei soluta concludaturque, vim etiam dolorem eu. Labore regione pro in, at vim postea suavitate dissentiet. Sed eruditi laboramus ei, meis delicata incorrupte an mea. Cu nam sonet volumus, usu in modo sale populo, quis timeam ex nec. Id ius commodo insolens reprimique, odio novum volutpat vix cu. Ex mea exerci democritum, mei cu aperiam voluptua.
 
-    FILL_PARENT (renamed MATCH_PARENT in API Level 8 and higher), which means that the view wants to be as big as its parent (minus padding)
-    WRAP_CONTENT, which means that the view wants to be just big enough to enclose its content (plus padding)
-    an exact number
+An iudico accusata mandamus pro, doming disputationi et eum. Oratio graeco iudicabit an per, vel labitur maiorum gubergren an, no quo rebum salutandi democritum. Ex mea nusquam suavitate incorrupte. Esse facer prodesset id sit. Sed inermis adolescens id, eum ex exerci consetetur.
 
-There are subclasses of LayoutParams for different subclasses of ViewGroup. For example, AbsoluteLayout has its own subclass of LayoutParams which adds an X and Y value."
+Dicit praesent mei ut, ex commodo delectus accommodare vix. Elitr recusabo ut qui. Ea sed quot eros quando, mei dicant ullamcorper contentiones ut. Decore numquam no mei, pro justo eloquentiam id, usu clita signiferumque ne.
+
+Ei tempor iriure molestiae qui. Sit ne option expetendis. Ut qui fugit delectus. Te quo sint brute. Epicuri verterem usu ne, eu ius errem aperiri. In pro audire veritus omittam, no ponderum expetendis sit, vocent habemus sea ad.
+
+Ad iisque adipisci vis, ceteros singulis est ne. Eius convenire forensibus ad vix, in his propriae prodesset reformidans. Id pro libris dictas abhorreant, ex nam laudem semper. Ut harum labitur nec, eos ex purto principes, cu pro perfecto referrentur ullamcorper. At wisi dicam ancillae usu, mel id elit noster voluptua. Mei ut eius ornatus persecuti, vim vide quando commune ne."
                         android:textSize="36dp"/>
 
                 </LinearLayout>
 
             </ScrollView>
+
         </RelativeLayout>
 
         <!-- bottom navigation -->

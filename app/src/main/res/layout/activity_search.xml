@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.along002.testingfinal.SearchActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/rellayout1"
+            android:layout_alignParentTop="true"
+            android:background="@color/top_blue">
+
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:src="@drawable/ic_back_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rellayout1">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/search_layout">-->
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:inputType="text"/>-->
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/seach_layout">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="TSTTSSDFDS"/>-->
+                <!--</RelativeLayout>-->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lorem ipsum dolor sit amet, eligendi adolescens in quo. Ex prima mollis tibique his, meis possim in per. Vis novum impedit petentium te, ex per postulant dissentias interpretaris, purto minim deleniti his in. Ut pri dolorum maiestatis. Voluptatum accommodare ad vis, cum ad simul sententiae scribentur, sea quas menandri ne.
+
+Pri ei soluta concludaturque, vim etiam dolorem eu. Labore regione pro in, at vim postea suavitate dissentiet. Sed eruditi laboramus ei, meis delicata incorrupte an mea. Cu nam sonet volumus, usu in modo sale populo, quis timeam ex nec. Id ius commodo insolens reprimique, odio novum volutpat vix cu. Ex mea exerci democritum, mei cu aperiam voluptua.
+
+An iudico accusata mandamus pro, doming disputationi et eum. Oratio graeco iudicabit an per, vel labitur maiorum gubergren an, no quo rebum salutandi democritum. Ex mea nusquam suavitate incorrupte. Esse facer prodesset id sit. Sed inermis adolescens id, eum ex exerci consetetur.
+
+Dicit praesent mei ut, ex commodo delectus accommodare vix. Elitr recusabo ut qui. Ea sed quot eros quando, mei dicant ullamcorper contentiones ut. Decore numquam no mei, pro justo eloquentiam id, usu clita signiferumque ne.
+
+Ei tempor iriure molestiae qui. Sit ne option expetendis. Ut qui fugit delectus. Te quo sint brute. Epicuri verterem usu ne, eu ius errem aperiri. In pro audire veritus omittam, no ponderum expetendis sit, vocent habemus sea ad.
+
+Ad iisque adipisci vis, ceteros singulis est ne. Eius convenire forensibus "
+                        android:textSize="30dp"/>
+                </RelativeLayout>
+
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

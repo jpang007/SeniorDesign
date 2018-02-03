@@ -46,7 +46,6 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
-
     // BottomNavigationView setup
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
