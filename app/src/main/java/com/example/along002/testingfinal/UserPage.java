@@ -40,7 +40,6 @@ public class UserPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
         mAuth = FirebaseAuth.getInstance();
-        setTitle("Add a FlashCard Set");
 
 
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);

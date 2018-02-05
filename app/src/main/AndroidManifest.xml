@@ -28,7 +28,7 @@
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".Temp.TempActivity" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".Search.SearchActivity"></activity>
     </application>
 
 </manifest>

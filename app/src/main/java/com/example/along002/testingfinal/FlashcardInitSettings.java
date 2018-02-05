@@ -36,6 +36,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
 
         String passBackFlashcardSetName = getIntent().getStringExtra("passBackFlashcardSetName");
         flashcardSetName.setText(passBackFlashcardSetName, TextView.BufferType.EDITABLE);
+
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
