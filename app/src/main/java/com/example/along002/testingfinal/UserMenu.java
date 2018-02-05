@@ -41,7 +41,7 @@ public class UserMenu extends AppCompatActivity {
         searchFlashcards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserMenu.this, searchFlashcards.class));
+                startActivity(new Intent(UserMenu.this, TestingActivity.class));
             }
         });
     }

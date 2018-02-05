@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/rellayout1"
         android:background="@color/top_blue">
         <ImageView
             android:id="@+id/backArrow"
@@ -210,12 +211,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.702" />
 
-    <Button
-        android:id="@+id/addTagBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Tag"
-        tools:layout_editor_absoluteX="295dp"
-        tools:layout_editor_absoluteY="378dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below ="@id/rellayout1">
+        <Button
+            android:id="@+id/addTagBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Tag"
+            android:layout_marginTop="380dp"
+            android:layout_marginLeft="290dp"/>
+
+    </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ViewFlashCards extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mTempDatabase;
-    private TextView testTextView, textView3,textViewPrivacy,textViewName,textViewCreator;
+    private TextView testTextView, textView3,textViewPrivacy,textViewName,textViewCreator,textViewTags;
     private static final String TAG = "UserPage";
     private int flashCardSize;
     private String flashId;
@@ -49,6 +49,7 @@ public class ViewFlashCards extends AppCompatActivity {
         textViewCreator = findViewById(R.id.textViewCreator);
         textViewName = findViewById(R.id.textViewName);
         textViewPrivacy = findViewById(R.id.textViewPrivacy);
+        textViewTags = findViewById(R.id.textViewTags);
         Button test = (Button) findViewById(R.id.testBtn);
         Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
@@ -66,6 +67,7 @@ public class ViewFlashCards extends AppCompatActivity {
                 textViewCreator.setText("Creator: " + tempFlashInfo.getCreator());
                 textViewName.setText("Flashcard Name: " + tempFlashInfo.getName());
                 textViewPrivacy.setText("Privacy: " + tempFlashInfo.getPrivacy());
+                textViewTags.setText("Tags: " + tempFlashInfo.getTags());
                 flashCardSize = Integer.parseInt(tempFlashInfo.getSize());
 
             }

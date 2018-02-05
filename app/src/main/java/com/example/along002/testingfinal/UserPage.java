@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +42,6 @@ public class UserPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
         mAuth = FirebaseAuth.getInstance();
-
 
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
         Button backButton = (Button) findViewById(R.id.backButton);
@@ -106,8 +107,9 @@ public class UserPage extends AppCompatActivity {
                 newFlashSet.setName(flashcardSetName);
                 newFlashSet.setPrivacy(privacySettings);
                 newFlashSet.setSize(Integer.toString(termHolder.size()));
+                newFlashSet.setTags(flashcardSetTags);
+                newFlashSet.setId(mFlashId);
 
-                mDatabase.child("Flashcards").child(mFlashId).child("Tags").setValue(flashcardSetTags);
                 mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
                 for(int i = 0;i < termHolder.size(); ++i ) {
                     mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));

@@ -5,11 +5,25 @@ package com.example.along002.testingfinal;
  */
 
 public class FlashcardInfo {
-    private String Creator;
-    private String Name;
-    private String Privacy;
-    private String Size;
+    private String Creator, Name, Privacy, Size, Tags, Id;
+
     FlashcardInfo(){
+    }
+
+    public String getTags() {
+        return Tags;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public void setTags(String tags) {
+        Tags = tags;
     }
 
     public String getSize() {

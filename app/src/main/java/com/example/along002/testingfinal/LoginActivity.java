@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mAuth.signOut();
                 break;
             case R.id.testingBtn:
-                startActivity(new Intent(this,searchFlashcards.class));
+                startActivity(new Intent(this,TestingActivity.class));
                 break;
         }
     }

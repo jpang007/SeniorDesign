@@ -50,7 +50,6 @@ public class chooseAFlashcard extends AppCompatActivity {
         String userUID = curruser.getUid();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("usersFlash").child(userUID);
-        setTitle("Choose A Flashcard");
         listView = findViewById(R.id.flashcardList);
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {

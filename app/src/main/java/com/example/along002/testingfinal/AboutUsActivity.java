@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.Search.SearchActivity;
+import com.example.along002.testingfinal.Temp.TempActivity;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -48,7 +51,15 @@ public class AboutUsActivity extends AppCompatActivity{
         Button testmid = (Button) findViewById(R.id.testmid);
         Button viewFlashcardBtn = (Button) findViewById(R.id.viewFlashcardBtn);
         Button makeFlashcardBtn = (Button) findViewById(R.id.makeFlashcardBtn);
-
+        ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                direction = 1;
+                Intent intent = new Intent(AboutUsActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         makeFlashcardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

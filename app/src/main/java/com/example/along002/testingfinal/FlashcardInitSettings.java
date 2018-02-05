@@ -11,9 +11,14 @@ import android.widget.RadioButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlashcardInitSettings extends AppCompatActivity {
 
+    private String flashTagString = "";
     /**
      *disable screen transition
      */
@@ -27,15 +32,32 @@ public class FlashcardInitSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard_init_settings);
 
+
         final EditText flashcardSetName = (EditText) findViewById(R.id.flashcardSetName);
         final EditText flashcardTags = (EditText) findViewById(R.id.flashcardTags); //static variables
         final Button backButton = (Button) findViewById(R.id.backButton);
         Button continueButton = (Button) findViewById(R.id.continueButton);
         final RadioGroup radioPrivacyGroup = (RadioGroup) findViewById(R.id.radioGroup);
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
+        Button addTagBtn = (Button) findViewById(R.id.addTagBtn);
 
         String passBackFlashcardSetName = getIntent().getStringExtra("passBackFlashcardSetName");
         flashcardSetName.setText(passBackFlashcardSetName, TextView.BufferType.EDITABLE);
+
+
+        addTagBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tempString = flashcardTags.getText().toString().toLowerCase();
+                if(flashTagString == ""){
+                    flashTagString = tempString;
+                }
+                else{
+                    flashTagString = flashTagString + '/' + tempString;
+                }
+                flashcardTags.setText("");
+            }
+        });
 
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,14 +66,14 @@ public class FlashcardInitSettings extends AppCompatActivity {
                     flashcardSetName.setError("Please name your flashcard set!");
                 } else {
                     String setName = flashcardSetName.getText().toString();
-                    String setTag = flashcardTags.getText().toString(); //change to string
+//                    String setTag = flashcardTags.getText().toString(); //change to string
                     Intent intent = new Intent(FlashcardInitSettings.this, UserPage.class);
                     intent.putExtra("flashcardSetName", setName);
 
                     int selectedButton = radioPrivacyGroup.getCheckedRadioButtonId();
                     RadioButton radioPrivacyButton = (RadioButton) findViewById(selectedButton);
                     intent.putExtra("privacySettings", radioPrivacyButton.getText());
-                    intent.putExtra("flashcardTags", setTag);
+                    intent.putExtra("flashcardTags", flashTagString);
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 }
