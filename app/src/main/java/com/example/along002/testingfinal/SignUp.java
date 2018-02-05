@@ -4,13 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.along002.testingfinal.MainActivity;
-import com.example.along002.testingfinal.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,6 +21,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     EditText editTextEmail, editTextPass, nameTextView;
+    ImageView backArrow;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     /**
@@ -31,7 +30,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+//        overridePendingTransition(0, 0);
     }
     @IgnoreExtraProperties
     public class User {
@@ -57,9 +56,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPass = findViewById(R.id.editTextPass);
         nameTextView = findViewById(R.id.nameTextView);
-        findViewById(R.id.textViewLogin).setOnClickListener(this);
         findViewById(R.id.signUpBtn).setOnClickListener(this);
         findViewById(R.id.testArr).setOnClickListener(this);
+        findViewById(R.id.backArrow).setOnClickListener(this);
         setTitle("Sign-Up");
     }
 
@@ -87,20 +86,24 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.textViewLogin:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
             case R.id.signUpBtn:
                 registerUser();
                 break;
             case R.id.testArr:
                 Toast.makeText(getApplicationContext(),"test",Toast.LENGTH_SHORT).show();
                 break;
-
+            case R.id.backArrow:
+                startActivity(new Intent(this, LoginActivity.class));
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                break;
         }
     }
 }

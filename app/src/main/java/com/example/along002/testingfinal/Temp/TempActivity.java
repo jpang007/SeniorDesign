@@ -27,11 +27,18 @@ public class TempActivity extends AppCompatActivity {
     private SectionPagerAdapter mSectionStatePagerAdapter;
     private ViewPager mViewPager;
     private ViewPager mParentViewPager;
+    private int direction = 0;
     //disable screen transition
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+        if(direction == 0){
+            overridePendingTransition(0, 0);
+        }
+        else{
+            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            direction = 0;
+        }
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,13 +58,14 @@ public class TempActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                direction = 1;
             Intent intent = new Intent(TempActivity.this,SearchActivity.class);
             startActivity(intent);
             }
         });
 
-    }
 
+    }
 
     private void setupViewPager(ViewPager viewPager){
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
@@ -72,8 +80,7 @@ public class TempActivity extends AppCompatActivity {
 
     private void setupParentViewPager(ViewPager viewPager){
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BlankFragment());//index at 0
-        adapter.addFragment(new RealSearchFragment()); //index at 1
+        adapter.addFragment(new RealSearchFragment()); //index at 0
         viewPager.setAdapter(adapter);
     }
     public void setParentViewPager(int fragmentNumber){
@@ -87,6 +94,7 @@ public class TempActivity extends AppCompatActivity {
         BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
         BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
         BottomNavigationViewHelper.enableNavigation(TempActivity.this,bottomNavigationViewEx);
+        overridePendingTransition(0, 0);
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);

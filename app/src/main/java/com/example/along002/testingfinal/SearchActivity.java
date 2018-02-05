@@ -7,12 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class SearchActivity extends AppCompatActivity {
-    //disable screen transition
-    @Override
-    public void onPause() {
-        super.onPause();
-        overridePendingTransition(0, 0);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +17,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
     }

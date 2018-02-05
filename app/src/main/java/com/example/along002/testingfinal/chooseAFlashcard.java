@@ -38,7 +38,7 @@ public class chooseAFlashcard extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+//        overridePendingTransition(0, 0);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +52,14 @@ public class chooseAFlashcard extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("usersFlash").child(userUID);
         setTitle("Choose A Flashcard");
         listView = findViewById(R.id.flashcardList);
-        ImageView backArrow = (ImageView) findViewById(R.id.backArrow1);
+        ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
-        for(int i = 0; i < 10; i++){
-            flashName.add("Test");
-        }
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, flashName);
 
@@ -87,6 +85,7 @@ public class chooseAFlashcard extends AppCompatActivity {
                         Intent intent = new Intent(chooseAFlashcard.this,ViewFlashCards.class);
                         intent.putExtra("flashId", flashId.get(itemPosition));
                         startActivity(intent);
+                        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                     }
                 });
             }

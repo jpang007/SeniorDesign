@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -19,7 +20,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+//        overridePendingTransition(0, 0);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
         final Button backButton = (Button) findViewById(R.id.backButton);
         Button continueButton = (Button) findViewById(R.id.continueButton);
         final RadioGroup radioPrivacyGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
 
         String passBackFlashcardSetName = getIntent().getStringExtra("passBackFlashcardSetName");
         flashcardSetName.setText(passBackFlashcardSetName, TextView.BufferType.EDITABLE);
@@ -50,6 +52,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
                     intent.putExtra("privacySettings", radioPrivacyButton.getText());
                     intent.putExtra("flashcardTags", setTag);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 }
             }
     });
@@ -57,6 +60,13 @@ public class FlashcardInitSettings extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             startActivity(new Intent(FlashcardInitSettings.this, UserMenu.class));
+        }
+    });
+    backArrow.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+            overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
         }
     });
 }

@@ -1,10 +1,12 @@
 package com.example.along002.testingfinal;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.along002.testingfinal.Utils.FlashCard;
@@ -23,6 +25,7 @@ public class ViewFlashCards extends AppCompatActivity {
     private static final String TAG = "UserPage";
     private int flashCardSize;
     private String flashId;
+    private ImageView backArrow;
     private int currCard;
     /**
      *disable screen transition
@@ -30,7 +33,6 @@ public class ViewFlashCards extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class ViewFlashCards extends AppCompatActivity {
         textViewPrivacy = findViewById(R.id.textViewPrivacy);
         Button test = (Button) findViewById(R.id.testBtn);
         Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
-
+        ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
 
         flashId = getIntent().getStringExtra("flashId");
 
@@ -108,6 +110,13 @@ public class ViewFlashCards extends AppCompatActivity {
                 Intent intent = new Intent(ViewFlashCards.this,chooseAFlashcard.class);
                 startActivity(intent);
 
+            }
+        });
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
     }

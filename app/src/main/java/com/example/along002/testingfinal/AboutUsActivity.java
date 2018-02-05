@@ -26,10 +26,17 @@ public class AboutUsActivity extends AppCompatActivity{
     /**
     *disable screen transition
     */
+    private int direction = 0;
      @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+         if(direction == 0){
+             overridePendingTransition(0, 0);
+         }
+         else{
+             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+             direction = 0;
+         }
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +45,6 @@ public class AboutUsActivity extends AppCompatActivity{
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
 
-        Button testtop = (Button) findViewById(R.id.testtop);
         Button testmid = (Button) findViewById(R.id.testmid);
         Button viewFlashcardBtn = (Button) findViewById(R.id.viewFlashcardBtn);
         Button makeFlashcardBtn = (Button) findViewById(R.id.makeFlashcardBtn);
@@ -48,15 +54,10 @@ public class AboutUsActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(AboutUsActivity.this,FlashcardInitSettings.class);
                 startActivity(intent);
+                direction++;
             }
         });
 
-        testtop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplication(),"Test top", Toast.LENGTH_SHORT).show();
-            }
-        });
         testmid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +69,7 @@ public class AboutUsActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AboutUsActivity.this,chooseAFlashcard.class));
+                direction++;
             }
         });
 

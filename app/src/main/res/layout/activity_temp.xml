@@ -14,9 +14,8 @@ android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rellayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/layout_top_tabs" />
+        android:layout_height="50dp"
+        android:background="@color/top_blue">
 
         <TextView
             android:id="@+id/textView7"
@@ -25,8 +24,8 @@ android:layout_height="match_parent">
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="Temp Screen"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/imageViewSearch"
@@ -35,8 +34,8 @@ android:layout_height="match_parent">
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/ic_search" />
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/ic_white_search" />
 
     </RelativeLayout>
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.Vector;
 
@@ -27,12 +28,12 @@ public class UserPage extends AppCompatActivity {
     Button logOutButton, addItemBtn, displayFoods;
     EditText itemTextView, itemTextView2;
     /**
-     *disable screen transition
+     *screen transition
      */
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +42,23 @@ public class UserPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setTitle("Add a FlashCard Set");
 
-//        final FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
-//        String userUID = curruser.getUid();
-//        Toast.makeText(getApplication(),userUID,Toast.LENGTH_SHORT).show();
 
-            Button backButton = (Button) findViewById(R.id.backButton);
-            Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
+        ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
+        Button backButton = (Button) findViewById(R.id.backButton);
+        Button addItemBtn = (Button) findViewById(R.id.addItemBtn);
         Button addSet = (Button) findViewById(R.id.addSet);
         final EditText itemTextView = (EditText) findViewById(R.id.itemTextView);
         final EditText itemTextView2 = (EditText) findViewById(R.id.itemTextView2);
 
-        // Write a message to the database
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            }
+        });
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("message");
-//        myRef.setValue("Hello, World!");
 
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
@@ -118,7 +122,7 @@ public class UserPage extends AppCompatActivity {
 
 
                 Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UserPage.this, UserMenu.class));
+                startActivity(new Intent(UserPage.this, AboutUsActivity.class));
             }
         });
 

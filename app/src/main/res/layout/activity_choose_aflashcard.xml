@@ -19,7 +19,7 @@
             android:background="@color/top_blue">
 
             <ImageView
-                android:id="@+id/backArrow1"
+                android:id="@+id/backArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -28,6 +28,13 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginStart="18dp"
                 android:src="@drawable/ic_back_arrow" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:text="Choose a Flashcard"/>
         </RelativeLayout>
 
         <!-- middle section -->
@@ -37,7 +44,6 @@
             android:id="@+id/rellayout2"
             android:layout_below="@+id/rellayout1">
 
-            <include layout = "@layout/layout_center_viewpager"/>
 
             <ListView
                 android:id="@+id/flashcardList"

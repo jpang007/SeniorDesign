@@ -7,8 +7,17 @@ package com.example.along002.testingfinal.Utils;
 public class User {
     private String email;
     private String username;
+    private String tags;
 
     public User(){
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getUsername() {

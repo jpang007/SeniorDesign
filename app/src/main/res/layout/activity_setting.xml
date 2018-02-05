@@ -15,9 +15,9 @@
         <RelativeLayout
             android:id="@+id/rellayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:background="@color/top_blue">
 
-            <include layout="@layout/layout_top_tabs" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -27,7 +27,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="Settings"
                 android:textSize="30sp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 />
         </RelativeLayout>
 
