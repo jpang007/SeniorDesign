@@ -27,6 +27,7 @@ public class UserPage extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private final Vector<String> termHolder = new Vector<String>();
     private final Vector<String> defHolder = new Vector<String>();
+    private String authorName = "";
     Button logOutButton, addItemBtn, displayFoods;
     EditText itemTextView, itemTextView2;
     /**
@@ -92,38 +93,49 @@ public class UserPage extends AppCompatActivity {
         addSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
-                String privacySettings = getIntent().getStringExtra("privacySettings");
-                String flashcardSetTags = getIntent().getStringExtra("flashcardTags");
+                final String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
+                final String privacySettings = getIntent().getStringExtra("privacySettings");
+                final String flashcardSetTags = getIntent().getStringExtra("flashcardTags");
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
-                String userUID = curruser.getUid();
+                final String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                String mFlashId = mDatabase.push().getKey();
-//                Toast.makeText(getApplication(),mFlashId,Toast.LENGTH_SHORT).show();
-//                mTempDatabase.child(mFlashId).setValue("True");
+                final String mFlashId = mDatabase.push().getKey(); // get a random key for set
+                DatabaseReference mAuthorRef = FirebaseDatabase.getInstance().getReference().child("users").child(userUID);
+                mAuthorRef.addValueEventListener(new ValueEventListener() { //getting Author Name from database
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        authorName = user.getUsername();
 
-                FlashcardInfo newFlashSet = new FlashcardInfo();
-                newFlashSet.setCreator(userUID);
-                newFlashSet.setName(flashcardSetName);
-                newFlashSet.setPrivacy(privacySettings);
-                newFlashSet.setSize(Integer.toString(termHolder.size()));
-                newFlashSet.setTags(flashcardSetTags);
-                newFlashSet.setId(mFlashId);
+                        FlashcardInfo newFlashSet = new FlashcardInfo();
+                        newFlashSet.setCreator(userUID);
+                        newFlashSet.setName(flashcardSetName);
+                        newFlashSet.setPrivacy(privacySettings);
+                        newFlashSet.setSize(Integer.toString(termHolder.size()));
+                        newFlashSet.setTags(flashcardSetTags);
+                        newFlashSet.setId(mFlashId);
+                        newFlashSet.setAuthor(authorName);
 
-                mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
-                for(int i = 0;i < termHolder.size(); ++i ) {
-                    mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
-                    mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
-                }
+                        mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
+                        for(int i = 0;i < termHolder.size(); ++i ) {
+                            mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
+                            mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
+                        }
 
-                flashIdAndName flashIdAndName = new flashIdAndName();
-                flashIdAndName.setFlashId(mFlashId);
-                flashIdAndName.setFlashName(flashcardSetName);
-                mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);
+                        flashIdAndName flashIdAndName = new flashIdAndName();
+                        flashIdAndName.setFlashId(mFlashId);
+                        flashIdAndName.setFlashName(flashcardSetName);
+                        mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);
 
 
-                Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UserPage.this, AboutUsActivity.class));
+                        Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(UserPage.this, AboutUsActivity.class));
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
             }
         });
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,9 +13,8 @@ import android.widget.Toast;
 
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Utils.TagsHelper;
+import com.example.along002.testingfinal.Utils.FlashcardDisplayAdapter;
 import com.example.along002.testingfinal.ViewFlashCards;
-import com.example.along002.testingfinal.chooseAFlashcard;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +27,6 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity {
 
     private ArrayList<FlashcardInfo>  searchResults = new ArrayList<>();
-    private ArrayList<String> searchResultsName = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +38,9 @@ public class SearchActivity extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, searchResultsName);
+
+        final FlashcardDisplayAdapter adapter = new FlashcardDisplayAdapter(this,R.layout.adapter_flashcard_view_layout,searchResults);
+
         searchFlashcardList.setAdapter(adapter);
 
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +58,6 @@ public class SearchActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             FlashcardInfo result = snapshot.getValue(FlashcardInfo.class);
                             searchResults.add(result);
-                            searchResultsName.add(result.getName());
                         }
                         if(searchResults.size() == 0){
                             Toast.makeText(getApplication(),"No Results",Toast.LENGTH_SHORT).show();

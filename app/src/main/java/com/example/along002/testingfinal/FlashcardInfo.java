@@ -5,9 +5,17 @@ package com.example.along002.testingfinal;
  */
 
 public class FlashcardInfo {
-    private String Creator, Name, Privacy, Size, Tags, Id;
+    private String Creator, Name, Privacy, Size, Tags, Id, Author;
 
     FlashcardInfo(){
+    }
+
+    public String getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(String author) {
+        Author = author;
     }
 
     public String getTags() {
