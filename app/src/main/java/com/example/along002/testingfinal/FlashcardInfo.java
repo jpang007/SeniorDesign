@@ -1,13 +1,24 @@
 package com.example.along002.testingfinal;
 
+import java.util.ArrayList;
+
 /**
  * Created by along002 on 1/27/2018.
  */
 
 public class FlashcardInfo {
     private String Creator, Name, Privacy, Size, Tags, Id, Author;
+    private ArrayList<String> Tag = new ArrayList<>();
 
     FlashcardInfo(){
+    }
+
+    public ArrayList<String> getTag() {
+        return Tag;
+    }
+
+    public void setTag(ArrayList<String> tag) {
+        Tag = tag;
     }
 
     public String getAuthor() {

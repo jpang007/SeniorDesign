@@ -19,14 +19,9 @@ import java.util.List;
 public class FlashcardInitSettings extends AppCompatActivity {
 
     private String flashTagString = "";
-    /**
-     *disable screen transition
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-//        overridePendingTransition(0, 0);
-    }
+    private ArrayList<String> tagList = new ArrayList<>();
+    private TextView tagsTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +32,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
         final EditText flashcardTags = (EditText) findViewById(R.id.flashcardTags); //static variables
         final Button backButton = (Button) findViewById(R.id.backButton);
         Button continueButton = (Button) findViewById(R.id.continueButton);
+        tagsTextView = (TextView) findViewById(R.id.tagsTextView);
         final RadioGroup radioPrivacyGroup = (RadioGroup) findViewById(R.id.radioGroup);
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
         Button addTagBtn = (Button) findViewById(R.id.addTagBtn);
@@ -48,14 +44,16 @@ public class FlashcardInitSettings extends AppCompatActivity {
         addTagBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tempString = flashcardTags.getText().toString().toLowerCase();
-                if(flashTagString == ""){
-                    flashTagString = tempString;
+                String tempTag = flashcardTags.getText().toString().toLowerCase();
+                tagList.add(tempTag);
+                flashcardTags.setText("");
+                if(tagsTextView.getText().toString() == ""){
+                    tagsTextView.setText(tempTag);
                 }
                 else{
-                    flashTagString = flashTagString + '/' + tempString;
+                    tagsTextView.setText(tagsTextView.getText().toString() + ", " + tempTag);
                 }
-                flashcardTags.setText("");
+
             }
         });
 
@@ -74,6 +72,7 @@ public class FlashcardInitSettings extends AppCompatActivity {
                     RadioButton radioPrivacyButton = (RadioButton) findViewById(selectedButton);
                     intent.putExtra("privacySettings", radioPrivacyButton.getText());
                     intent.putExtra("flashcardTags", flashTagString);
+                    intent.putExtra("tagList",tagList);
                     startActivity(intent);
                     overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 }

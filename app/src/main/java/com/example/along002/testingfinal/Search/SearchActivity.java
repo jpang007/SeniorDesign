@@ -26,7 +26,8 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private ArrayList<FlashcardInfo>  searchResults = new ArrayList<>();
+    private static final String TAG = "SearchActivity";
+    private ArrayList<FlashcardInfo> searchResults = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,46 +38,60 @@ public class SearchActivity extends AppCompatActivity {
         final ListView searchFlashcardList = (ListView) findViewById(R.id.searchFlashcardList);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
-
-
         final FlashcardDisplayAdapter adapter = new FlashcardDisplayAdapter(this,R.layout.adapter_flashcard_view_layout,searchResults);
+
 
         searchFlashcardList.setAdapter(adapter);
 
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchResults.clear();
                 final String searchText = searchEditText.getText().toString();
-                Query mSearch = myRef.child("Flashcards")
-                        .orderByChild("tags")
-                        .startAt(searchText);
-//                        .endAt(searchEditText+"\uf8ff");
-//                        .once("value");
-                mSearch.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                Query mTagSearh = myRef.child("tags").child(searchText)
+                                    .orderByChild("FlashId").startAt("");
+                mTagSearh.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<String> flashIdList = new ArrayList<>();
+                        DatabaseReference mFlashSearch = FirebaseDatabase.getInstance().getReference().child("Flashcards");
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            FlashcardInfo result = snapshot.getValue(FlashcardInfo.class);
-                            searchResults.add(result);
+                            String flashId = (String) snapshot.child("FlashId").getValue();
+                            flashIdList.add(flashId);
                         }
-                        if(searchResults.size() == 0){
+                        if(flashIdList.size() == 0){
                             Toast.makeText(getApplication(),"No Results",Toast.LENGTH_SHORT).show();
                         }
-                        adapter.notifyDataSetChanged();
-                        searchFlashcardList.setAdapter(adapter);
-                        searchFlashcardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                // ListView Clicked item index
-                                int itemPosition = position;
+                        for (int i = 0; i < flashIdList.size(); i++){
+                            DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));
+                            mFlashcard.addListenerForSingleValueEvent(new ValueEventListener() { //get info from individual set
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    FlashcardInfo tempFlashcardInfo = dataSnapshot.getValue(FlashcardInfo.class);
+                                    searchResults.add(tempFlashcardInfo);
+                                    adapter.notifyDataSetChanged();
+                                    searchFlashcardList.setAdapter(adapter);
+                                    searchFlashcardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            // ListView Clicked item index
+                                            int itemPosition = position;
 
-                                Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
-                                String flashId = searchResults.get(itemPosition).getId();
-                                intent.putExtra("flashId", flashId);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
-                            }
-                        });
+                                            Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
+                                            String flashId = searchResults.get(itemPosition).getId();
+                                            intent.putExtra("flashId", flashId);
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                        }
+
 
 
                     }

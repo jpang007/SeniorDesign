@@ -17,14 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
     EditText emailTxt, passwordTxt;
-    /**
-     *disable screen transition
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-//        overridePendingTransition(0, 0);
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.logoutBtn).setOnClickListener(this);
         findViewById(R.id.testingBtn).setOnClickListener(this);
-        setTitle("Login");
     }
 
     private void loginUser(){
@@ -54,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Successfully Login", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Unsuccessful Login", Toast.LENGTH_SHORT).show();
@@ -71,7 +64,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.loginBtn:
                 loginUser();
-                startActivity(new Intent(this, HomeActivity.class));
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 break;
             case R.id.logoutBtn:

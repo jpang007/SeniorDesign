@@ -223,6 +223,16 @@
             android:layout_marginTop="380dp"
             android:layout_marginLeft="290dp"/>
 
+        <TextView
+            android:id="@+id/tagsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/addTagBtn"
+            android:layout_marginLeft="81dp"
+            android:layout_marginStart="81dp" />
+
     </RelativeLayout>
 
 

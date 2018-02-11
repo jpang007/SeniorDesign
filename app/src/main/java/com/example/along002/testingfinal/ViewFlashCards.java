@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.Utils.FlashCard;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ViewFlashCards extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mTempDatabase;
@@ -27,9 +30,7 @@ public class ViewFlashCards extends AppCompatActivity {
     private String flashId;
     private ImageView backArrow;
     private int currCard;
-    /**
-     *disable screen transition
-     */
+
     @Override
     public void onPause() {
         super.onPause();
@@ -67,8 +68,9 @@ public class ViewFlashCards extends AppCompatActivity {
                 textViewCreator.setText("Creator: " + tempFlashInfo.getCreator());
                 textViewName.setText("Flashcard Name: " + tempFlashInfo.getName());
                 textViewPrivacy.setText("Privacy: " + tempFlashInfo.getPrivacy());
-                textViewTags.setText("Tags: " + tempFlashInfo.getTags());
+//                textViewTags.setText("Tags: " + tempFlashInfo.getTags());
                 flashCardSize = Integer.parseInt(tempFlashInfo.getSize());
+                Toast.makeText(getApplication(),Integer.toString(tempFlashInfo.getTag().size()),Toast.LENGTH_SHORT).show();
 
             }
             @Override
@@ -81,7 +83,7 @@ public class ViewFlashCards extends AppCompatActivity {
             public void onClick(View v) {
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference()
                         .child("Flashcards").child(flashId).child(Integer.toString(currCard));
-                ValueEventListener testListner = new ValueEventListener() {
+                ValueEventListener testListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -93,7 +95,7 @@ public class ViewFlashCards extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 };
-                mDatabase.addListenerForSingleValueEvent(testListner);
+                mDatabase.addListenerForSingleValueEvent(testListener);
                 currCard++;
                 if(currCard >= flashCardSize){
                     currCard = 0;
@@ -102,7 +104,7 @@ public class ViewFlashCards extends AppCompatActivity {
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //deletes the set in the flashcard branch and the usersFlash branch
                 DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
                                                     .child("Flashcards").child(flashId);
                 DatabaseReference removeUIDtoFlashId = FirebaseDatabase.getInstance().getReference()
@@ -116,7 +118,7 @@ public class ViewFlashCards extends AppCompatActivity {
         });
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//go back to the previous activity
                 finish();
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }

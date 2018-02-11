@@ -40,6 +40,8 @@ public class FlashcardDisplayAdapter extends ArrayAdapter<FlashcardInfo> {
         String author = getItem(position).getAuthor();
         String name = getItem(position).getName();
         String size = getItem(position).getSize();
+        ArrayList<String> tagList = getItem(position).getTag();
+        String tag = "";
 
         //Create a new Flashcard Display
         FlashcardDisplay flashcardDisplay = new FlashcardDisplay(author,name,size);
@@ -50,11 +52,26 @@ public class FlashcardDisplayAdapter extends ArrayAdapter<FlashcardInfo> {
         TextView set_Size = (TextView) convertView.findViewById(R.id.set_Size);
         TextView set_Name = (TextView) convertView.findViewById(R.id.set_Name);
         TextView set_Author = (TextView) convertView.findViewById(R.id.set_Author);
+        TextView set_Tag = (TextView) convertView.findViewById(R.id.set_Tag);
 
+        if(tagList.size() == 1){
+            tag = "Tag: ";
+        }
+        else {
+            tag = "Tags: ";
+        }
+        for(int i = 0; i < tagList.size(); i++){
+            if((tag == "Tag: ") || (tag == "Tags: ")){
+                tag = tag + tagList.get(i);
+            }
+            else{
+                tag = tag + ", " + tagList.get(i);
+            }
+        }
         set_Size.setText(size + " cards");
         set_Name.setText(name);
         set_Author.setText(author);
-
+        set_Tag.setText(tag);
         return convertView;
     }
 

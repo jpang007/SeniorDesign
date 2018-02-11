@@ -30,9 +30,7 @@ public class UserPage extends AppCompatActivity {
     private String authorName = "";
     Button logOutButton, addItemBtn, displayFoods;
     EditText itemTextView, itemTextView2;
-    /**
-     *screen transition
-     */
+
     @Override
     public void onPause() {
         super.onPause();
@@ -58,25 +56,6 @@ public class UserPage extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("message");
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +75,8 @@ public class UserPage extends AppCompatActivity {
                 final String flashcardSetName = getIntent().getStringExtra("flashcardSetName");
                 final String privacySettings = getIntent().getStringExtra("privacySettings");
                 final String flashcardSetTags = getIntent().getStringExtra("flashcardTags");
+                final ArrayList<String> tagList = (ArrayList<String>) getIntent().getSerializableExtra("tagList");
+
                 FirebaseUser curruser = FirebaseAuth.getInstance().getCurrentUser();
                 final String userUID = curruser.getUid();
                 mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -115,6 +96,12 @@ public class UserPage extends AppCompatActivity {
                         newFlashSet.setTags(flashcardSetTags);
                         newFlashSet.setId(mFlashId);
                         newFlashSet.setAuthor(authorName);
+                        newFlashSet.setTag(tagList);
+
+                        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");
+                        for(int i = 0; i < tagList.size(); i++){
+                            mTagRef.child(tagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
+                        }
 
                         mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
                         for(int i = 0;i < termHolder.size(); ++i ) {
@@ -151,7 +138,6 @@ public class UserPage extends AppCompatActivity {
                 intent.putExtra("passBackPrivacySettings", privacySettings);
 
                 startActivity(intent);
-          //      Toast.makeText(getApplicationContext(),"Logged Out", Toast.LENGTH_SHORT).show();
             }
         });
 
