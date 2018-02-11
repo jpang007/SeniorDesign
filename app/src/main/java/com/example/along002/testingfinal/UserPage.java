@@ -93,7 +93,6 @@ public class UserPage extends AppCompatActivity {
                         newFlashSet.setName(flashcardSetName);
                         newFlashSet.setPrivacy(privacySettings);
                         newFlashSet.setSize(Integer.toString(termHolder.size()));
-                        newFlashSet.setTags(flashcardSetTags);
                         newFlashSet.setId(mFlashId);
                         newFlashSet.setAuthor(authorName);
                         newFlashSet.setTag(tagList);

@@ -29,20 +29,12 @@ public class FlashcardInfo {
         Author = author;
     }
 
-    public String getTags() {
-        return Tags;
-    }
-
     public String getId() {
         return Id;
     }
 
     public void setId(String id) {
         Id = id;
-    }
-
-    public void setTags(String tags) {
-        Tags = tags;
     }
 
     public String getSize() {
