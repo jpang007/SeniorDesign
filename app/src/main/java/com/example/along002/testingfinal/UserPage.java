@@ -104,12 +104,8 @@ public class UserPage extends AppCompatActivity {
                         for(int i = 0; i < tagList.size(); i++){
                             mTagRef.child(tagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
                         }
-
-                        flashIdAndName flashIdAndName = new flashIdAndName();
-                        flashIdAndName.setFlashId(mFlashId);
-                        flashIdAndName.setFlashName(flashcardSetName);
-                        mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);//Placing set reference in user to flash branch
-
+                        
+                        mDatabase.child("usersFlash").child(userUID).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
                         Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(UserPage.this, AboutUsActivity.class));
                     }

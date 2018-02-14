@@ -67,9 +67,9 @@ public class chooseAFlashcard extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    flashIdAndName flashInfo = snapshot.getValue(flashIdAndName.class);
-                    flashName.add(flashInfo.getFlashName());
-                    flashId.add(flashInfo.getFlashId());
+//                    flashIdAndName flashInfo = snapshot.getValue(flashIdAndName.class);
+//                    flashName.add(flashInfo.getFlashName());
+//                    flashId.add(flashInfo.getFlashId());
                 }
                 adapter.notifyDataSetChanged();
                 listView.setAdapter(adapter);

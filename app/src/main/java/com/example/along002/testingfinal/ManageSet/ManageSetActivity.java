@@ -52,7 +52,6 @@ public class ManageSetActivity extends AppCompatActivity {
 
         setupViewPager(mViewPager);
 
-//        setupParentViewPager(mParentViewPager);
 
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
         search.setOnClickListener(new View.OnClickListener() {
@@ -74,16 +73,6 @@ public class ManageSetActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
     public void setViewPager(int fragmentNumber){
-        mViewPager.setCurrentItem(fragmentNumber);
-    }
-
-
-    private void setupParentViewPager(ViewPager viewPager){
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new RealSearchFragment()); //index at 0
-        viewPager.setAdapter(adapter);
-    }
-    public void setParentViewPager(int fragmentNumber){
         mViewPager.setCurrentItem(fragmentNumber);
     }
 

@@ -77,7 +77,8 @@ public class SetListFragment extends Fragment{
                                     int itemPosition = position;
                                     String flashId = flashcardInfoList.get(itemPosition).getId();
 //                                    Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
-                                    Toast.makeText(getActivity().getApplicationContext(),flashId,Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity().getApplicationContext(),flashId,Toast.LENGTH_SHORT).show();
+                                    ((ManageSetActivity)getActivity()).setViewPager(1);
 
                                 }
                             });
