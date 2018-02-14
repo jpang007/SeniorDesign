@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Successfully Login", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
                 }
                 else{
@@ -63,9 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
                 break;
             case R.id.loginBtn:
-                loginUser();
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                loginUser();
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();

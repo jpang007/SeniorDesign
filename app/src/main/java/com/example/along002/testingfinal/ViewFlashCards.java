@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.along002.testingfinal.Utils.FlashCard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +40,6 @@ public class ViewFlashCards extends AppCompatActivity {
         FirebaseUser user1 = mAuth.getCurrentUser();
         final String userUID = user1.getUid();
         currCard = 0;
-        setTitle("View FlashCard");
         defTextView = findViewById(R.id.testTextView);
         termTextView = findViewById(R.id.textView3);
         textViewCreator = findViewById(R.id.textViewCreator);
@@ -49,7 +47,7 @@ public class ViewFlashCards extends AppCompatActivity {
         textViewPrivacy = findViewById(R.id.textViewPrivacy);
         textViewTags = findViewById(R.id.textViewTags);
         final Button nextCard = (Button) findViewById(R.id.testBtn);
-        Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
+        final Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
         ImageView backArrow = (ImageView) findViewById(R.id.backArrow);
 
         flashId = getIntent().getStringExtra("flashId");
@@ -84,6 +82,26 @@ public class ViewFlashCards extends AppCompatActivity {
                         }
                     }
                 });
+
+                deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) { //deletes the set in the flashcard branch and the usersFlash branch
+                        DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
+                                .child("Flashcards").child(flashId);
+                        DatabaseReference removeUIDtoFlashId = FirebaseDatabase.getInstance().getReference()
+                                .child("usersFlash").child(userUID).child(flashId);
+                        DatabaseReference removeTagReference = FirebaseDatabase.getInstance().getReference()
+                                .child("tags");
+                        for(int i = 0; i < FlashcardInfo.getTagList().size(); i++){
+                            removeTagReference.child(FlashcardInfo.getTagList().get(i)).removeValue();
+                        }
+                        removeFlashId.removeValue();
+                        removeUIDtoFlashId.removeValue();
+                        Intent intent = new Intent(ViewFlashCards.this,chooseAFlashcard.class);
+                        startActivity(intent);
+
+                    }
+                });
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -91,20 +109,6 @@ public class ViewFlashCards extends AppCompatActivity {
         };
         mTempDatabase.addListenerForSingleValueEvent(flashcardInfo);
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //deletes the set in the flashcard branch and the usersFlash branch
-                DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
-                                                    .child("Flashcards").child(flashId);
-                DatabaseReference removeUIDtoFlashId = FirebaseDatabase.getInstance().getReference()
-                                                    .child("usersFlash").child(userUID).child(flashId);//TODO remove reference in tags branch too
-                removeFlashId.removeValue();
-                removeUIDtoFlashId.removeValue();
-                Intent intent = new Intent(ViewFlashCards.this,chooseAFlashcard.class);
-                startActivity(intent);
-
-            }
-        });
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//go back to the previous activity

@@ -54,9 +54,9 @@ public class SearchActivity extends AppCompatActivity {
                 mTagSearh.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        ArrayList<String> flashIdList = new ArrayList<>();
+                        ArrayList<String> flashIdList = new ArrayList<>(); // a list of all flash id with the search tag
                         DatabaseReference mFlashSearch = FirebaseDatabase.getInstance().getReference().child("Flashcards");
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //iterate through all FlashId
                             String flashId = (String) snapshot.child("FlashId").getValue();
                             flashIdList.add(flashId);
                         }
@@ -77,7 +77,6 @@ public class SearchActivity extends AppCompatActivity {
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                             // ListView Clicked item index
                                             int itemPosition = position;
-
                                             Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
                                             String flashId = searchResults.get(itemPosition).getId();
                                             intent.putExtra("flashId", flashId);
