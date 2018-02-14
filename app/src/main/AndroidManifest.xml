@@ -26,7 +26,7 @@
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".Setting.SettingActivity" />
         <activity android:name=".Profile.ProfileActivity" />
-        <activity android:name=".Temp.TempActivity" />
+        <activity android:name=".ManageSet.ManageSetActivity" />
         <activity android:name=".AboutUsActivity" />
         <activity android:name=".Search.SearchActivity"></activity>
     </application>

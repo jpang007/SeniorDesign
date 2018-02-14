@@ -40,7 +40,7 @@ public class FlashcardDisplayAdapter extends ArrayAdapter<FlashcardInfo> {
         String author = getItem(position).getAuthor();
         String name = getItem(position).getName();
         String size = getItem(position).getSize();
-        ArrayList<String> tagList = getItem(position).getTag();
+        ArrayList<String> tagList = getItem(position).getTagList();
         String tag = "";
 
         //Create a new Flashcard Display

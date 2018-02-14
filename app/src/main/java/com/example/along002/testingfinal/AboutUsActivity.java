@@ -13,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.along002.testingfinal.Search.SearchActivity;
-import com.example.along002.testingfinal.Temp.TempActivity;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import junit.framework.Test;
 
 /**
  * Created by along002 on 1/31/2018.
@@ -26,9 +23,7 @@ import junit.framework.Test;
 public class AboutUsActivity extends AppCompatActivity{
     private static final String TAG = "AboutUsActivity";
     private final int ACTIVITY_NUM = 1;
-    /**
-    *disable screen transition
-    */
+
     private int direction = 0;
      @Override
     public void onPause() {
@@ -37,7 +32,7 @@ public class AboutUsActivity extends AppCompatActivity{
              overridePendingTransition(0, 0);
          }
          else{
-             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+             overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
              direction = 0;
          }
     }
@@ -48,7 +43,7 @@ public class AboutUsActivity extends AppCompatActivity{
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
 
-        Button testmid = (Button) findViewById(R.id.testmid);
+        Button testMid = (Button) findViewById(R.id.testmid);
         Button viewFlashcardBtn = (Button) findViewById(R.id.viewFlashcardBtn);
         Button makeFlashcardBtn = (Button) findViewById(R.id.makeFlashcardBtn);
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
@@ -69,7 +64,7 @@ public class AboutUsActivity extends AppCompatActivity{
             }
         });
 
-        testmid.setOnClickListener(new View.OnClickListener() {
+        testMid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplication(),"Test mid", Toast.LENGTH_SHORT).show();

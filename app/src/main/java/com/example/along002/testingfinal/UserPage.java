@@ -25,8 +25,8 @@ public class UserPage extends AppCompatActivity {
     private static final String TAG = "UserPage";
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private final Vector<String> termHolder = new Vector<String>();
-    private final Vector<String> defHolder = new Vector<String>();
+    private final ArrayList<String> termHolder = new ArrayList<>();
+    private final ArrayList<String> defHolder = new ArrayList<>();
     private String authorName = "";
     Button logOutButton, addItemBtn, displayFoods;
     EditText itemTextView, itemTextView2;
@@ -61,8 +61,8 @@ public class UserPage extends AppCompatActivity {
             public void onClick(View view) {
             String term = itemTextView.getText().toString();
             String definition = itemTextView2.getText().toString();
-            termHolder.addElement(term);
-            defHolder.addElement(definition);
+            termHolder.add(term);
+            defHolder.add(definition);
             itemTextView.setText("");
             itemTextView2.setText("");
 
@@ -95,24 +95,20 @@ public class UserPage extends AppCompatActivity {
                         newFlashSet.setSize(Integer.toString(termHolder.size()));
                         newFlashSet.setId(mFlashId);
                         newFlashSet.setAuthor(authorName);
-                        newFlashSet.setTag(tagList);
+                        newFlashSet.setTagList(tagList);
+                        newFlashSet.setTermList(termHolder);
+                        newFlashSet.setDefinitionList(defHolder);
+                        mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);//placing actual set in Flashcard branch
 
-                        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");
+                        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");//Placing set reference in tags branch
                         for(int i = 0; i < tagList.size(); i++){
                             mTagRef.child(tagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
-                        }
-
-                        mDatabase.child("Flashcards").child(mFlashId).setValue(newFlashSet);
-                        for(int i = 0;i < termHolder.size(); ++i ) {
-                            mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Term").setValue(termHolder.get(i));
-                            mDatabase.child("Flashcards").child(mFlashId).child(Integer.toString(i)).child("Definition").setValue(defHolder.get(i));
                         }
 
                         flashIdAndName flashIdAndName = new flashIdAndName();
                         flashIdAndName.setFlashId(mFlashId);
                         flashIdAndName.setFlashName(flashcardSetName);
-                        mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);
-
+                        mDatabase.child("usersFlash").child(userUID).child(mFlashId).setValue(flashIdAndName);//Placing set reference in user to flash branch
 
                         Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(UserPage.this, AboutUsActivity.class));

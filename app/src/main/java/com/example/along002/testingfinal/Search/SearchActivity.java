@@ -91,9 +91,6 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             });
                         }
-
-
-
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -106,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
             }
         });
 

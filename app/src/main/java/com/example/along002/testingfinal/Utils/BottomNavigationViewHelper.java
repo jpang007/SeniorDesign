@@ -12,7 +12,7 @@ import com.example.along002.testingfinal.Home.HomeActivity;
 import com.example.along002.testingfinal.Profile.ProfileActivity;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Setting.SettingActivity;
-import com.example.along002.testingfinal.Temp.TempActivity;
+import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**
@@ -48,7 +48,7 @@ public class BottomNavigationViewHelper {
                         break;
 
                     case R.id.ic_circle:
-                        Intent intent3 = new Intent(context, TempActivity.class);//ACTIVITY_NUM = 2
+                        Intent intent3 = new Intent(context, ManageSetActivity.class);//ACTIVITY_NUM = 2
                         context.startActivity(intent3);
                         break;
 

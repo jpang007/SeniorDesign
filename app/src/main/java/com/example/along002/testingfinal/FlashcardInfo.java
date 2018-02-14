@@ -7,18 +7,36 @@ import java.util.ArrayList;
  */
 
 public class FlashcardInfo {
-    private String Creator, Name, Privacy, Size, Tags, Id, Author;
-    private ArrayList<String> Tag = new ArrayList<>();
+    private String Creator, Name, Privacy, Size, Id, Author;
+    private ArrayList<String> TagList = new ArrayList<>();
+    private ArrayList<String> TermList = new ArrayList<>();
+    private ArrayList<String> DefinitionList;
 
     FlashcardInfo(){
     }
 
-    public ArrayList<String> getTag() {
-        return Tag;
+    public ArrayList<String> getDefinitionList() {
+        return DefinitionList;
     }
 
-    public void setTag(ArrayList<String> tag) {
-        Tag = tag;
+    public void setDefinitionList(ArrayList<String> definitionList) {
+        DefinitionList = definitionList;
+    }
+
+    public ArrayList<String> getTermList() {
+        return TermList;
+    }
+
+    public void setTermList(ArrayList<String> termList) {
+        TermList = termList;
+    }
+
+    public ArrayList<String> getTagList() {
+        return TagList;
+    }
+
+    public void setTagList(ArrayList<String> tagList) {
+        TagList = tagList;
     }
 
     public String getAuthor() {
