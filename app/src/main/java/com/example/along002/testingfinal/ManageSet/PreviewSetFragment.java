@@ -35,9 +35,9 @@ public class PreviewSetFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_preview_set,container,false);
 
         ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-        final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();
-        defList = flashcardInfo.getDefinitionList();
-        termList = flashcardInfo.getTermList();
+        final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+        defList = flashcardInfo.getDefinitionList();//def list
+        termList = flashcardInfo.getTermList();//term list
 
 //        initRecyclerView();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_View);

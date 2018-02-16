@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:padding="5dp"
+                android:id="@+id/rellayout1">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:id="@+id/setTitle"
+                            android:hint="Title"
+                            android:textSize="18sp"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_below="@+id/setTitle"
+                            android:id="@+id/set_Tag"
+                            android:hint="Tags"
+                            android:textSize="18sp"/>
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@+id/rellayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycler_View"
+                android:orientation="vertical">
+            </android.support.v7.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/addCardImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Text"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/recycler_View"
+                android:src="@drawable/ic_add_card"/>
+            <TextView
+                android:id="@+id/publishTextView"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addCardImageView"
+                android:layout_centerHorizontal="true"
+                android:text="Publish"
+                android:textSize="15dp"
+                android:background="@drawable/black_border_card_view"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

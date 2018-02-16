@@ -60,7 +60,6 @@ public class ManageSetActivity extends AppCompatActivity {
 
         setupViewPager(mViewPager);
 
-
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
         search.setOnClickListener(new View.OnClickListener() {
             @Override

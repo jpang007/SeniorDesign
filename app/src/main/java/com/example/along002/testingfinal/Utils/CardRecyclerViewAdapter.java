@@ -51,8 +51,6 @@ public class CardRecyclerViewAdapter extends RecyclerView.Adapter<CardRecyclerVi
                 Toast.makeText(mContext, "Clicked on " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override

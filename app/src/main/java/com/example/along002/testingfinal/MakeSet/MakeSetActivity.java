@@ -3,6 +3,7 @@ package com.example.along002.testingfinal.MakeSet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -13,9 +14,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.along002.testingfinal.FlashcardInitSettings;
+import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
+import com.example.along002.testingfinal.ManageSet.PreviewSetFragment;
+import com.example.along002.testingfinal.ManageSet.SetListFragment;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
+import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.chooseAFlashcard;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -26,8 +31,10 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 public class MakeSetActivity extends AppCompatActivity{
     private static final String TAG = "MakeSetActivity";
     private final int ACTIVITY_NUM = 1;
-
+    private SectionPagerAdapter mSectionStatePagerAdapter;
+    private ViewPager mViewPager;
     private int direction = 0;
+
      @Override
     public void onPause() {
         super.onPause();
@@ -46,9 +53,11 @@ public class MakeSetActivity extends AppCompatActivity{
         Log.d(TAG, "onCreate: started");
         setupBottomNavigationView();
 
-        Button testMid = (Button) findViewById(R.id.testmid);
-        Button viewFlashcardBtn = (Button) findViewById(R.id.viewFlashcardBtn);
-        Button makeFlashcardBtn = (Button) findViewById(R.id.makeFlashcardBtn);
+        mSectionStatePagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+
+        setupViewPager(mViewPager);
+
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,31 +67,18 @@ public class MakeSetActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        makeFlashcardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MakeSetActivity.this,FlashcardInitSettings.class);
-                startActivity(intent);
-                direction++;
-            }
-        });
-
-        testMid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplication(),"Test mid", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        viewFlashcardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MakeSetActivity.this,chooseAFlashcard.class));
-                direction++;
-            }
-        });
-
     }
+
+    private void setupViewPager(ViewPager viewPager) {//initial first screen
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MakeASetFragment());//index at 0
+        adapter.addFragment(new OptionFragment());//index at 1
+        viewPager.setAdapter(adapter);
+    }
+    public void setViewPager(int fragmentNumber){
+        mViewPager.setCurrentItem(fragmentNumber);
+    }
+
     /**
      * BottomNavigationView setup
      */
