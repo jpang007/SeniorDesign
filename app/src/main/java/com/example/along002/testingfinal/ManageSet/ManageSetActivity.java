@@ -42,12 +42,14 @@ public class ManageSetActivity extends AppCompatActivity {
             direction = 0;
         }
     }
+
     public FlashcardInfo getFlashcardInfo(){ //getter for other fragments to get FlashInfo
         return FlashcardInfo;
     }
     public void setFlashcardInfo(FlashcardInfo FlashcardInfo){ //setter for other fragments to set FlashInfo
         this.FlashcardInfo = FlashcardInfo;
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

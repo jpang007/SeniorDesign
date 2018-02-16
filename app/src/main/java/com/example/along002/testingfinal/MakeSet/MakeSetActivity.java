@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.FlashcardInitSettings;
 import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
 import com.example.along002.testingfinal.ManageSet.PreviewSetFragment;
@@ -24,6 +25,8 @@ import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.chooseAFlashcard;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+
 /**
  * Created by along002 on 1/31/2018.
  */
@@ -33,6 +36,7 @@ public class MakeSetActivity extends AppCompatActivity{
     private final int ACTIVITY_NUM = 1;
     private SectionPagerAdapter mSectionStatePagerAdapter;
     private ViewPager mViewPager;
+    private FlashcardInfo FlashcardInfo = new FlashcardInfo();
     private int direction = 0;
 
      @Override
@@ -45,6 +49,10 @@ public class MakeSetActivity extends AppCompatActivity{
              overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
              direction = 0;
          }
+    }
+    public void setFlashcard(ArrayList<String> mTermList, ArrayList<String> mDefList){
+         this.FlashcardInfo.setDefinitionList(mDefList);
+         this.FlashcardInfo.setTermList(mTermList);
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +77,12 @@ public class MakeSetActivity extends AppCompatActivity{
         });
     }
 
+    public void restartActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+//        this.recreate();
+    }
     private void setupViewPager(ViewPager viewPager) {//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MakeASetFragment());//index at 0

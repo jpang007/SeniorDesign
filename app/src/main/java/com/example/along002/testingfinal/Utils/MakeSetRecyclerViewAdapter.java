@@ -49,9 +49,11 @@ public class MakeSetRecyclerViewAdapter extends RecyclerView.Adapter<MakeSetRecy
         holder.term.setText(mTermList.get(position));
     }
 
-    public String getDef(int position) {
-        return mDefList.get(position);
+    public ArrayList<String> getmDefList() {
+        return mDefList;
     }
+
+    public ArrayList<String> getmTermList(){ return mTermList;}
 
     @Override
     public int getItemCount() {
