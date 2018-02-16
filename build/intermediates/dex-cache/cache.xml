@@ -13,6 +13,16 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\20d1652b6debf0e156f9a8c7ba36aa33\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="618f75fe11febf263e3234c7da7dc892232a5608">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\36.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\dd157abf238c08fe8ab2b1cfe6d5eec9\jars\classes.jar"
         jumboMode="false"
         min-sdk-version="15"
@@ -73,13 +83,23 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\38ffda819c917483aff06ff8976d3009\jars\classes.jar"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\267f59c4e40a1203690ae0349504ae99\jars\classes.jar"
         jumboMode="false"
         min-sdk-version="15"
         optimize="true"
         revision="26.0.2"
-        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
-        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\18.jar" />
+        sha1="ed6560f31a6a40b5965f5879d8f2eab1f68def05">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\4dac2ef59178c5c1450e6b2ec748be93\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b432e82447a3af781e927b9ba0bbb9fe2a496d4a">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\39.jar" />
     </item>
     <item
         is-multidex="false"
@@ -90,6 +110,36 @@
         revision="26.0.2"
         sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
         <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.2.aar\cf1ed664c7752fb390a5f72611af47e5\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9296d6f092fcdba4fafb6ac26546a39babdab46a">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\83bff3ca39f4fa8aa949fe74beb25235\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fe3916317a699975bcce0cba2d13fd2d8cf88922">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.0.3\7d7f60c4783872861222166f6164215f8951c7b1\common-1.0.3.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7d7f60c4783872861222166f6164215f8951c7b1">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\42.jar" />
     </item>
     <item
         is-multidex="false"
@@ -173,6 +223,16 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\27.0.2\b9ef4342c934a1a8b107506273dc8061662a322\support-annotations-27.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0b9ef4342c934a1a8b107506273dc8061662a322">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\40.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\firebase-database-connection-11.0.4.aar\d1bea545841024079c62c0d713efbc55\jars\classes.jar"
         jumboMode="false"
         min-sdk-version="15"
@@ -190,6 +250,36 @@
         revision="26.0.2"
         sha1="e5b6d089eeb8c142de02e78f8fcbe512e95a652f">
         <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\60ff7afb16e284ad97f6b4285ebc968f\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="caa03787689212c10939f308a55a8dc8a3333ed2">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\3585821e071710a119ba9cc19f6528ad\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="04cd0cacbedcb338f64665b88bad64d145325fbd">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\0ce7c9d1e94cea1cbc82b8aedf20aeb4\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7cc5473b9cf4ea159a263cd477fb3ecb2987b96">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\41.jar" />
     </item>
     <item
         is-multidex="false"
@@ -290,6 +380,16 @@
         revision="26.0.2"
         sha1="364364bf77b4a71afc5930fc3ae57b3f0eea637c">
         <dex dex="C:\Users\along002\AndroidStudioProjects\cryptokitties\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\along002\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\533d0f992ee6a0ceb6c1daaeb5eaaa81\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ac2ce6027755bcf49442e70597bec0feb9064f68">
+        <dex dex="C:\Users\along002\AndroidStudioProjects\SeniorDesign\app\build\intermediates\transforms\preDex\release\37.jar" />
     </item>
 
 </items>

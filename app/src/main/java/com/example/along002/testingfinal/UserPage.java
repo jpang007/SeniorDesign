@@ -3,7 +3,6 @@ package com.example.along002.testingfinal;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
+import com.example.along002.testingfinal.MakeSet.MakeSetActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -104,10 +103,10 @@ public class UserPage extends AppCompatActivity {
                         for(int i = 0; i < tagList.size(); i++){
                             mTagRef.child(tagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
                         }
-                        
+
                         mDatabase.child("usersFlash").child(userUID).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
                         Toast.makeText(getApplicationContext(),"Added Set!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(UserPage.this, AboutUsActivity.class));
+                        startActivity(new Intent(UserPage.this, MakeSetActivity.class));
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

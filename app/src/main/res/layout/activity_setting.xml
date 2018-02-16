@@ -47,7 +47,16 @@
                 android:layout_marginTop="145dp"
                 android:text="Go to old Code" />
 
-            <include layout="@layout/layout_center_viewpager" />
+            <TextView
+                android:id="@+id/logoutTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/oldCodeBtn"
+                android:text="Log Out"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/red"
+                android:textSize="28dp"/>
 
         </RelativeLayout>
 

@@ -10,7 +10,7 @@ public class TestingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_flashcards);
+        setContentView(R.layout.activity_profile);
 
 //        TextView itemTextView = (TextView) findViewById(R.id.editText);
 

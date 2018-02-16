@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
@@ -28,6 +29,7 @@ public class ManageSetActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private ViewPager mParentViewPager;
     private int direction = 0;
+    private FlashcardInfo FlashcardInfo;
     //disable screen transition
     @Override
     public void onPause() {
@@ -39,6 +41,12 @@ public class ManageSetActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
             direction = 0;
         }
+    }
+    public FlashcardInfo getFlashcardInfo(){ //getter for other fragments to get FlashInfo
+        return FlashcardInfo;
+    }
+    public void setFlashcardInfo(FlashcardInfo FlashcardInfo){ //setter for other fragments to set FlashInfo
+        this.FlashcardInfo = FlashcardInfo;
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,13 +74,17 @@ public class ManageSetActivity extends AppCompatActivity {
 
     }
 
-    private void setupViewPager(ViewPager viewPager){
+    private void setupViewPager(ViewPager viewPager){//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SetListFragment());//index at 0
-        adapter.addFragment(new com.example.along002.testingfinal.ManageSet.SearchFragment());//index at 1
+//        adapter.addFragment(new PreviewSetFragment());//index at 1
         viewPager.setAdapter(adapter);
     }
     public void setViewPager(int fragmentNumber){
+        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SetListFragment());//index at 0
+        adapter.addFragment(new PreviewSetFragment());//index at 1
+        mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(fragmentNumber);
     }
 

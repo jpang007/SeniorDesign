@@ -9,11 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.along002.testingfinal.Home.HomeActivity;
+import com.example.along002.testingfinal.LoginActivity;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.UserMenu;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
+import com.google.firebase.auth.FirebaseAuth;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.Set;
@@ -24,6 +27,7 @@ import java.util.Set;
 
 public class SettingActivity extends AppCompatActivity {
     private static final String TAG = "SettingActivity";
+    private FirebaseAuth mAuth;
     private final int ACTIVITY_NUM = 4;
     //disable screen transition
     @Override
@@ -36,8 +40,18 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setupBottomNavigationView();
-
+        mAuth = FirebaseAuth.getInstance();
+        TextView logoutTextView = (TextView) findViewById(R.id.logoutTextView);
         Button oldCodeBtn = (Button) findViewById(R.id.oldCodeBtn);
+
+        logoutTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent = new Intent(SettingActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         oldCodeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

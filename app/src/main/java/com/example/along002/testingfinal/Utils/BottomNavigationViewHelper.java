@@ -7,7 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.along002.testingfinal.AboutUsActivity;
+import com.example.along002.testingfinal.MakeSet.MakeSetActivity;
 import com.example.along002.testingfinal.Home.HomeActivity;
 import com.example.along002.testingfinal.Profile.ProfileActivity;
 import com.example.along002.testingfinal.R;
@@ -43,7 +43,7 @@ public class BottomNavigationViewHelper {
                         break;
 
                     case R.id.ic_search:
-                        Intent intent2  = new Intent(context, AboutUsActivity.class);//ACTIVITY_NUM = 1
+                        Intent intent2  = new Intent(context, MakeSetActivity.class);//ACTIVITY_NUM = 1
                         context.startActivity(intent2);
                         break;
 

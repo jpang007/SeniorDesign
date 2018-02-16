@@ -51,7 +51,6 @@ public class SetListFragment extends Fragment{
 
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mUserFlash = FirebaseDatabase.getInstance().getReference().child("usersFlash").child(UID);
-        Query mUserSet = mUserFlash.orderByChild("flashId").startAt("");
         mUserFlash.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -59,9 +58,9 @@ public class SetListFragment extends Fragment{
                 DatabaseReference mFlashSearch = FirebaseDatabase.getInstance().getReference().child("Flashcards");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String setId = (String) snapshot.child("flashId").getValue();
-                    flashIdList.add(setId);
+                    flashIdList.add(setId);//Add sets to a list for list view
                 }
-                for(int i = 0;i < flashIdList.size(); i++){
+                for(int i = 0;i < flashIdList.size(); i++){//iterate through arraylist to add to the adapter and set it in the list view
                     DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));
                     mFlashcard.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -72,12 +71,24 @@ public class SetListFragment extends Fragment{
                             setListView.setAdapter(adapter);
                             setListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//onclicklistner for listview
                                     // ListView Clicked item index
                                     int itemPosition = position;
-                                    String flashId = flashcardInfoList.get(itemPosition).getId();
+                                    FlashcardInfo selectedSet = flashcardInfoList.get(itemPosition);
+                                    ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
+                                    ManageSetActivity.setFlashcardInfo(selectedSet);
+//                                    String flashId = flashcardInfoList.get(itemPosition).getId();
 //                                    Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
 //                                    Toast.makeText(getActivity().getApplicationContext(),flashId,Toast.LENGTH_SHORT).show();
+//
+//                                    PreviewSetFragment frag = new PreviewSetFragment();
+//                                    Bundle bundles = new Bundle();
+//                                    bundles.putSerializable("flashcardSet",FlashcardInfo);
+//                                    frag.setArguments(bundles);
+//                                    if (bundles == null){
+//                                        Toast.makeText(getActivity().getApplicationContext(),"NULLLL",Toast.LENGTH_SHORT).show();
+//                                    }
+
                                     ((ManageSetActivity)getActivity()).setViewPager(1);
 
                                 }
@@ -93,7 +104,7 @@ public class SetListFragment extends Fragment{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-//      ((ManageSetActivity)getActivity()).setViewPager(1);
+//      ((ManageSetActivity)getActivity ()).setViewPager(1);
 
         return view;
     }
