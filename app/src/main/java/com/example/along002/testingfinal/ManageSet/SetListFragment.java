@@ -45,9 +45,12 @@ public class SetListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_list,container,false);
 
+        flashcardInfoList.clear();
+
         setListView = view.findViewById(R.id.setList);
         final FlashcardDisplayAdapter adapter = new FlashcardDisplayAdapter(getActivity().getApplicationContext(),R.layout.adapter_flashcard_view_layout,flashcardInfoList);
         setListView.setAdapter(adapter);
+
 
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mUserFlash = FirebaseDatabase.getInstance().getReference().child("usersFlash").child(UID);

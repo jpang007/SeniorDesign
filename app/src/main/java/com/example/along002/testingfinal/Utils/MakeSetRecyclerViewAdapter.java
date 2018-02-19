@@ -55,6 +55,15 @@ public class MakeSetRecyclerViewAdapter extends RecyclerView.Adapter<MakeSetRecy
 
     public ArrayList<String> getmTermList(){ return mTermList;}
 
+    public void removeItem(int position){
+        mTermList.remove(position);
+        mDefList.remove(position);
+        mCardNum.remove(position);
+        // notify the item removed by position
+        // to perform recycler view delete animations
+        // NOTE: don't call notifyDataSetChanged()
+        notifyItemRemoved(position);
+    }
     @Override
     public int getItemCount() {
         return mCardNum.size();

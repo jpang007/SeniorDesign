@@ -1,16 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler_View"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <RelativeLayout
+            android:id="@+id/rellayout1"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card Size"
+                android:id="@+id/cardSize"/>
+            <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="@color/black"
+                android:layout_toRightOf="@id/cardSize">
+            </RelativeLayout>
 
+            <TextView
+                android:id="@+id/setName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardSize"
+                android:text="Set Name"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cardSize"
+                android:layout_marginLeft="23dp"
+                android:text="Author"/>
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cards"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/textView8" />
+            <Button
+                android:id="@+id/cards"
+                android:elevation="5dp"
+                android:translationZ="5dp"
+                android:stateListAnimator="@null"
+                android:background="@drawable/black_border_card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cards"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft = "80dp"/>
+            <Button
+                android:elevation="5dp"
+                android:translationZ="5dp"
+                android:stateListAnimator="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/cards"
+                android:background="@drawable/black_border_card_view"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="Speed Round"
+                android:id="@+id/button4" />
+
+            <Button
+                android:elevation="5dp"
+                android:translationZ="5dp"
+                android:stateListAnimator="@null"
+                android:id="@+id/deleteSetBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/button2"
+                android:layout_alignBottom="@+id/button2"
+                android:layout_alignEnd="@+id/button4"
+                android:layout_alignRight="@+id/button4"
+                android:background="@drawable/black_border_card_view"
+                android:text="Delete Set"
+                android:textColor="@color/red" />
+
+            <Button
+                android:elevation="5dp"
+                android:translationZ="5dp"
+                android:stateListAnimator="@null"
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView8"
+                android:layout_alignLeft="@+id/author"
+                android:layout_alignStart="@+id/author"
+                android:background="@drawable/black_border_card_view"
+                android:text="Edit Set"
+                android:textColor="@color/green" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_below="@+id/rellayout1"
+            android:id="@+id/rellayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycler_View"
+                android:orientation="vertical">
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

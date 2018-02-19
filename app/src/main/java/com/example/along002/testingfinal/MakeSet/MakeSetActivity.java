@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import com.example.along002.testingfinal.ManageSet.SetListFragment;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
+import com.example.along002.testingfinal.Utils.RecyclerItemTouchHelper;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.chooseAFlashcard;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -38,7 +40,6 @@ public class MakeSetActivity extends AppCompatActivity{
     private ViewPager mViewPager;
     private FlashcardInfo FlashcardInfo = new FlashcardInfo();
     private int direction = 0;
-
      @Override
     public void onPause() {
         super.onPause();
@@ -86,7 +87,7 @@ public class MakeSetActivity extends AppCompatActivity{
     private void setupViewPager(ViewPager viewPager) {//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MakeASetFragment());//index at 0
-        adapter.addFragment(new OptionFragment());//index at 1
+//        adapter.addFragment(new OptionFragment());//index at 1
         viewPager.setAdapter(adapter);
     }
     public void setViewPager(int fragmentNumber){

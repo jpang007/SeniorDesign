@@ -16,6 +16,8 @@ import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**
@@ -30,12 +32,13 @@ public class ManageSetActivity extends AppCompatActivity {
     private ViewPager mParentViewPager;
     private int direction = 0;
     private FlashcardInfo FlashcardInfo;
-    //disable screen transition
+
     @Override
     public void onPause() {
         super.onPause();
         if(direction == 0){
             overridePendingTransition(0, 0);
+            //disable screen transition
         }
         else{
             overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -50,6 +53,24 @@ public class ManageSetActivity extends AppCompatActivity {
         this.FlashcardInfo = FlashcardInfo;
     }
 
+    public void deleteSet(){
+        FlashcardInfo deletedFlashCard = getFlashcardInfo();
+
+        DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
+                .child("Flashcards").child(deletedFlashCard.getId());
+        DatabaseReference removeUIDtoFlashId = FirebaseDatabase.getInstance().getReference()
+                .child("usersFlash").child(deletedFlashCard.getCreator()).child(deletedFlashCard.getId());
+        DatabaseReference removeTagReference = FirebaseDatabase.getInstance().getReference()
+                .child("tags");
+        for(int i = 0; i < FlashcardInfo.getTagList().size(); i++){
+            removeTagReference.child(FlashcardInfo.getTagList().get(i)).removeValue();
+        }
+        removeFlashId.removeValue();
+        removeUIDtoFlashId.removeValue();
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        setupInitialViewPager(mViewPager);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +81,7 @@ public class ManageSetActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mParentViewPager = (ViewPager) findViewById(R.id.parent_container);
 
-        setupViewPager(mViewPager);
+        setupInitialViewPager(mViewPager);
 
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
         search.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +96,7 @@ public class ManageSetActivity extends AppCompatActivity {
 
     }
 
-    private void setupViewPager(ViewPager viewPager){//initial first screen
+    private void setupInitialViewPager(ViewPager viewPager){//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SetListFragment());//index at 0
 //        adapter.addFragment(new PreviewSetFragment());//index at 1

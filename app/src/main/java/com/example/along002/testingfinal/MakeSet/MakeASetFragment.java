@@ -1,10 +1,16 @@
 package com.example.along002.testingfinal.MakeSet;
 
 
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +27,7 @@ import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.User;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
 import com.example.along002.testingfinal.Utils.MakeSetRecyclerViewAdapter;
+import com.example.along002.testingfinal.Utils.RecyclerItemTouchHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +43,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MakeASetFragment extends Fragment {
+public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ArrayList<String> mTermList = new ArrayList<>();
@@ -56,7 +63,7 @@ public class MakeASetFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_make_aset,container,false);
 
@@ -72,7 +79,44 @@ public class MakeASetFragment extends Fragment {
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         adapter = new MakeSetRecyclerViewAdapter(getActivity().getApplicationContext(),mTermList,mDefList, mCardNum);
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+        // adding item touch helper
+        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
+        // if you want both Right -> Left and Left -> Right
+        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
+//        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getActivity().getApplicationContext());
+//        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+        // adding item touch helper
+        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
+        // if you want both Right -> Left and Left -> Right
+        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
+//        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//            @Override
+//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+//                //Row is swiped from recycler view
+//                //remove it from adapter
+//                Toast.makeText(getActivity().getApplicationContext(), "swiped", Toast.LENGTH_SHORT).show();
+//            }
+//            @Override
+//            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+////                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+//                //view the background view
+//            }
+//        };
+//        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
 
         ImageView addCardImageView = (ImageView) view.findViewById(R.id.addCardImageView);
 
@@ -138,4 +182,12 @@ public class MakeASetFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof MakeSetRecyclerViewAdapter.ViewHolder) {
+            // remove the item from recycler view
+            adapter.removeItem(viewHolder.getAdapterPosition());
+
+        }
+    }
 }

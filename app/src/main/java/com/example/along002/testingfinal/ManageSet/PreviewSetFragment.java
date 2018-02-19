@@ -26,6 +26,8 @@ import java.util.ArrayList;
 public class PreviewSetFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
     private FlashcardInfo flash;
+    private TextView cardSize,author,setName;
+    private Button deleteSetBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
 
@@ -38,6 +40,23 @@ public class PreviewSetFragment extends Fragment{
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
+
+        deleteSetBtn = view.findViewById(R.id.deleteSetBtn);
+        deleteSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
+                ManageSetActivity.deleteSet(); //deletes set
+            }
+        });
+
+        cardSize = view.findViewById(R.id.cardSize);
+        cardSize.setText(flashcardInfo.getSize() + " cards");
+        author = view.findViewById(R.id.author);
+        author.setText(flashcardInfo.getAuthor());
+
+        setName = view.findViewById(R.id.setName);
+        setName.setText(flashcardInfo.getName());
 
 //        initRecyclerView();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
