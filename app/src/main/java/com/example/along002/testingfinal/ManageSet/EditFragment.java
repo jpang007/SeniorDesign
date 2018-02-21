@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -124,9 +126,15 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
                 radioButton = view.findViewById(selectedId);
                 updatedFlashcard.setPrivacy(radioButton.getText().toString());
 
-                ArrayList<String> mTagList = new ArrayList<>();
-                mTagList.add(setTag.getText().toString());
-                updatedFlashcard.setTagList(mTagList); // todo change this
+                final String tempString = setTag.getText().toString();
+                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,")));
+                if (tempString.isEmpty() && testList.size() == 1) {
+                    testList.clear();
+                }
+                final ArrayList<String> mTagList = new ArrayList<>(testList.size());
+                mTagList.addAll(testList);
+
+                updatedFlashcard.setTagList(mTagList);
 
 
 

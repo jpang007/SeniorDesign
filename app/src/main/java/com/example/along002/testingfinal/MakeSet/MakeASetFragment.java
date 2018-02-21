@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,9 +120,17 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 final FirebaseUser currUser = mAuth.getCurrentUser();
                 FlashcardInfo.setCreator(currUser.getUid());
 
-                final ArrayList<String> mTagList = new ArrayList<>();
-                mTagList.add(setTag.getText().toString());
-                FlashcardInfo.setTagList(mTagList); // todo change this
+                final String tempString = setTag.getText().toString();
+                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,")));
+                if (tempString.isEmpty() && testList.size() == 1) {
+                    testList.clear();
+                }
+                final ArrayList<String> mTagList = new ArrayList<>(testList.size());
+                mTagList.addAll(testList);
+
+
+
+                FlashcardInfo.setTagList(mTagList);
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 final String mFlashId = mDatabase.push().getKey(); // get a random key for set
