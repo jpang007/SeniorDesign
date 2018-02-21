@@ -27,7 +27,7 @@ public class PreviewSetFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
     private FlashcardInfo flash;
     private TextView cardSize,author,setName;
-    private Button deleteSetBtn;
+    private Button deleteSetBtn, editSetBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class PreviewSetFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preview_set,container,false);
 
-        ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
+        final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
@@ -47,6 +47,14 @@ public class PreviewSetFragment extends Fragment{
             public void onClick(View v) {
                 ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
                 ManageSetActivity.deleteSet(); //deletes set
+            }
+        });
+
+        editSetBtn = view.findViewById(R.id.editSetBtn);
+        editSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ManageSetActivity.setViewPager(2);
             }
         });
 

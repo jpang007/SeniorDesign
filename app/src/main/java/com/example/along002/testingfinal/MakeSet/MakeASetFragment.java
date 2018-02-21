@@ -48,12 +48,10 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
     private DatabaseReference mDatabase;
     private ArrayList<String> mTermList = new ArrayList<>();
     private ArrayList<String> mDefList = new ArrayList<>();
-    private ArrayList<String> mCardNum = new ArrayList<>();
     private EditText setTitle;
     private EditText setTag;
-    private RadioButton radioButton;
+    private RadioButton radioButton,publicRadioButton;
     private RadioGroup radioGroup;
-    private int mSetSize;
     private TextView publishTextView;
     private  MakeSetRecyclerViewAdapter adapter;
 
@@ -69,15 +67,16 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
 
         mTermList.add("");
         mDefList.add("");
-        mCardNum.add("0");
         publishTextView = view.findViewById(R.id.publishTextView);
         setTitle = view.findViewById(R.id.setTitle);
         setTag = view.findViewById(R.id.set_Tag);
         radioGroup = view.findViewById(R.id.radioGroup);
+        publicRadioButton = view.findViewById(R.id.publicRadioButton);
 
+        publicRadioButton.setChecked(true);
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
-        adapter = new MakeSetRecyclerViewAdapter(getActivity().getApplicationContext(),mTermList,mDefList, mCardNum);
+        adapter = new MakeSetRecyclerViewAdapter(getActivity().getApplicationContext(),mTermList,mDefList);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(), DividerItemDecoration.VERTICAL));
@@ -87,36 +86,8 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
         // only ItemTouchHelper.LEFT added to detect Right to Left swipe
         // if you want both Right -> Left and Left -> Right
         // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
-//        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, getActivity().getApplicationContext());
-//        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
-        // adding item touch helper
-        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
-        // if you want both Right -> Left and Left -> Right
-        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
-
-//        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//                //Row is swiped from recycler view
-//                //remove it from adapter
-//                Toast.makeText(getActivity().getApplicationContext(), "swiped", Toast.LENGTH_SHORT).show();
-//            }
-//            @Override
-//            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-////                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//                //view the background view
-//            }
-//        };
-//        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
 
         ImageView addCardImageView = (ImageView) view.findViewById(R.id.addCardImageView);
 
@@ -125,8 +96,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
             public void onClick(View v) {
                 mDefList.add("");
                 mTermList.add("");
-                mCardNum.add(Integer.toString(mCardNum.size()));
-                adapter.notifyItemInserted(mCardNum.size() - 1);
+                adapter.notifyItemInserted(mTermList.size() - 1);
             }
         });
 
@@ -141,7 +111,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
 
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 radioButton = view.findViewById(selectedId);
-                FlashcardInfo.setPrivacy(radioButton.getText().toString()); //todo change this later
+                FlashcardInfo.setPrivacy(radioButton.getText().toString());
 
                 mAuth = FirebaseAuth.getInstance();
                 final FirebaseUser currUser = mAuth.getCurrentUser();
@@ -155,32 +125,70 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 final String mFlashId = mDatabase.push().getKey(); // get a random key for set
                 FlashcardInfo.setId(mFlashId);
 
-                DatabaseReference mPublish = FirebaseDatabase.getInstance().getReference().child("users").child(currUser.getUid());
-                mPublish.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
-                        FlashcardInfo.setAuthor(user.getUsername());
-                        mDatabase.child("Flashcards").child(mFlashId).setValue(FlashcardInfo);//placing actual set in Flashcard branch
+                if (isValid(FlashcardInfo) == true) {
+                    DatabaseReference mPublish = FirebaseDatabase.getInstance().getReference().child("users").child(currUser.getUid());
+                    mPublish.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            FlashcardInfo.setAuthor(user.getUsername());
+                            mDatabase.child("Flashcards").child(mFlashId).setValue(FlashcardInfo);//placing actual set in Flashcard branch
 
-                        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");//Placing set reference in tags branch
-                        for(int i = 0; i < mTagList.size(); i++){
-                            mTagRef.child(mTagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
+                            DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");//Placing set reference in tags branch
+                            for (int i = 0; i < mTagList.size(); i++) {
+                                mTagRef.child(mTagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
+                            }
+                            mDatabase.child("usersFlash").child(currUser.getUid()).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
                         }
-                        mDatabase.child("usersFlash").child(currUser.getUid()).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-                Toast.makeText(getActivity().getApplicationContext(), "Set is Published", Toast.LENGTH_SHORT).show();
-                MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
-                MakeSetActivity.restartActivity();
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                    Toast.makeText(getActivity().getApplicationContext(), "Set is Published", Toast.LENGTH_SHORT).show();
+                    MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
+                    MakeSetActivity.restartActivity();
+                }
+
             }
         });
 
         return view;
     }
+
+
+    private boolean isValid(FlashcardInfo FlashcardInfo){ // checks if flashcard is valid for publish
+        if (FlashcardInfo.getName().equals("")){
+            Toast.makeText(getActivity().getApplicationContext(), "Title can not be empty", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (FlashcardInfo.getTagList().size() == 0){
+            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one tag", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (FlashcardInfo.getDefinitionList().size() == 0){
+            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one card", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        for (int i = 0; i < FlashcardInfo.getDefinitionList().size(); i++){
+            if (FlashcardInfo.getTermList().get(i).equals("")){
+                Toast.makeText(getActivity().getApplicationContext(), "A term is empty", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (FlashcardInfo.getDefinitionList().get(i).equals("")){
+                Toast.makeText(getActivity().getApplicationContext(), "A definition is empty", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        for (int i = 0; i < FlashcardInfo.getTagList().size(); i++){
+            if (FlashcardInfo.getTagList().get(i).equals("")){
+                Toast.makeText(getActivity().getApplicationContext(), "Error with Tags List, empty String should not get this msg", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {

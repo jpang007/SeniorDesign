@@ -24,13 +24,11 @@ public class MakeSetRecyclerViewAdapter extends RecyclerView.Adapter<MakeSetRecy
     private int mSetSize;
     private ArrayList<String> mTermList = new ArrayList<>();
     private ArrayList<String> mDefList = new ArrayList<>();
-    private ArrayList<String> mCardNum = new ArrayList<>();
 
-    public MakeSetRecyclerViewAdapter(Context mContext, ArrayList<String> mTermList, ArrayList<String> mDefList, ArrayList<String> mCardNum) {
+    public MakeSetRecyclerViewAdapter(Context mContext, ArrayList<String> mTermList, ArrayList<String> mDefList) {
         this.mContext = mContext;
         this.mTermList = mTermList;
         this.mDefList = mDefList;
-        this.mCardNum = mCardNum;
     }
 
     @Override
@@ -58,7 +56,6 @@ public class MakeSetRecyclerViewAdapter extends RecyclerView.Adapter<MakeSetRecy
     public void removeItem(int position){
         mTermList.remove(position);
         mDefList.remove(position);
-        mCardNum.remove(position);
         // notify the item removed by position
         // to perform recycler view delete animations
         // NOTE: don't call notifyDataSetChanged()
@@ -66,7 +63,7 @@ public class MakeSetRecyclerViewAdapter extends RecyclerView.Adapter<MakeSetRecy
     }
     @Override
     public int getItemCount() {
-        return mCardNum.size();
+        return mDefList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

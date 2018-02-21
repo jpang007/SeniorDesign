@@ -80,19 +80,9 @@ public class SetListFragment extends Fragment{
                                     FlashcardInfo selectedSet = flashcardInfoList.get(itemPosition);
                                     ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
                                     ManageSetActivity.setFlashcardInfo(selectedSet);
-//                                    String flashId = flashcardInfoList.get(itemPosition).getId();
-//                                    Intent intent = new Intent(SearchActivity.this,ViewFlashCards.class);
-//                                    Toast.makeText(getActivity().getApplicationContext(),flashId,Toast.LENGTH_SHORT).show();
-//
-//                                    PreviewSetFragment frag = new PreviewSetFragment();
-//                                    Bundle bundles = new Bundle();
-//                                    bundles.putSerializable("flashcardSet",FlashcardInfo);
-//                                    frag.setArguments(bundles);
-//                                    if (bundles == null){
-//                                        Toast.makeText(getActivity().getApplicationContext(),"NULLLL",Toast.LENGTH_SHORT).show();
-//                                    }
 
-                                    ((ManageSetActivity)getActivity()).setViewPager(1);
+                                    ManageSetActivity.setupViewPager();
+                                    ManageSetActivity.setViewPager(1);
 
                                 }
                             });

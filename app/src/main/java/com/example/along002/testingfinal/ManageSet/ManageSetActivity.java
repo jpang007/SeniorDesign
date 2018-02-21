@@ -47,14 +47,14 @@ public class ManageSetActivity extends AppCompatActivity {
     }
 
     public FlashcardInfo getFlashcardInfo(){ //getter for other fragments to get FlashInfo
-        return FlashcardInfo;
+        return this.FlashcardInfo;
     }
     public void setFlashcardInfo(FlashcardInfo FlashcardInfo){ //setter for other fragments to set FlashInfo
         this.FlashcardInfo = FlashcardInfo;
     }
 
     public void deleteSet(){
-        FlashcardInfo deletedFlashCard = getFlashcardInfo();
+        FlashcardInfo deletedFlashCard = this.FlashcardInfo;
 
         DatabaseReference removeFlashId = FirebaseDatabase.getInstance().getReference()
                 .child("Flashcards").child(deletedFlashCard.getId());
@@ -63,7 +63,7 @@ public class ManageSetActivity extends AppCompatActivity {
         DatabaseReference removeTagReference = FirebaseDatabase.getInstance().getReference()
                 .child("tags");
         for(int i = 0; i < FlashcardInfo.getTagList().size(); i++){
-            removeTagReference.child(FlashcardInfo.getTagList().get(i)).removeValue();
+            removeTagReference.child(FlashcardInfo.getTagList().get(i)).child(FlashcardInfo.getId()).removeValue();
         }
         removeFlashId.removeValue();
         removeUIDtoFlashId.removeValue();
@@ -92,21 +92,23 @@ public class ManageSetActivity extends AppCompatActivity {
             startActivity(intent);
             }
         });
-
-
     }
 
     private void setupInitialViewPager(ViewPager viewPager){//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SetListFragment());//index at 0
-//        adapter.addFragment(new PreviewSetFragment());//index at 1
         viewPager.setAdapter(adapter);
     }
-    public void setViewPager(int fragmentNumber){
+
+    public void setupViewPager(){
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SetListFragment());//index at 0
         adapter.addFragment(new PreviewSetFragment());//index at 1
+        adapter.addFragment(new EditFragment());//index at 2
         mViewPager.setAdapter(adapter);
+    }
+
+    public void setViewPager(int fragmentNumber){
         mViewPager.setCurrentItem(fragmentNumber);
     }
 
