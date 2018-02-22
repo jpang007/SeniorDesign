@@ -135,7 +135,7 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
                     mUpdate.child("Flashcards").child(updatedFlashcard.getId())
                             .setValue(updatedFlashcard); //setting the set into the database
 
-                    setTags(updatedFlashcard); //deleting old reference and setting new one for tags branch
+                    setTags(updatedFlashcard, updatedFlashcard.getPrivacy()); //deleting old reference and setting new one for tags branch
 
                     Toast.makeText(getActivity().getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
                     ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
@@ -147,7 +147,7 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
         return view;
     }
 
-    private void setTags(FlashcardInfo newFlashcardInfo){//deletes old reference of tags and setting new ones
+    private void setTags(FlashcardInfo newFlashcardInfo, String Privacy){//deletes old reference of tags and setting new ones
         ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
         FlashcardInfo oldFlashcardInfo = ManageSetActivity.getFlashcardInfo();
         DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference()
@@ -155,8 +155,10 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
         for(int i = 0; i < oldFlashcardInfo.getTagList().size(); i++) {
             mTagRef.child(oldFlashcardInfo.getTagList().get(i)).child(oldFlashcardInfo.getId()).removeValue();
         }
-        for (int i = 0; i < newFlashcardInfo.getTagList().size(); i++) {
-            mTagRef.child(newFlashcardInfo.getTagList().get(i)).child(newFlashcardInfo.getId()).child("FlashId").setValue(newFlashcardInfo.getId());
+        if (Privacy.equals("Public")) {
+            for (int i = 0; i < newFlashcardInfo.getTagList().size(); i++) {
+                mTagRef.child(newFlashcardInfo.getTagList().get(i)).child(newFlashcardInfo.getId()).child("FlashId").setValue(newFlashcardInfo.getId());
+            }
         }
 
     }

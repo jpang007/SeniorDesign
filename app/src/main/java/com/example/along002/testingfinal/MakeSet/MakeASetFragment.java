@@ -134,9 +134,11 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                             FlashcardInfo.setAuthor(user.getUsername());
                             mDatabase.child("Flashcards").child(mFlashId).setValue(FlashcardInfo);//placing actual set in Flashcard branch
 
-                            DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");//Placing set reference in tags branch
-                            for (int i = 0; i < mTagList.size(); i++) {
-                                mTagRef.child(mTagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
+                            if (FlashcardInfo.getPrivacy().equals("Public")) {
+                                DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference().child("tags");//Placing set reference in tags branch
+                                for (int i = 0; i < mTagList.size(); i++) {
+                                    mTagRef.child(mTagList.get(i)).child(mFlashId).child("FlashId").setValue(mFlashId);
+                                }
                             }
                             mDatabase.child("usersFlash").child(currUser.getUid()).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
                         }
