@@ -49,8 +49,9 @@ public class ManageSetActivity extends AppCompatActivity {
     }
 
 
-    public void goToSpeedRound(String testChoice){
+    public void goToSpeedRound(String testChoice, int timerCnt){
         Intent intent = new Intent(this, SpeedRoundActivity.class);
+        intent.putExtra("timerCnt", timerCnt);
         intent.putExtra("testChoice",testChoice);
         intent.putStringArrayListExtra("termList",FlashcardInfo.getTermList());
         intent.putStringArrayListExtra("defList",FlashcardInfo.getDefinitionList());

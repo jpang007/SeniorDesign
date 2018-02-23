@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,12 +32,14 @@ public class CustomSettingDialog extends DialogFragment {
     private TextView continueTextView;
     private RadioGroup radioGroup;
     private RadioButton defRadioButton, termRadioButton;
+    private EditText timerEditText;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dialog_custom_setting, container, false);
 
+        timerEditText = view.findViewById(R.id.timerEditText);
         radioGroup = view.findViewById(R.id.radioGroup);
         continueTextView = view.findViewById(R.id.continueTextView);
         cancelImageView = view.findViewById(R.id.cancelImageView);
@@ -59,7 +62,7 @@ public class CustomSettingDialog extends DialogFragment {
                 String testChoice = radioButton.getText().toString();
 
                 ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-                ManageSetActivity.goToSpeedRound(testChoice);
+                ManageSetActivity.goToSpeedRound(testChoice,Integer.valueOf(timerEditText.getText().toString()));
 
                 getDialog().dismiss();
             }
