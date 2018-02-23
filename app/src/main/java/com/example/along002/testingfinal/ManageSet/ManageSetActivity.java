@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
@@ -41,11 +43,26 @@ public class ManageSetActivity extends AppCompatActivity {
             //disable screen transition
         }
         else{
-            overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             direction = 0;
         }
     }
 
+
+    public void goToSpeedRound(String testChoice){
+        Intent intent = new Intent(this, SpeedRoundActivity.class);
+        intent.putExtra("testChoice",testChoice);
+        intent.putStringArrayListExtra("termList",FlashcardInfo.getTermList());
+        intent.putStringArrayListExtra("defList",FlashcardInfo.getDefinitionList());
+        startActivity(intent);
+    }
+    public void setUpDialog(){
+        CustomSettingDialog dialog = new CustomSettingDialog();
+        dialog.show(getFragmentManager(), "CustomSettingDialog");
+    }
+    public void setScreenTransitionUp(){
+        this.direction = 1;
+    }
     public FlashcardInfo getFlashcardInfo(){ //getter for other fragments to get FlashInfo
         return this.FlashcardInfo;
     }
@@ -82,6 +99,7 @@ public class ManageSetActivity extends AppCompatActivity {
         mParentViewPager = (ViewPager) findViewById(R.id.parent_container);
 
         setupInitialViewPager(mViewPager);
+
 
         ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
         search.setOnClickListener(new View.OnClickListener() {

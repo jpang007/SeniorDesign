@@ -51,7 +51,7 @@
                 android:layout_alignParentBottom="true"
                 android:id="@+id/textView8" />
             <Button
-                android:id="@+id/cards"
+                android:id="@+id/cardsBtn"
                 android:elevation="5dp"
                 android:translationZ="5dp"
                 android:stateListAnimator="@null"
@@ -67,12 +67,12 @@
                 android:stateListAnimator="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cards"
+                android:layout_toRightOf="@+id/cardsBtn"
                 android:background="@drawable/black_border_card_view"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:text="Speed Round"
-                android:id="@+id/button4" />
+                android:id="@+id/speedRoundBtn" />
 
             <Button
                 android:elevation="5dp"
@@ -83,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/editSetBtn"
                 android:layout_alignBottom="@+id/editSetBtn"
-                android:layout_alignEnd="@+id/button4"
-                android:layout_alignRight="@+id/button4"
+                android:layout_alignEnd="@+id/speedRoundBtn"
+                android:layout_alignRight="@+id/speedRoundBtn"
                 android:background="@drawable/black_border_card_view"
                 android:text="Delete Set"
                 android:textColor="@color/red" />

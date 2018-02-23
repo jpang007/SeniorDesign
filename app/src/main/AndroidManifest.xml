@@ -28,7 +28,9 @@
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".ManageSet.ManageSetActivity" />
         <activity android:name=".MakeSet.MakeSetActivity" />
-        <activity android:name=".Search.SearchActivity"></activity>
+        <activity android:name=".Search.SearchActivity" />
+        <activity android:name=".CardGames.CardFlipPreviewActivity" />
+        <activity android:name=".CardGames.SpeedRoundActivity"></activity>
     </application>
 
 </manifest>

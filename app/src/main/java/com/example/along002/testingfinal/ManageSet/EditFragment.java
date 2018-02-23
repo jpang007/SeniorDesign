@@ -1,6 +1,7 @@
 package com.example.along002.testingfinal.ManageSet;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +12,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -18,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.MakeSet.MakeSetActivity;
 import com.example.along002.testingfinal.R;
@@ -144,6 +147,7 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
                 }
             }
         });
+
         return view;
     }
 

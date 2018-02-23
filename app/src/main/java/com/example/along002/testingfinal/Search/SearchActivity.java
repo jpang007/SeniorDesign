@@ -102,7 +102,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
+//                overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
             }
         });
 

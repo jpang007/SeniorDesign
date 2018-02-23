@@ -1,8 +1,11 @@
 package com.example.along002.testingfinal.ManageSet;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
@@ -27,7 +31,7 @@ public class PreviewSetFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
     private FlashcardInfo flash;
     private TextView cardSize,author,setName;
-    private Button deleteSetBtn, editSetBtn;
+    private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
 
@@ -40,6 +44,26 @@ public class PreviewSetFragment extends Fragment{
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
+
+        cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
+        cardsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), CardFlipPreviewActivity.class);
+                intent.putStringArrayListExtra("defList",defList);
+                intent.putStringArrayListExtra("termList",termList);
+                ManageSetActivity.setScreenTransitionUp();
+                startActivity(intent);
+            }
+        });
+
+        speedRoundBtn = view.findViewById(R.id.speedRoundBtn);
+        speedRoundBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ManageSetActivity.setUpDialog();
+            }
+        });
 
         deleteSetBtn = view.findViewById(R.id.deleteSetBtn);
         deleteSetBtn.setOnClickListener(new View.OnClickListener() {
