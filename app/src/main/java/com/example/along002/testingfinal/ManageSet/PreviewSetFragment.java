@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class PreviewSetFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
     private FlashcardInfo flash;
-    private TextView cardSize,author,setName;
+    private TextView cardSize,author,setName, tagsTextView;
     private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
@@ -45,6 +45,15 @@ public class PreviewSetFragment extends Fragment{
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
 
+        tagsTextView = view.findViewById(R.id.tagsTextView);
+        for (int i = 0; i < flashcardInfo.getTagList().size(); i++){
+            if (i == 0){
+                tagsTextView.setText(flashcardInfo.getTagList().get(i));
+            }
+            else {
+                tagsTextView.setText(tagsTextView.getText().toString() + ", " + flashcardInfo.getTagList().get(i));
+            }
+        }
         cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
         cardsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

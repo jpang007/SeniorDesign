@@ -1,11 +1,9 @@
 package com.example.along002.testingfinal.CardGames;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,8 +12,6 @@ import android.widget.Toast;
 
 import com.example.along002.testingfinal.R;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -30,7 +26,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
     private ArrayList<String> termList = new ArrayList<>();
     private ArrayList<String> defList = new ArrayList<>();
     private int cnt = 0;
-    public int counter,timercnt;
+    public int counter, timerCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +37,8 @@ public class SpeedRoundActivity extends AppCompatActivity {
         testChoice = i.getStringExtra("testChoice");
         termList = i.getStringArrayListExtra("termList");
         defList = i.getStringArrayListExtra("defList");
-        timercnt = i.getIntExtra("timerCnt",30000);
-        timercnt = timercnt * 1000;
+        timerCnt = i.getIntExtra("timerCnt",30000);
+        timerCnt = timerCnt * 1000;
         cancelImageView = findViewById(R.id.cancelImageView);
         easyFlipView = findViewById(R.id.easyFlipView);
         inputEditText1 = findViewById(R.id.inputEditText1);
@@ -54,11 +50,12 @@ public class SpeedRoundActivity extends AppCompatActivity {
         cardNumTextView1 = findViewById(R.id.cardNumTextView1);
         cardNumTextView2 = findViewById(R.id.cardNumTextView2);
         timerTextView = findViewById(R.id.timerTextView);
-        new CountDownTimer(timercnt, 1000){
+
+        new CountDownTimer(timerCnt, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
 
-                timerTextView.setText(String.valueOf(((timercnt)/1000) - counter));
+                timerTextView.setText(String.valueOf(((timerCnt)/1000) - counter));
                 counter++;
             }
 
@@ -100,7 +97,8 @@ public class SpeedRoundActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String guessString = inputEditText1.getText().toString();
 
-                if (guessString.equals(defList.get(cnt-1))) {
+
+                if (isCorrect(guessString, testChoice)) {
                     if (cnt == defList.size()){ //reached the end of the set list
                         finish();
                     }
@@ -115,6 +113,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
                         cardNumTextView2.setText(Integer.toString(cnt+1)+ "/" + Integer.toString(defList.size()));
                     }
                 }
+//                else if( )
                 else{
                     Toast.makeText(SpeedRoundActivity.this, "Place Holder, Wrong Guess", Toast.LENGTH_SHORT).show();
                 }
@@ -127,7 +126,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
 
                 String guessString = inputEditText2.getText().toString();
 
-                if (guessString.equals(defList.get(cnt-1))) {
+                if (isCorrect(guessString, testChoice)) {
                     if (cnt == defList.size()){ //reached the end of the set list
                         finish();
                     }
@@ -147,5 +146,19 @@ public class SpeedRoundActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean isCorrect(String guessString, String testChoice){ //checks if the guess is correct
+        if (testChoice.equals("Terms")){
+            if (guessString.equals(defList.get(cnt-1))) {
+                return true;
+            }
+            else{return false;}
+        }
+        else{
+            if (guessString.equals(termList.get(cnt-1))){
+                return true;}
+            else{return false;}
+        }
     }
 }

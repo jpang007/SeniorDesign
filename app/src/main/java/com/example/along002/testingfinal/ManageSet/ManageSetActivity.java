@@ -64,9 +64,11 @@ public class ManageSetActivity extends AppCompatActivity {
     public void setScreenTransitionUp(){
         this.direction = 1;
     }
+
     public FlashcardInfo getFlashcardInfo(){ //getter for other fragments to get FlashInfo
         return this.FlashcardInfo;
     }
+
     public void setFlashcardInfo(FlashcardInfo FlashcardInfo){ //setter for other fragments to set FlashInfo
         this.FlashcardInfo = FlashcardInfo;
     }
