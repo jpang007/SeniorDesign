@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-//                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
                 }
                 else{
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.loginBtn:
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                 loginUser();
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();

@@ -2,16 +2,20 @@ package com.example.along002.testingfinal.ManageSet;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.FlashcardDisplayAdapter;
+import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,10 +29,11 @@ import java.util.ArrayList;
  * Created by along002 on 2/2/2018.
  */
 
-public class SetListFragment extends Fragment{
+public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapter.OnItemClick{
+
     private static final String TAG = "SetListFragment";
-    private ArrayList<FlashcardInfo> flashcardInfoList = new ArrayList<>();
-    private ListView setListView;
+    private ArrayList<FlashcardInfo> mSetInfoList = new ArrayList<>();
+    private RecyclerView recyclerView;
 
 
     @Nullable
@@ -36,12 +41,7 @@ public class SetListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set_list,container,false);
 
-        flashcardInfoList.clear();
-
-        setListView = view.findViewById(R.id.setList);
-        final FlashcardDisplayAdapter adapter = new FlashcardDisplayAdapter(getActivity().getApplicationContext(),R.layout.adapter_flashcard_view_layout,flashcardInfoList);
-        setListView.setAdapter(adapter);
-
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mUserFlash = FirebaseDatabase.getInstance().getReference().child("usersFlash").child(UID);
@@ -52,31 +52,20 @@ public class SetListFragment extends Fragment{
                 DatabaseReference mFlashSearch = FirebaseDatabase.getInstance().getReference().child("Flashcards");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String setId = (String) snapshot.child("flashId").getValue();
-                    flashIdList.add(setId);//Add sets to a list for list view
+                    flashIdList.add(setId);//Add sets to a list for recycler view
                 }
-                for(int i = 0;i < flashIdList.size(); i++){//iterate through arraylist to add to the adapter and set it in the list view
+
+                for(int i = 0;i < flashIdList.size(); i++){ //iterate through arraylist to add to the adapter
                     DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));
                     mFlashcard.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             FlashcardInfo tempFlashcardInfo = dataSnapshot.getValue(FlashcardInfo.class);
-                            flashcardInfoList.add(tempFlashcardInfo);
-                            adapter.notifyDataSetChanged();
-                            setListView.setAdapter(adapter);
-                            setListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//onclicklistner for listview
-                                    // ListView Clicked item index
-                                    int itemPosition = position;
-                                    FlashcardInfo selectedSet = flashcardInfoList.get(itemPosition);
-                                    ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
-                                    ManageSetActivity.setFlashcardInfo(selectedSet);
+                            mSetInfoList.add(tempFlashcardInfo);
+                            SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList,SetListFragment.this);
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-                                    ManageSetActivity.setupViewPager();
-                                    ManageSetActivity.setViewPager(1);
-
-                                }
-                            });
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -88,8 +77,16 @@ public class SetListFragment extends Fragment{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-//      ((ManageSetActivity)getActivity ()).setViewPager(1);
 
         return view;
+    }
+
+    @Override
+    public void onClick(int position) {
+        ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
+        ManageSetActivity.setFlashcardInfo(mSetInfoList.get(position));
+
+        ManageSetActivity.setupViewPager();
+        ManageSetActivity.setViewPager(1);
     }
 }

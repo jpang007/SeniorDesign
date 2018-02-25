@@ -34,11 +34,13 @@ public class PreviewSetFragment extends Fragment{
     private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_preview_set,container,false);
+        final View viewInit = inflater.inflate(R.layout.fragment_preview_set,container,false);
+        view = viewInit;
 
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
@@ -100,15 +102,11 @@ public class PreviewSetFragment extends Fragment{
         setName.setText(flashcardInfo.getName());
 
         initRecyclerView();
-//        RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
-//        CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
-        return view;
+        return viewInit;
     }
     private void initRecyclerView(){
-        RecyclerView recyclerView = getView().findViewById(R.id.recycler_View);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

@@ -126,8 +126,8 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     }
 
     public void setUpDialog(){
-        CustomSettingDialog dialog = new CustomSettingDialog();
-        dialog.show(getFragmentManager(), "CustomSettingDialog");
+        SearchCustomSettingDialog dialog = new SearchCustomSettingDialog();
+        dialog.show(getFragmentManager(), "SearchCustomSettingDialog");
     }
     public void goToSpeedRound(String testChoice, int timerCnt){
         Intent intent = new Intent(this, SpeedRoundActivity.class);

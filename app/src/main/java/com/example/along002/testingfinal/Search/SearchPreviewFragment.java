@@ -97,7 +97,7 @@ public class SearchPreviewFragment extends Fragment{
     }
 
     private void initRecyclerView(){
-        RecyclerView recyclerView = getView().findViewById(R.id.recycler_View);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));

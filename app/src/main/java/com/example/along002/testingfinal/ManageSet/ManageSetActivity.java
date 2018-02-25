@@ -58,7 +58,7 @@ public class ManageSetActivity extends AppCompatActivity {
     }
     public void setUpDialog(){
         CustomSettingDialog dialog = new CustomSettingDialog();
-        dialog.show(getFragmentManager(), "CustomSettingDialog");
+        dialog.show(getFragmentManager(), "SearchCustomSettingDialog");
     }
     public void setScreenTransitionUp(){
         this.direction = 1;
