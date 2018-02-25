@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.example.along002.testingfinal.MakeSet.MakeSetActivity;
 import com.example.along002.testingfinal.Home.HomeActivity;
-import com.example.along002.testingfinal.Profile.ProfileActivity;
+import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Setting.SettingActivity;
 import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
@@ -53,7 +53,7 @@ public class BottomNavigationViewHelper {
                         break;
 
                     case R.id.ic_profile:
-                        Intent intent4 = new Intent(context, ProfileActivity.class);//ACTIVITY_NUM = 3
+                        Intent intent4 = new Intent(context, SearchActivity.class);//ACTIVITY_NUM = 3
                         context.startActivity(intent4);
                         break;
 

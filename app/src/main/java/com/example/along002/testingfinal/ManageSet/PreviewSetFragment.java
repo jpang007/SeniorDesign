@@ -38,7 +38,7 @@ public class PreviewSetFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_preview_set,container,false);
+        final View view = inflater.inflate(R.layout.fragment_preview_set,container,false);
 
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
@@ -99,11 +99,11 @@ public class PreviewSetFragment extends Fragment{
         setName = view.findViewById(R.id.setName);
         setName.setText(flashcardInfo.getName());
 
-//        initRecyclerView();
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
-        CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        initRecyclerView();
+//        RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
+//        CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
         return view;
     }

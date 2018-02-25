@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter{
     private static final String TAG = "SectionPagerAdapter";
+    private HashMap<Integer, Fragment> fragmentHashMap = new HashMap<>();
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
@@ -23,6 +25,10 @@ public class SectionPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
+//        if (fragmentHashMap.get(position) != null){
+//            return fragmentHashMap.get(position)
+//        }
+//
         return mFragmentList.get(position);
     }
 
@@ -32,5 +38,6 @@ public class SectionPagerAdapter extends FragmentPagerAdapter{
     }
     public void addFragment(Fragment fragment){
         mFragmentList.add(fragment);
+//        fragmentHashMap.put(mFragmentList.size()-1, fragment);
     }
 }

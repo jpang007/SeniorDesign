@@ -27,6 +27,7 @@
                         android:layout_height="match_parent">
 
                         <EditText
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
                             android:id="@+id/setTitle"
@@ -34,6 +35,7 @@
                             android:textSize="18sp"/>
 
                         <EditText
+                            android:singleLine="true"
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
                             android:layout_below="@+id/setTitle"

@@ -10,11 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
-import com.example.along002.testingfinal.Search.SearchActivity;
+import com.example.along002.testingfinal.Search1.SearchActivity1;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
@@ -109,7 +108,7 @@ public class ManageSetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 direction = 1;
-            Intent intent = new Intent(ManageSetActivity.this,SearchActivity.class);
+            Intent intent = new Intent(ManageSetActivity.this,SearchActivity1.class);
             startActivity(intent);
             }
         });
