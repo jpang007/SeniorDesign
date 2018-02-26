@@ -51,8 +51,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
     private DatabaseReference mDatabase;
     private ArrayList<String> mTermList = new ArrayList<>();
     private ArrayList<String> mDefList = new ArrayList<>();
-    private EditText setTitle;
-    private EditText setTag;
+    private EditText setTitle, setTag;
     private RadioButton radioButton,publicRadioButton;
     private RadioGroup radioGroup;
     private TextView publishTextView;
@@ -161,6 +160,8 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                     Toast.makeText(getActivity().getApplicationContext(), "Set is Published", Toast.LENGTH_SHORT).show();
                     MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
                     MakeSetActivity.restartActivity();
+                    setTag.setText("");
+                    setTitle.setText("");
                 }
 
             }

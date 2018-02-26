@@ -1,6 +1,8 @@
 package com.example.along002.testingfinal.ManageSet;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -80,8 +82,7 @@ public class PreviewSetFragment extends Fragment{
         deleteSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-                ManageSetActivity.deleteSet(); //deletes set
+                ManageSetActivity.showDeleteAlertDialog();
             }
         });
 
@@ -111,6 +112,9 @@ public class PreviewSetFragment extends Fragment{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
+
+
+
 }
 
 

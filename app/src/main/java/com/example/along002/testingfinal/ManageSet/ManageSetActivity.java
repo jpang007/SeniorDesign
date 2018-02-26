@@ -1,5 +1,7 @@
 package com.example.along002.testingfinal.ManageSet;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,7 +48,6 @@ public class ManageSetActivity extends AppCompatActivity {
             direction = 0;
         }
     }
-
 
     public void goToSpeedRound(String testChoice, int timerCnt){
         Intent intent = new Intent(this, SpeedRoundActivity.class);
@@ -98,22 +99,42 @@ public class ManageSetActivity extends AppCompatActivity {
 
         mSectionStatePagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mParentViewPager = (ViewPager) findViewById(R.id.parent_container);
 
         setupInitialViewPager(mViewPager);
 
-
-        ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                direction = 1;
-            Intent intent = new Intent(ManageSetActivity.this,SearchActivity1.class);
-            startActivity(intent);
-            }
-        });
     }
+    public void restartActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
 
+    }
+    public void showDeleteAlertDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage("Are you sure you want to delete?");
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteSet();
+                        dialog.cancel();
+                        restartActivity();
+                    }
+                });
+
+        alertBuilder.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
     private void setupInitialViewPager(ViewPager viewPager){//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SetListFragment());//index at 0

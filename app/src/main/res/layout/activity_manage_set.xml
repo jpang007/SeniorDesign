@@ -9,7 +9,6 @@ android:layout_height="match_parent">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/layout_parent_viewpager"/>
     <!-- top toolbar -->
     <RelativeLayout
         android:id="@+id/rellayout1"
@@ -27,15 +26,7 @@ android:layout_height="match_parent">
             android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/imageViewSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            app:srcCompat="@drawable/ic_white_search" />
+
 
     </RelativeLayout>
 

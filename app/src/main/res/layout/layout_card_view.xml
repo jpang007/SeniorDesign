@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp">
 
@@ -11,19 +11,17 @@
         android:id="@+id/parent_layout">
 
         <android.support.v7.widget.CardView
-            android:elevation="3dp"
-            android:translationZ="3dp"
-            android:stateListAnimator="@null"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="4dp"
             android:layout_width="300dp"
             android:layout_marginLeft="30dp"
             android:layout_height="match_parent"
-            app:cardElevation="5dp"
             android:layout_centerInParent="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border_card_view">
+                android:layout_height="match_parent">
                 <RelativeLayout
                     android:id="@+id/mid"
                     android:layout_width="1dp"

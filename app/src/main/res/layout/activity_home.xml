@@ -15,7 +15,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rellayout1">
+            android:id="@+id/rellayout1"
+            android:background="@color/top_blue">
 
             <include layout="@layout/layout_top_tabs" />
         </RelativeLayout>
@@ -25,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rellayout2"
-            android:layout_below="@+id/rellayout1">
+            android:layout_below="@+id/rellayout1"
+            android:layout_above="@+id/botNavBar">
 
             <include layout = "@layout/layout_center_viewpager"/>
         </RelativeLayout>

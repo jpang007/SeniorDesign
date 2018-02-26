@@ -33,7 +33,6 @@ import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
 public class SearchActivity extends AppCompatActivity implements SearchSetListFragment.OnItemSelect{
     private static final String TAG = "SearchActivity1";
     private final int ACTIVITY_NUM = 3;
-    private TextView tvUserName;
     private FirebaseAuth mAuth;
     private EditText searchEditText;
     private ViewPager mViewPager;
@@ -43,7 +42,6 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     private int direction = 0;
 
 
-    //disable screen transition
     @Override
     public void onPause() {
         super.onPause();
@@ -71,6 +69,7 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     public void setScreenTransitionUp(){
         this.direction = 1;
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

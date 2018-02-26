@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Search1.SearchActivity1;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -58,27 +57,14 @@ public class MakeSetActivity extends AppCompatActivity{
 
         setupViewPager(mViewPager);
 
-        ImageView search = (ImageView)findViewById(R.id.imageViewSearch);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                direction = 1;
-                Intent intent = new Intent(MakeSetActivity.this,SearchActivity1.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void restartActivity(){
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-//        this.recreate();
+        this.recreate();
     }
     private void setupViewPager(ViewPager viewPager) {//initial first screen
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new MakeASetFragment());//index at 0
-//        adapter.addFragment(new OptionFragment());//index at 1
         viewPager.setAdapter(adapter);
     }
     public void setViewPager(int fragmentNumber){

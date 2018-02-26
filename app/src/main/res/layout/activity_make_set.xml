@@ -22,20 +22,12 @@
                 android:layout_centerInParent="true"
                 android:textSize="30dp"
                 android:text="Create A Set"/>
-            <ImageView
-                android:id="@+id/imageViewSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                app:srcCompat="@drawable/ic_white_search" />
 
         </RelativeLayout>
 
         <!-- middle section -->
         <RelativeLayout
+            android:background="@color/dark_grey"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rellayout2"
