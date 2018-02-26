@@ -1,5 +1,7 @@
 package com.example.along002.testingfinal.CardGames;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,9 @@ import com.example.along002.testingfinal.R;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class SpeedRoundActivity extends AppCompatActivity {
 
@@ -34,6 +39,8 @@ public class SpeedRoundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speed_round);
 
         Intent i = getIntent();
+        boolean isRandomized;
+        isRandomized = i.getBooleanExtra("isRandomized",true);
         testChoice = i.getStringExtra("testChoice");
         termList = i.getStringArrayListExtra("termList");
         defList = i.getStringArrayListExtra("defList");
@@ -51,7 +58,11 @@ public class SpeedRoundActivity extends AppCompatActivity {
         cardNumTextView2 = findViewById(R.id.cardNumTextView2);
         timerTextView = findViewById(R.id.timerTextView);
 
-        new CountDownTimer(timerCnt, 1000){
+        if (isRandomized == true){
+            shuffleLists();
+        }
+
+        new CountDownTimer(timerCnt, 1000){ //Timer, when time is over ask to retry
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -61,12 +72,13 @@ public class SpeedRoundActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                timerTextView.setText("Donzos");
+                timerTextView.setText("Time Over");
+                showTimesUpAlertDialog();
 
             }
         }.start();
 
-        easyFlipView.setFlipDuration(1000);
+        easyFlipView.setFlipDuration(500);
         easyFlipView.setFlipOnTouch(false);
 
 
@@ -113,7 +125,6 @@ public class SpeedRoundActivity extends AppCompatActivity {
                         cardNumTextView2.setText(Integer.toString(cnt+1)+ "/" + Integer.toString(defList.size()));
                     }
                 }
-//                else if( )
                 else{
                     Toast.makeText(SpeedRoundActivity.this, "Place Holder, Wrong Guess", Toast.LENGTH_SHORT).show();
                 }
@@ -160,5 +171,53 @@ public class SpeedRoundActivity extends AppCompatActivity {
                 return true;}
             else{return false;}
         }
+    }
+    private void shuffleLists(){ //shuffles term and def list
+        Integer[] indexArr = new Integer[termList.size()];
+        for (int i = 0; i < termList.size(); i++){
+            indexArr[i] = i;
+        }
+        Collections.shuffle(Arrays.asList(indexArr));
+        ArrayList<String> tempTermList = new ArrayList<>();
+        ArrayList<String> tempDefList = new ArrayList<>();
+
+        for (int i = 0; i < termList.size(); i++){
+            tempTermList.add(termList.get(indexArr[i]));
+            tempDefList.add(defList.get(indexArr[i]));
+        }
+
+        termList = tempTermList;
+        defList = tempDefList;
+    }
+
+    public void showTimesUpAlertDialog(){ //Times Up ask to retry or not
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage("Times Up! Retry?");
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        reCreateActivity();
+                        dialog.cancel();
+                    }
+                });
+
+        alertBuilder.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
+    public void reCreateActivity(){
+        this.recreate();
     }
 }

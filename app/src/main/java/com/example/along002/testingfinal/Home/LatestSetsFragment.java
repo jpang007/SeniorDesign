@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Search.SearchSetListFragment;
-import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +29,7 @@ import java.util.ArrayList;
 public class LatestSetsFragment extends Fragment implements SetPreviewRecyclerAdapter.OnItemClick{
     private static final String TAG = "LatestSetsFragment";
     private RecyclerView recyclerView;
+    private HomeOnItemSelect mCallback;
     private ArrayList<FlashcardInfo> LatestSetsList = new ArrayList<>();
     private int i = 0;
 
@@ -41,7 +40,9 @@ public class LatestSetsFragment extends Fragment implements SetPreviewRecyclerAd
 
         recyclerView = view.findViewById(R.id.recyclerView);
         DatabaseReference mLatestSetsRef = FirebaseDatabase.getInstance().getReference().child("Flashcards");
-        Query mLatestSets = mLatestSetsRef.orderByChild("name").startAt("").limitToFirst(20);
+        Query mLatestSets = mLatestSetsRef.orderByChild("name").startAt("");
+
+        mCallback = (HomeOnItemSelect) getActivity();
 
 
         ValueEventListener eventListener = new ValueEventListener() {
@@ -70,9 +71,15 @@ public class LatestSetsFragment extends Fragment implements SetPreviewRecyclerAd
         return view;
     }
 
+    public interface HomeOnItemSelect {
+        void itemSelected();
+    }
 
     @Override
-    public void onClick(int value) {
-
+    public void onClick(int position) {
+        FlashcardInfo selectedItem = LatestSetsList.get(position);
+        HomeActivity HomeActivity = (HomeActivity)getActivity();
+        HomeActivity.setFlashcardInfo(selectedItem);
+        mCallback.itemSelected();
     }
 }

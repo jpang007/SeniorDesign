@@ -120,7 +120,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 FlashcardInfo.setCreator(currUser.getUid());
 
                 final String tempString = setTag.getText().toString();
-                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,")));
+                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,| ")));
                 if (tempString.isEmpty() && testList.size() == 1) {
                     testList.clear();
                 }

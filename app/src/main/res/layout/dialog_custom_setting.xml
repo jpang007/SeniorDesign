@@ -18,22 +18,23 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/defRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Definitions"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/termRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Terms"/>
+                android:text="Terms" />
+
+            <RadioButton
+                android:id="@+id/defRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Definitions" />
 
         </RadioGroup>
 
@@ -46,14 +47,38 @@
             android:text="Continue"
             android:textSize="16dp"/>
 
-        <EditText
-            android:id="@+id/timerEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:hint="Temp Timer"/>
+        <RelativeLayout
+            android:layout_below="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/relmid"></RelativeLayout>
+            <EditText
+                android:layout_toLeftOf="@id/relmid"
+                android:id="@+id/timerEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Set Time"/>
+
+            <CheckBox
+                android:id="@+id/randomizeCheckbox"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/relmid"
+                android:text="Randomize"/>
+
+        </RelativeLayout>
+
+
+
 
     </RelativeLayout>
 
 </RelativeLayout>
+
+
+

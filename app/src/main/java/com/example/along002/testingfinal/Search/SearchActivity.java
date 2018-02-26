@@ -128,10 +128,11 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
         SearchCustomSettingDialog dialog = new SearchCustomSettingDialog();
         dialog.show(getFragmentManager(), "SearchCustomSettingDialog");
     }
-    public void goToSpeedRound(String testChoice, int timerCnt){
+    public void goToSpeedRound(String testChoice, int timerCnt, boolean isRandomized){ //goes to speend round Activity
         Intent intent = new Intent(this, SpeedRoundActivity.class);
         intent.putExtra("timerCnt", timerCnt);
         intent.putExtra("testChoice",testChoice);
+        intent.putExtra("isRandomized", isRandomized);
         intent.putStringArrayListExtra("termList",FlashcardInfo.getTermList());
         intent.putStringArrayListExtra("defList",FlashcardInfo.getDefinitionList());
         startActivity(intent);
@@ -139,7 +140,6 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     @Override
     public void itemSelected() {
         SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)mViewPager.getAdapter();
-
         SearchPreviewFragment SearchPreviewFragment = (SearchPreviewFragment) fragmentAdapter.getItem(1);
 
         SearchPreviewFragment.startPreview();

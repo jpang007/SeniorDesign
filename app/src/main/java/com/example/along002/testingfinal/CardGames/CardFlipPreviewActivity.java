@@ -35,7 +35,7 @@ public class CardFlipPreviewActivity extends AppCompatActivity {
         defList = i.getStringArrayListExtra("defList");
 
         cancelImageView = findViewById(R.id.cancelImageView);
-        cancelImageView.setOnClickListener(new View.OnClickListener() {
+        cancelImageView.setOnClickListener(new View.OnClickListener() {//finishes Activity and return to prev screen
             @Override
             public void onClick(View v) {
                 finish();

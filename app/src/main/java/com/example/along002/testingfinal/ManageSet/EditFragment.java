@@ -130,7 +130,7 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
                 updatedFlashcard.setPrivacy(radioButton.getText().toString());
 
                 final String tempString = setTag.getText().toString();
-                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,")));
+                List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,| ")));
                 if (tempString.isEmpty() && testList.size() == 1) {
                     testList.clear();
                 }
