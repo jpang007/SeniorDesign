@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
+import com.example.along002.testingfinal.CardGames.MatchActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
 import com.example.along002.testingfinal.R;
@@ -28,7 +29,7 @@ public class SearchPreviewFragment extends Fragment{
 
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
-    private Button cardsBtn, speedRoundBtn;
+    private Button cardsBtn, speedRoundBtn, matchBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -89,6 +90,18 @@ public class SearchPreviewFragment extends Fragment{
         cardSize.setText(flashcardInfo.getSize() + " cards");
         author = view.findViewById(R.id.author);
         author.setText(flashcardInfo.getAuthor());
+
+        matchBtn = view.findViewById(R.id.matchBtn);
+        matchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), MatchActivity.class);
+                intent.putStringArrayListExtra("defList",defList);
+                intent.putStringArrayListExtra("termList",termList);
+                SearchActivity.setScreenTransitionUp();
+                startActivity(intent);
+            }
+        });
 
         setName = view.findViewById(R.id.setName);
         setName.setText(flashcardInfo.getName());

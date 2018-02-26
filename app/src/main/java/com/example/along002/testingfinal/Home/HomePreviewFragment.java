@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
+import com.example.along002.testingfinal.CardGames.MatchActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Search.SearchActivity;
@@ -80,13 +81,18 @@ public class HomePreviewFragment extends Fragment{
             }
         });
 
-//        matchBtn = view.findViewById(R.id.matchBtn);
-//        matchBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity().getApplicationContext(),)
-//            }
-//        });
+        matchBtn = view.findViewById(R.id.matchBtn);
+        matchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), MatchActivity.class);
+                intent.putStringArrayListExtra("defList",defList);
+                intent.putStringArrayListExtra("termList",termList);
+                HomeActivity.setScreenTransitionUp();
+
+                startActivity(intent);
+            }
+        });
 
         cardSize = view.findViewById(R.id.cardSize);
         cardSize.setText(flashcardInfo.getSize() + " cards");
