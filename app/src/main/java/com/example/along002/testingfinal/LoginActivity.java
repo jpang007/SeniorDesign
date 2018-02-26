@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.TextViewSignUp).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
         findViewById(R.id.logoutBtn).setOnClickListener(this);
-        findViewById(R.id.testingBtn).setOnClickListener(this);
     }
 
     private void loginUser(){
@@ -69,9 +68,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.logoutBtn:
                 mAuth.signOut();
-                break;
-            case R.id.testingBtn:
-                startActivity(new Intent(this,TestingActivity.class));
                 break;
         }
     }

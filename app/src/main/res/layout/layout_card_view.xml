@@ -31,17 +31,17 @@
 
                 </RelativeLayout>
                 <TextView
+                    android:layout_toRightOf="@+id/mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Definition"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="60dp"
                     android:id="@+id/card_Def"/>
                 <TextView
                     android:id="@+id/card_Term"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/mid"
                     android:text="Term"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="60dp"/>

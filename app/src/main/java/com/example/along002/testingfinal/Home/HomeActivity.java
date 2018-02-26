@@ -50,10 +50,10 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
         HomeCustomSettingDialog dialog = new HomeCustomSettingDialog();
         dialog.show(getFragmentManager(), "HomeCustomSettingDialog");
     }
-    public void setFlashcardInfo(FlashcardInfo FlashcardInfo){
+    public void setFlashcardInfo(FlashcardInfo FlashcardInfo){//sets Flashcard Info for other Fragments
         this.FlashcardInfo = FlashcardInfo;
     }
-    public FlashcardInfo getFlashcardInfo(){
+    public FlashcardInfo getFlashcardInfo(){//getter for other fragments
         return this.FlashcardInfo;
     }
 
@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
         setupViewPager();
     }
 
-    //Sets up the 3 tabs on top
+    //Sets up the 2 tabs on top
     private void setupViewPager(){
 
         adapter.addFragment(new LatestSetsFragment());//index at 0
@@ -128,7 +128,7 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
     }
 
     @Override
-    public void itemSelected() {
+    public void itemSelected() {// an item is selected from LatestSetsFragment
         SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)viewPager.getAdapter();
         HomePreviewFragment HomePreviewFragment = (HomePreviewFragment) fragmentAdapter.getItem(2);
 //        HomePreviewFragment.startPreview();

@@ -60,10 +60,10 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     public String getSearchTerm(){
         return this.searchTerm;
     }
-    public void setFlashcardInfo(FlashcardInfo FlashcardInfo){
+    public void setFlashcardInfo(FlashcardInfo FlashcardInfo){//sets Flashcard Info for other Fragments
         this.FlashcardInfo = FlashcardInfo;
     }
-    public FlashcardInfo getFlashcardInfo(){
+    public FlashcardInfo getFlashcardInfo(){//getter for other fragments
         return this.FlashcardInfo;
     }
     public void setScreenTransitionUp(){
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
                 if (actionId == EditorInfo.IME_NULL
                         && event.getAction() == KeyEvent.ACTION_DOWN) {
 //                    example_confirm();//match this behavior to your 'Send' (or Confirm) button
-                    setSearchTerm(searchEditText.getText().toString());
+                    setSearchTerm(searchEditText.getText().toString().toLowerCase());
                     setupInitialViewPager(mViewPager);
                 }
                 return true;

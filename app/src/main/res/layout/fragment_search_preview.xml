@@ -84,6 +84,12 @@
                 android:layout_marginLeft="10dp"
                 android:text="Speed Round"
                 android:id="@+id/speedRoundBtn" />
+            <!--<Button-->
+                <!--android:id="@+id/matchBtn"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/cardsBtn"-->
+                <!--android:text="Match temp Btn"/>-->
 
 
         </RelativeLayout>

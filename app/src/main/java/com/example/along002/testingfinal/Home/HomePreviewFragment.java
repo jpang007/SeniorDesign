@@ -29,7 +29,7 @@ public class HomePreviewFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
-    private Button cardsBtn, speedRoundBtn;
+    private Button cardsBtn, speedRoundBtn,matchBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -79,6 +79,14 @@ public class HomePreviewFragment extends Fragment{
                 HomeActivity.setUpDialog();
             }
         });
+
+//        matchBtn = view.findViewById(R.id.matchBtn);
+//        matchBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity().getApplicationContext(),)
+//            }
+//        });
 
         cardSize = view.findViewById(R.id.cardSize);
         cardSize.setText(flashcardInfo.getSize() + " cards");

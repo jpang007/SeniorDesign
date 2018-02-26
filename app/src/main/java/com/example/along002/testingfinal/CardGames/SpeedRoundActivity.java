@@ -32,6 +32,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
     private ArrayList<String> defList = new ArrayList<>();
     private int cnt = 0;
     public int counter, timerCnt;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
             shuffleLists();
         }
 
-        new CountDownTimer(timerCnt, 1000){ //Timer, when time is over ask to retry
+        timer =  new CountDownTimer(timerCnt, 1000){ //Timer, when time is over ask to retry
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -94,6 +95,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                timer.cancel();
             }
         });
 
@@ -112,6 +114,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
 
                 if (isCorrect(guessString, testChoice)) {
                     if (cnt == defList.size()){ //reached the end of the set list
+                        timer.cancel();
                         finish();
                     }
                     else {
@@ -139,6 +142,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
 
                 if (isCorrect(guessString, testChoice)) {
                     if (cnt == defList.size()){ //reached the end of the set list
+                        timer.cancel();
                         finish();
                     }
                     else {
@@ -209,6 +213,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                        timer.cancel();
                         finish();
                     }
                 });

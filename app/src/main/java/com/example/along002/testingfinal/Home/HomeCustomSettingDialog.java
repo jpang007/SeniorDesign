@@ -24,7 +24,7 @@ import com.example.along002.testingfinal.Search.SearchActivity;
  * Created by along002 on 2/22/2018.
  */
 
-public class HomeCustomSettingDialog extends DialogFragment {
+public class HomeCustomSettingDialog extends DialogFragment {//DialogSetting for speed round
 
     private ImageView cancelImageView;
     private TextView continueTextView;

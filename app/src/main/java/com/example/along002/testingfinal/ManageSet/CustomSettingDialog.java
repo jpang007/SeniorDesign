@@ -27,7 +27,7 @@ import com.example.along002.testingfinal.R;
  * Created by along002 on 2/22/2018.
  */
 
-public class CustomSettingDialog extends DialogFragment {
+public class CustomSettingDialog extends DialogFragment {//DialogSetting for speed round
 
     private ImageView cancelImageView;
     private TextView continueTextView;

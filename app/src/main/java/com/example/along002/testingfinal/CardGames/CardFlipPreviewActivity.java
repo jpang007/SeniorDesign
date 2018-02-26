@@ -46,8 +46,5 @@ public class CardFlipPreviewActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(CardFlipPreviewActivity.this));
 
-
-
-
     }
 }
