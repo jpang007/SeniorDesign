@@ -22,6 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +35,7 @@ public class SearchSetListFragment extends Fragment implements SetPreviewRecycle
     private RecyclerView recyclerView;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = database.getReference();
+    private HashMap<String, Boolean> favMap = new HashMap<>();
 
     public SearchSetListFragment() {
         // Required empty public constructor
@@ -48,17 +50,19 @@ public class SearchSetListFragment extends Fragment implements SetPreviewRecycle
 
         final SearchActivity SearchActivity = (SearchActivity)getActivity();
         recyclerView = view.findViewById(R.id.recyclerView);
+        favMap = SearchActivity.getFavMap();
 
         mCallback = (OnItemSelect) getActivity();
 
         String mSearchTerm = SearchActivity.getSearchTerm();
 
-        Query mTagSearh = myRef.child("tags").child(mSearchTerm)
+        Query mTagSearch = myRef.child("tags").child(mSearchTerm)
                 .orderByChild("FlashId").startAt("");
 
-        mTagSearh.addListenerForSingleValueEvent(new ValueEventListener() {
+        mTagSearch.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mSetInfoList.clear();
                 ArrayList<String> flashIdList = new ArrayList<>(); // a list of all flash id with the search tag
                 DatabaseReference mFlashSearch = FirebaseDatabase.getInstance().getReference().child("Flashcards");
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //iterate through all FlashId
@@ -75,8 +79,7 @@ public class SearchSetListFragment extends Fragment implements SetPreviewRecycle
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             FlashcardInfo tempFlashcardInfo = dataSnapshot.getValue(FlashcardInfo.class);
                             mSetInfoList.add(tempFlashcardInfo);
-
-                            SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList,SearchSetListFragment.this);
+                            SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList,favMap, SearchSetListFragment.this);
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 

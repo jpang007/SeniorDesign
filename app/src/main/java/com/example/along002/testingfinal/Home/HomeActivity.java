@@ -5,28 +5,37 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
 import com.example.along002.testingfinal.FlashcardInfo;
-import com.example.along002.testingfinal.ManageSet.CustomSettingDialog;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Search.SearchCustomSettingDialog;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
+import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class HomeActivity extends AppCompatActivity implements LatestSetsFragment.HomeOnItemSelect {
+public class HomeActivity extends AppCompatActivity implements LatestSetsFragment.HomeOnItemSelect, FavoritesFragment.HomeOnItemSelect {
     private static final String TAG = "HomeActivity";
     private final int ACTIVITY_NUM = 0;
     private ViewPager viewPager;
+    private FirebaseAuth mAuth;
     private FlashcardInfo FlashcardInfo = new FlashcardInfo();
     private int direction = 0;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
     private SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
 
 
@@ -46,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
     public void setScreenTransitionUp(){
         this.direction = 1;
     }
+
     public void setUpDialog(){
         HomeCustomSettingDialog dialog = new HomeCustomSettingDialog();
         dialog.show(getFragmentManager(), "HomeCustomSettingDialog");
@@ -71,18 +81,44 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager = findViewById(R.id.container);
 
-
+        setUpFavoriteList();
         setupBottomNavigationView();
         setupViewPager();
+    }
+
+    public HashMap<String,Boolean> getFavMap(){
+        return favMap;
+    }
+
+    public void setUpFavoriteList(){
+        mAuth = FirebaseAuth.getInstance();
+        DatabaseReference mFavoritesSetRef = FirebaseDatabase.getInstance().getReference()
+                .child("favorites").child(mAuth.getCurrentUser().getUid());
+        Query mFavoritesSet = mFavoritesSetRef.orderByChild("FlashId").startAt("");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                favMap.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String flashId = (String) snapshot.child("FlashId").getValue();
+                    favMap.put(flashId,true);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mFavoritesSet.addValueEventListener(eventListener);
     }
 
     //Sets up the 2 tabs on top
     private void setupViewPager(){
 
         adapter.addFragment(new LatestSetsFragment());//index at 0
-        adapter.addFragment(new HomeFragment());//index at 1
+        adapter.addFragment(new FavoritesFragment());//index at 1
         adapter.addFragment(new HomePreviewFragment());//index at 2
 
 
@@ -105,11 +141,6 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-//        tabLayout.getTabAt(0).setText("Latest Sets");
-//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_camera);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_android);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_search);
-
     }
 
     public void setViewPager(int fragmentNumber){

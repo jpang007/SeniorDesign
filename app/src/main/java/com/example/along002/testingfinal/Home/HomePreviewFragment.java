@@ -24,6 +24,13 @@ import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,17 +40,29 @@ import java.util.ArrayList;
 
 public class HomePreviewFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
+    private FirebaseAuth mAuth;
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
     private Button cardsBtn, speedRoundBtn,matchBtn;
     private ImageButton favoriteBtn;
+    private FirebaseUser currentUser;
+    private DatabaseReference mFavoriteDatabase;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
 
     public void onToggleStar(View v){
         favoriteBtn.setSelected(!favoriteBtn.isSelected());
-
+        if (favoriteBtn.isSelected() == true){
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .setValue(flashcardInfo.getId());
+        }
+        else {
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .removeValue();
+        }
 
     }
 
@@ -60,6 +79,10 @@ public class HomePreviewFragment extends Fragment{
     public void startPreview(){
         final HomeActivity HomeActivity = (com.example.along002.testingfinal.Home.HomeActivity)getActivity();
         flashcardInfo = HomeActivity.getFlashcardInfo();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        mFavoriteDatabase = FirebaseDatabase.getInstance().getReference()
+                            .child("favorites");
 
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
@@ -108,6 +131,7 @@ public class HomePreviewFragment extends Fragment{
         });
 
         favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        checkIfFavorite();
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,4 +158,41 @@ public class HomePreviewFragment extends Fragment{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
+
+    private void checkIfFavorite(){
+        final DatabaseReference mCheckIfFavorite = FirebaseDatabase.getInstance().getReference().child("favorites");
+        mCheckIfFavorite.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(currentUser.getUid()).exists()){
+                    mCheckIfFavorite.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child(flashcardInfo.getId()).exists()){
+                                favoriteBtn.setSelected(true);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mCheckIfFavorite.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(flashcardInfo.getId()).exists()){
+                    favoriteBtn.setSelected(true);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
 }

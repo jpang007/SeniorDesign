@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by along002 on 2/2/2018.
@@ -34,6 +35,7 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
     private static final String TAG = "SetListFragment";
     private ArrayList<FlashcardInfo> mSetInfoList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
 
 
     @Nullable
@@ -42,6 +44,9 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
         View view = inflater.inflate(R.layout.fragment_set_list,container,false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
+
+        ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
+        favMap = ManageSetActivity.getFavMap();
 
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mUserFlash = FirebaseDatabase.getInstance().getReference().child("usersFlash").child(UID);
@@ -62,7 +67,7 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             FlashcardInfo tempFlashcardInfo = dataSnapshot.getValue(FlashcardInfo.class);
                             mSetInfoList.add(tempFlashcardInfo);
-                            SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList,SetListFragment.this);
+                            SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList, favMap,SetListFragment.this);
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 

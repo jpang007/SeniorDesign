@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import com.example.along002.testingfinal.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by along002 on 2/24/2018.
@@ -23,11 +26,13 @@ public class SetPreviewRecyclerAdapter extends RecyclerView.Adapter<SetPreviewRe
     private OnItemClick mCallback;
     private Context mContext;
     private ArrayList<FlashcardInfo> mSetInfoList = new ArrayList<>();
+    private HashMap<String, Boolean> mFavMap = new HashMap<>();
 
 
-    public SetPreviewRecyclerAdapter(Context mContext, ArrayList<FlashcardInfo> mSetInfoList, OnItemClick listener) {
+    public SetPreviewRecyclerAdapter(Context mContext, ArrayList<FlashcardInfo> mSetInfoList, HashMap<String,Boolean> mFavMap, OnItemClick listener) {
         this.mContext = mContext;
         this.mSetInfoList = mSetInfoList;
+        this.mFavMap = mFavMap;
         this.mCallback = listener;
     }
 
@@ -60,7 +65,9 @@ public class SetPreviewRecyclerAdapter extends RecyclerView.Adapter<SetPreviewRe
             }
         }
         holder.setTags.setText(tag);
-
+        if (mFavMap.containsKey(mSetInfoList.get(position).getId()) == true){
+            holder.favoriteView.setSelected(true);
+        }
         holder.parent_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +89,7 @@ public class SetPreviewRecyclerAdapter extends RecyclerView.Adapter<SetPreviewRe
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView setName, setAuthor, setSize, setTags;
+        ImageButton favoriteView;
         LinearLayout parent_layout;
 
         public ViewHolder(View itemView) {
@@ -91,6 +99,7 @@ public class SetPreviewRecyclerAdapter extends RecyclerView.Adapter<SetPreviewRe
             setSize = itemView.findViewById(R.id.setSize);
             setTags = itemView.findViewById(R.id.setTags);
             parent_layout = itemView.findViewById(R.id.parent_layout);
+            favoriteView = itemView.findViewById(R.id.favoriteView);
 
 
         }

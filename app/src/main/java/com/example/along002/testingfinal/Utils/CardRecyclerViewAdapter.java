@@ -45,12 +45,6 @@ public class CardRecyclerViewAdapter extends RecyclerView.Adapter<CardRecyclerVi
         holder.def.setText(mDefList.get(position));
         holder.term.setText(mTermList.get(position));
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "Clicked on " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -69,7 +63,6 @@ public class CardRecyclerViewAdapter extends RecyclerView.Adapter<CardRecyclerVi
             def = itemView.findViewById(R.id.card_Def);
             term = itemView.findViewById(R.id.card_Term);
             parentLayout = itemView.findViewById(R.id.parent_layout);
-
         }
     }
 }

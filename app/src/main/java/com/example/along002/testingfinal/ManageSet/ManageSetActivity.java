@@ -19,9 +19,16 @@ import com.example.along002.testingfinal.Search1.SearchActivity1;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import java.util.HashMap;
 
 /**
  * Created by along002 on 2/1/2018.
@@ -32,7 +39,9 @@ public class ManageSetActivity extends AppCompatActivity {
     private final int ACTIVITY_NUM = 2;
     private SectionPagerAdapter mSectionStatePagerAdapter;
     private ViewPager mViewPager;
-    private ViewPager mParentViewPager;
+    private FirebaseAuth mAuth;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
+
     private int direction = 0;
     private FlashcardInfo FlashcardInfo;
 
@@ -73,6 +82,31 @@ public class ManageSetActivity extends AppCompatActivity {
     public void setFlashcardInfo(FlashcardInfo FlashcardInfo){ //setter for other fragments to set FlashInfo
         this.FlashcardInfo = FlashcardInfo;
     }
+    public HashMap<String,Boolean> getFavMap(){
+        return favMap;
+    }
+
+    public void setUpFavoriteList(){
+        mAuth = FirebaseAuth.getInstance();
+        DatabaseReference mFavoritesSetRef = FirebaseDatabase.getInstance().getReference()
+                .child("favorites").child(mAuth.getCurrentUser().getUid());
+        Query mFavoritesSet = mFavoritesSetRef.orderByChild("FlashId").startAt("");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                favMap.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String flashId = (String) snapshot.child("FlashId").getValue();
+                    favMap.put(flashId,true);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mFavoritesSet.addValueEventListener(eventListener);
+    }
 
     public void deleteSet(){
         FlashcardInfo deletedFlashCard = this.FlashcardInfo;
@@ -101,6 +135,7 @@ public class ManageSetActivity extends AppCompatActivity {
         mSectionStatePagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
 
+        setUpFavoriteList();
         setupInitialViewPager(mViewPager);
 
     }

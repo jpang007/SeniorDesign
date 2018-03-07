@@ -19,11 +19,17 @@ import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
+
+import java.util.HashMap;
 
 
 /**
@@ -40,6 +46,8 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     private FlashcardInfo FlashcardInfo;
     private SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
     private int direction = 0;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
+
 
 
     @Override
@@ -96,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
                 return true;
             }
         };
-
+        setUpFavoriteList();
         searchEditText.setOnEditorActionListener(searchListener);
     }
 
@@ -111,7 +119,31 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     public void setViewPager(int fragmentNumber){
         mViewPager.setCurrentItem(fragmentNumber);
     }
+    public HashMap<String,Boolean> getFavMap(){
+        return favMap;
+    }
 
+    public void setUpFavoriteList(){
+        mAuth = FirebaseAuth.getInstance();
+        DatabaseReference mFavoritesSetRef = FirebaseDatabase.getInstance().getReference()
+                .child("favorites").child(mAuth.getCurrentUser().getUid());
+        Query mFavoritesSet = mFavoritesSetRef.orderByChild("FlashId").startAt("");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                favMap.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String flashId = (String) snapshot.child("FlashId").getValue();
+                    favMap.put(flashId,true);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mFavoritesSet.addValueEventListener(eventListener);
+    }
 
     // BottomNavigationView setup
     private void setupBottomNavigationView(){

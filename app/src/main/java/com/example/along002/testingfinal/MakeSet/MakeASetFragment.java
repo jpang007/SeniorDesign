@@ -55,12 +55,11 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
     private RadioButton radioButton,publicRadioButton;
     private RadioGroup radioGroup;
     private TextView publishTextView;
-    private  MakeSetRecyclerViewAdapter adapter;
+    private MakeSetRecyclerViewAdapter adapter;
 
-//    public MakeASetFragment() {
-//        // Required empty public constructor
-//    }
-
+    public MakeASetFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)  {
