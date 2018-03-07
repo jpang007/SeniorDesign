@@ -1,6 +1,10 @@
 package com.example.along002.testingfinal.Home;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +36,16 @@ public class HomePreviewFragment extends Fragment{
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
     private Button cardsBtn, speedRoundBtn,matchBtn;
+    private ImageButton favoriteBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
+
+    public void onToggleStar(View v){
+        favoriteBtn.setSelected(!favoriteBtn.isSelected());
+
+
+    }
 
     @Nullable
     @Override
@@ -73,6 +85,7 @@ public class HomePreviewFragment extends Fragment{
                 startActivity(intent);
             }
         });
+
         speedRoundBtn = view.findViewById(R.id.speedRoundBtn);
         speedRoundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +107,17 @@ public class HomePreviewFragment extends Fragment{
             }
         });
 
+        favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onToggleStar(v);
+            }
+        });
+
         cardSize = view.findViewById(R.id.cardSize);
         cardSize.setText(flashcardInfo.getSize() + " cards");
+
         author = view.findViewById(R.id.author);
         author.setText(flashcardInfo.getAuthor());
 
@@ -104,10 +126,6 @@ public class HomePreviewFragment extends Fragment{
 
         initRecyclerView();
 
-    }
-
-    public void test(){
-        Toast.makeText(getActivity().getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
     }
 
     private void initRecyclerView(){

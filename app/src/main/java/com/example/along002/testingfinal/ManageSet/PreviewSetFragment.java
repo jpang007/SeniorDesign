@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,18 +35,25 @@ public class PreviewSetFragment extends Fragment{
     private FlashcardInfo flash;
     private TextView cardSize,author,setName, tagsTextView;
     private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
+    private ImageButton favoriteBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
+
+
+    public void onToggleStar(View v){
+        favoriteBtn.setSelected(!favoriteBtn.isSelected());
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View viewInit = inflater.inflate(R.layout.fragment_preview_set,container,false);
         view = viewInit;
-
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
         final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
 
@@ -58,6 +66,7 @@ public class PreviewSetFragment extends Fragment{
                 tagsTextView.setText(tagsTextView.getText().toString() + ", " + flashcardInfo.getTagList().get(i));
             }
         }
+
         cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
         cardsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +76,14 @@ public class PreviewSetFragment extends Fragment{
                 intent.putStringArrayListExtra("termList",termList);
                 ManageSetActivity.setScreenTransitionUp();
                 startActivity(intent);
+            }
+        });
+
+        favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onToggleStar(v);
             }
         });
 
@@ -96,6 +113,7 @@ public class PreviewSetFragment extends Fragment{
 
         cardSize = view.findViewById(R.id.cardSize);
         cardSize.setText(flashcardInfo.getSize() + " cards");
+
         author = view.findViewById(R.id.author);
         author.setText(flashcardInfo.getAuthor());
 
@@ -106,37 +124,11 @@ public class PreviewSetFragment extends Fragment{
 
         return viewInit;
     }
+
     private void initRecyclerView(){
         RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

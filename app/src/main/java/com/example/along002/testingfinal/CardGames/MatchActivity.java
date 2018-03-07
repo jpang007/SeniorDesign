@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.along002.testingfinal.Home.LatestSetsFragment;
 import com.example.along002.testingfinal.R;
@@ -74,9 +76,11 @@ public class MatchActivity extends AppCompatActivity {
         }
         shuffledCardsList = tempShuffledCards;
 
-        MatchRecyclerAdapter adapter = new MatchRecyclerAdapter(this, termList,defList,shuffledCardsList,indexArr,termMap,defMap);
+
+        MatchRecyclerAdapter adapter = new MatchRecyclerAdapter(this, termList,defList,shuffledCardsList,indexArr,termMap,defMap,recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+//        adapter.notifyDataSetChanged();
 
     }
 

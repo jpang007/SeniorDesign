@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class SearchPreviewFragment extends Fragment{
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
     private Button cardsBtn, speedRoundBtn, matchBtn;
+    private ImageButton favoriteBtn;
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -38,6 +40,10 @@ public class SearchPreviewFragment extends Fragment{
         // Required empty public constructor
     }
 
+    public void onToggleStar(View v){
+        favoriteBtn.setSelected(!favoriteBtn.isSelected());
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,8 +94,17 @@ public class SearchPreviewFragment extends Fragment{
 
         cardSize = view.findViewById(R.id.cardSize);
         cardSize.setText(flashcardInfo.getSize() + " cards");
+
         author = view.findViewById(R.id.author);
         author.setText(flashcardInfo.getAuthor());
+
+        favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onToggleStar(v);
+            }
+        });
 
         matchBtn = view.findViewById(R.id.matchBtn);
         matchBtn.setOnClickListener(new View.OnClickListener() {
