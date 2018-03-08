@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Search.SearchSetListFragment;
 import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

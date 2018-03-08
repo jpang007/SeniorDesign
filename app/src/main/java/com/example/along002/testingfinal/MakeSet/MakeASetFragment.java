@@ -1,21 +1,16 @@
 package com.example.along002.testingfinal.MakeSet;
 
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -23,10 +18,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.User;
-import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
+import com.example.along002.testingfinal.Utils.User;
 import com.example.along002.testingfinal.Utils.MakeSetRecyclerViewAdapter;
 import com.example.along002.testingfinal.Utils.RecyclerItemTouchHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

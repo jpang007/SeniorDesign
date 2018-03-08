@@ -12,26 +12,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
 import com.example.along002.testingfinal.CardGames.MatchActivity;
-import com.example.along002.testingfinal.FlashcardInfo;
-import com.example.along002.testingfinal.ManageSet.ManageSetActivity;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SearchPreviewFragment extends Fragment{
 
+    private static final String TAG = "SearchPreviewFragment";
+    private FirebaseAuth mAuth;
     private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
     private Button cardsBtn, speedRoundBtn, matchBtn;
     private ImageButton favoriteBtn;
+    private FirebaseUser currentUser;
+    private DatabaseReference mFavoriteDatabase;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -42,6 +50,16 @@ public class SearchPreviewFragment extends Fragment{
 
     public void onToggleStar(View v){
         favoriteBtn.setSelected(!favoriteBtn.isSelected());
+        if (favoriteBtn.isSelected() == true){
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .setValue(flashcardInfo.getId());
+        }
+        else {
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .removeValue();
+        }
 
     }
 
@@ -59,7 +77,11 @@ public class SearchPreviewFragment extends Fragment{
     public void startPreview(){
         final SearchActivity SearchActivity = (SearchActivity)getActivity();
         flashcardInfo = SearchActivity.getFlashcardInfo();
-
+        favMap = SearchActivity.getFavMap();
+        mFavoriteDatabase = FirebaseDatabase.getInstance().getReference()
+                .child("favorites");
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
 
@@ -99,6 +121,9 @@ public class SearchPreviewFragment extends Fragment{
         author.setText(flashcardInfo.getAuthor());
 
         favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        if (favMap.containsKey(flashcardInfo.getId()) == true ){
+            favoriteBtn.setSelected(true);
+        }
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,5 +155,4 @@ public class SearchPreviewFragment extends Fragment{
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
-
 }

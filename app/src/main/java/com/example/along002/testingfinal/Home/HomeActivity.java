@@ -5,17 +5,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
-import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +23,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity implements LatestSetsFragment.HomeOnItemSelect, FavoritesFragment.HomeOnItemSelect {
@@ -124,7 +121,6 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
 
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addTab(tabLayout.newTab().setText("All Sets"));
         tabLayout.addTab(tabLayout.newTab().setText("Favorites"));
 
@@ -147,6 +143,15 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
         viewPager.setCurrentItem(fragmentNumber);
     }
 
+    @Override
+    public void itemSelected() {// an item is selected from LatestSetsFragment
+        SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)viewPager.getAdapter();
+        HomePreviewFragment HomePreviewFragment = (HomePreviewFragment) fragmentAdapter.getItem(2);
+        setViewPager(1);
+        HomePreviewFragment.startPreview();
+        setViewPager(2);
+    }
+
     // BottomNavigationView setup
     private void setupBottomNavigationView(){
         Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
@@ -158,14 +163,4 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
         menuItem.setChecked(true);
     }
 
-    @Override
-    public void itemSelected() {// an item is selected from LatestSetsFragment
-        SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)viewPager.getAdapter();
-        HomePreviewFragment HomePreviewFragment = (HomePreviewFragment) fragmentAdapter.getItem(2);
-//        HomePreviewFragment.startPreview();
-//        HomePreviewFragment.test();
-        setViewPager(1);
-        HomePreviewFragment.startPreview();
-        setViewPager(2);
-    }
 }

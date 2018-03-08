@@ -8,18 +8,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.along002.testingfinal.Home.HomeActivity;
-import com.example.along002.testingfinal.LoginActivity;
+import com.example.along002.testingfinal.LoginAndSignUp.LoginActivity;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.UserMenu;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import java.util.Set;
 
 /**
  * Created by along002 on 2/1/2018.
@@ -42,7 +37,6 @@ public class SettingActivity extends AppCompatActivity {
         setupBottomNavigationView();
         mAuth = FirebaseAuth.getInstance();
         TextView logoutTextView = (TextView) findViewById(R.id.logoutTextView);
-        Button oldCodeBtn = (Button) findViewById(R.id.oldCodeBtn);
 
         logoutTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,13 +46,7 @@ public class SettingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        oldCodeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, UserMenu.class);
-                startActivity(intent);
-            }
-        });
+
     }
     // BottomNavigationView setup
     private void setupBottomNavigationView(){

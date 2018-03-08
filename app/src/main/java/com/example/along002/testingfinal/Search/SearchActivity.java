@@ -13,8 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.inputmethod.EditorInfo;
 import android.content.Intent;
 
-import com.example.along002.testingfinal.FlashcardInfo;
-import com.example.along002.testingfinal.ManageSet.CustomSettingDialog;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +36,7 @@ import java.util.HashMap;
  */
 
 public class SearchActivity extends AppCompatActivity implements SearchSetListFragment.OnItemSelect{
-    private static final String TAG = "SearchActivity1";
+    private static final String TAG = "SearchActivity";
     private final int ACTIVITY_NUM = 3;
     private FirebaseAuth mAuth;
     private EditText searchEditText;
@@ -145,17 +144,6 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
         mFavoritesSet.addValueEventListener(eventListener);
     }
 
-    // BottomNavigationView setup
-    private void setupBottomNavigationView(){
-        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
-        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
-        BottomNavigationViewHelper.enableNavigation(SearchActivity.this,bottomNavigationViewEx);
-        Menu menu = bottomNavigationViewEx.getMenu();
-        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
-    }
-
     public void setUpDialog(){
         SearchCustomSettingDialog dialog = new SearchCustomSettingDialog();
         dialog.show(getFragmentManager(), "SearchCustomSettingDialog");
@@ -176,6 +164,17 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
 
         SearchPreviewFragment.startPreview();
         setViewPager(1);
-
     }
+
+    // BottomNavigationView setup
+    private void setupBottomNavigationView(){
+        Log.d(TAG, "setupBottomNavigationView: setting up BottomNavigationView");
+        BottomNavigationViewEx bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.setupBottomNavigationView(bottomNavigationViewEx);
+        BottomNavigationViewHelper.enableNavigation(SearchActivity.this,bottomNavigationViewEx);
+        Menu menu = bottomNavigationViewEx.getMenu();
+        MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
+    }
+
 }

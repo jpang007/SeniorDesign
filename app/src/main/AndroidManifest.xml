@@ -9,25 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginAndSignUp.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUp" />
-        <activity android:name=".UserPage" />
-        <activity android:name=".UserMenu" />
-        <activity android:name=".FlashcardInitSettings" />
-        <activity android:name=".ViewFlashCards" />
-        <activity android:name=".chooseAFlashcard" />
+        <activity android:name=".LoginAndSignUp.SignUp" />
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".Setting.SettingActivity" />
         <activity android:name=".Search.SearchActivity" />
         <activity android:name=".ManageSet.ManageSetActivity" />
         <activity android:name=".MakeSet.MakeSetActivity" />
-        <activity android:name=".Search1.SearchActivity1" />
         <activity android:name=".CardGames.CardFlipPreviewActivity" />
         <activity android:name=".CardGames.SpeedRoundActivity" />
         <activity android:name=".CardGames.MatchActivity"></activity>

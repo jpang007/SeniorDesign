@@ -1,10 +1,6 @@
 package com.example.along002.testingfinal.Home;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,23 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
 import com.example.along002.testingfinal.CardGames.MatchActivity;
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Search.SearchActivity;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by along002 on 1/31/2018.
@@ -47,6 +39,7 @@ public class HomePreviewFragment extends Fragment{
     private ImageButton favoriteBtn;
     private FirebaseUser currentUser;
     private DatabaseReference mFavoriteDatabase;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -78,6 +71,7 @@ public class HomePreviewFragment extends Fragment{
 
     public void startPreview(){
         final HomeActivity HomeActivity = (com.example.along002.testingfinal.Home.HomeActivity)getActivity();
+        favMap = HomeActivity.getFavMap();
         flashcardInfo = HomeActivity.getFlashcardInfo();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -131,7 +125,9 @@ public class HomePreviewFragment extends Fragment{
         });
 
         favoriteBtn = view.findViewById(R.id.favoriteBtn);
-        checkIfFavorite();
+        if (favMap.containsKey(flashcardInfo.getId()) == true ){
+            favoriteBtn.setSelected(true);
+        }
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +145,6 @@ public class HomePreviewFragment extends Fragment{
         setName.setText(flashcardInfo.getName());
 
         initRecyclerView();
-
     }
 
     private void initRecyclerView(){
@@ -157,42 +152,6 @@ public class HomePreviewFragment extends Fragment{
         CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-    }
-
-    private void checkIfFavorite(){
-        final DatabaseReference mCheckIfFavorite = FirebaseDatabase.getInstance().getReference().child("favorites");
-        mCheckIfFavorite.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(currentUser.getUid()).exists()){
-                    mCheckIfFavorite.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(flashcardInfo.getId()).exists()){
-                                favoriteBtn.setSelected(true);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        mCheckIfFavorite.child(currentUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(flashcardInfo.getId()).exists()){
-                    favoriteBtn.setSelected(true);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 
 }

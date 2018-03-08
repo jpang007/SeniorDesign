@@ -10,12 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
-import com.example.along002.testingfinal.FlashcardInfo;
-import com.example.along002.testingfinal.Search1.SearchActivity1;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
@@ -34,7 +31,7 @@ import java.util.HashMap;
  * Created by along002 on 2/1/2018.
  */
 
-public class ManageSetActivity extends AppCompatActivity {
+public class ManageSetActivity extends AppCompatActivity implements SetListFragment.ManageOnItemSelect {
     private static final String TAG = "ManageSetActivity";
     private final int ACTIVITY_NUM = 2;
     private SectionPagerAdapter mSectionStatePagerAdapter;
@@ -122,7 +119,7 @@ public class ManageSetActivity extends AppCompatActivity {
         }
         removeFlashId.removeValue();
         removeUIDtoFlashId.removeValue();
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         setupInitialViewPager(mViewPager);
     }
 
@@ -133,10 +130,10 @@ public class ManageSetActivity extends AppCompatActivity {
         setupBottomNavigationView();
 
         mSectionStatePagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
 
         setUpFavoriteList();
-        setupInitialViewPager(mViewPager);
+        setupViewPager();
 
     }
     public void restartActivity(){
@@ -200,5 +197,14 @@ public class ManageSetActivity extends AppCompatActivity {
         Menu menu = bottomNavigationViewEx.getMenu();
         MenuItem menuItem = menu.getItem(ACTIVITY_NUM);
         menuItem.setChecked(true);
+    }
+
+    @Override
+    public void itemSelected() {
+        SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)mViewPager.getAdapter();
+        PreviewSetFragment PreviewSetFragment = (PreviewSetFragment) fragmentAdapter.getItem(1);
+
+        PreviewSetFragment.startPreview();
+        setViewPager(1);
     }
 }

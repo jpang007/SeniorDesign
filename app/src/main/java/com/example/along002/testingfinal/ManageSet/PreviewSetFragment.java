@@ -1,30 +1,29 @@
 package com.example.along002.testingfinal.ManageSet;
 
-import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.CardRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by along002 on 2/2/2018.
@@ -32,10 +31,14 @@ import java.util.ArrayList;
 
 public class PreviewSetFragment extends Fragment{
     private static final String TAG = "PreviewSetFragment";
-    private FlashcardInfo flash;
+    private FirebaseAuth mAuth;
+    private FlashcardInfo flashcardInfo;
     private TextView cardSize,author,setName, tagsTextView;
     private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
     private ImageButton favoriteBtn;
+    private FirebaseUser currentUser;
+    private DatabaseReference mFavoriteDatabase;
+    private HashMap<String, Boolean> favMap = new HashMap<>();
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
@@ -43,16 +46,36 @@ public class PreviewSetFragment extends Fragment{
 
     public void onToggleStar(View v){
         favoriteBtn.setSelected(!favoriteBtn.isSelected());
-
+        if (favoriteBtn.isSelected() == true){
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .setValue(flashcardInfo.getId());
+        }
+        else {
+            mFavoriteDatabase.child(currentUser.getUid())
+                    .child(flashcardInfo.getId()).child("FlashId")
+                    .removeValue();
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View viewInit = inflater.inflate(R.layout.fragment_preview_set,container,false);
+
         view = viewInit;
+
+        return viewInit;
+    }
+
+    public void startPreview(){
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-        final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+        flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+        favMap = ManageSetActivity.getFavMap();
+        mFavoriteDatabase = FirebaseDatabase.getInstance().getReference()
+                .child("favorites");
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         defList = flashcardInfo.getDefinitionList();//def list
         termList = flashcardInfo.getTermList();//term list
@@ -80,6 +103,9 @@ public class PreviewSetFragment extends Fragment{
         });
 
         favoriteBtn = view.findViewById(R.id.favoriteBtn);
+        if (favMap.containsKey(flashcardInfo.getId()) == true ){
+            favoriteBtn.setSelected(true);
+        }
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,8 +147,6 @@ public class PreviewSetFragment extends Fragment{
         setName.setText(flashcardInfo.getName());
 
         initRecyclerView();
-
-        return viewInit;
     }
 
     private void initRecyclerView(){

@@ -8,13 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.along002.testingfinal.FlashcardInfo;
+import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
-import com.example.along002.testingfinal.Utils.FlashcardDisplayAdapter;
 import com.example.along002.testingfinal.Utils.SetPreviewRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +29,7 @@ import java.util.HashMap;
 public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapter.OnItemClick{
 
     private static final String TAG = "SetListFragment";
+    private ManageOnItemSelect mCallback;
     private ArrayList<FlashcardInfo> mSetInfoList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HashMap<String, Boolean> favMap = new HashMap<>();
@@ -48,6 +45,8 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
         ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
         favMap = ManageSetActivity.getFavMap();
 
+        mCallback = (ManageOnItemSelect) getActivity();
+
         String UID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mUserFlash = FirebaseDatabase.getInstance().getReference().child("usersFlash").child(UID);
         mUserFlash.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,7 +59,7 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
                     flashIdList.add(setId);//Add sets to a list for recycler view
                 }
 
-                for(int i = 0;i < flashIdList.size(); i++){ //iterate through arraylist to add to the adapter
+                for(int i = 0;i < flashIdList.size(); i++){ //iterate through array list to add to the adapter
                     DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));
                     mFlashcard.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -86,12 +85,17 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
         return view;
     }
 
+    public interface ManageOnItemSelect {
+        void itemSelected();
+    }
+
     @Override
     public void onClick(int position) {
-        ManageSetActivity ManageSetActivity = (ManageSetActivity) getActivity();
-        ManageSetActivity.setFlashcardInfo(mSetInfoList.get(position));
+        FlashcardInfo selectedItem = mSetInfoList.get(position);
+        ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
+        ManageSetActivity.setFlashcardInfo(selectedItem);
+        mCallback.itemSelected();
 
-        ManageSetActivity.setupViewPager();
-        ManageSetActivity.setViewPager(1);
+
     }
 }
