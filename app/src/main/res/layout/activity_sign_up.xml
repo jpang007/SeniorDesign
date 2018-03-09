@@ -43,76 +43,31 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
-                android:layout_alignLeft="@+id/testArr"
-                android:layout_alignStart="@+id/testArr"
                 android:layout_below="@+id/editTextPass"
-                android:layout_marginLeft="52dp"
-                android:layout_marginStart="52dp"
-                android:layout_marginTop="90dp"
                 android:ems="10"
                 android:hint="E-Mail"
-                android:inputType="textEmailAddress"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/editTextPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/nameTextView"
-                android:layout_alignLeft="@+id/nameTextView"
-                android:layout_alignStart="@+id/nameTextView"
-                android:layout_marginBottom="19dp"
                 android:ems="10"
                 android:hint="password"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
-
-            <Button
-                android:id="@+id/signUpBtn"
-                android:layout_width="84dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextEmail"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="27dp"
-                android:text="Sign Up"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPass" />
-
+                android:inputType="textPassword" />
             <EditText
                 android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/editTextEmail"
-                android:layout_alignStart="@+id/editTextEmail"
-                android:layout_centerVertical="true"
                 android:ems="10"
                 android:hint="Name"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPass" />
-
+                android:inputType="textPersonName"/>
             <Button
-                android:id="@+id/testArr"
-                android:layout_width="wrap_content"
+                android:id="@+id/signUpBtn"
+                android:layout_width="84dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="46dp"
-                android:layout_marginStart="46dp"
-                android:layout_marginTop="14dp"
-                android:text="Button"
-                tools:layout_editor_absoluteX="24dp"
-                tools:layout_editor_absoluteY="287dp" />
+                android:layout_marginTop="27dp"
+                android:text="Sign Up" />
         </RelativeLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -21,7 +21,9 @@
             android:background="@color/top_blue">
 
             <RelativeLayout
-                android:background="@drawable/rounded_edittext"
+                android:paddingLeft="3dp"
+                android:paddingRight="5dp"
+                android:background="@drawable/rounded_edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
@@ -33,6 +35,7 @@
                     android:src="@drawable/ic_search"/>
 
                 <EditText
+                    android:paddingLeft="4dp"
                     android:id="@+id/searchEditText"
                     android:singleLine="true"
                     android:layout_toRightOf="@+id/searchImageView"
@@ -46,7 +49,6 @@
 
         <!-- middle section -->
         <RelativeLayout
-            android:background="@color/dark_grey"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/rellayout2"

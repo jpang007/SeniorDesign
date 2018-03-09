@@ -114,9 +114,13 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
                 .child("usersFlash").child(deletedFlashCard.getCreator()).child(deletedFlashCard.getId());
         DatabaseReference removeTagReference = FirebaseDatabase.getInstance().getReference()
                 .child("tags");
+        DatabaseReference removeFavorites = FirebaseDatabase.getInstance().getReference()
+                .child("favorites").child(deletedFlashCard.getCreator()).child(deletedFlashCard.getId());
+
         for(int i = 0; i < FlashcardInfo.getTagList().size(); i++){
             removeTagReference.child(FlashcardInfo.getTagList().get(i)).child(FlashcardInfo.getId()).removeValue();
         }
+        removeFavorites.removeValue();
         removeFlashId.removeValue();
         removeUIDtoFlashId.removeValue();
         mViewPager = findViewById(R.id.container);

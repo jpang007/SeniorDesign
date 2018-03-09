@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
@@ -42,6 +43,7 @@ public class HomePreviewFragment extends Fragment{
     private HashMap<String, Boolean> favMap = new HashMap<>();
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
+    private ScrollView previewScrollView;
     View view;
 
     public void onToggleStar(View v){
@@ -145,6 +147,9 @@ public class HomePreviewFragment extends Fragment{
         setName.setText(flashcardInfo.getName());
 
         initRecyclerView();
+
+        previewScrollView = view.findViewById(R.id.previewScrollView);
+        previewScrollView.fullScroll(ScrollView.FOCUS_UP); // scroll to application top
     }
 
     private void initRecyclerView(){
@@ -152,6 +157,8 @@ public class HomePreviewFragment extends Fragment{
         CardRecyclerViewAdapter adapter = new CardRecyclerViewAdapter(getActivity().getApplicationContext(), termList,defList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+
+
     }
 
 }

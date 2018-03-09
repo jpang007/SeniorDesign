@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.along002.testingfinal.LoginAndSignUp.LoginActivity;
+import com.example.along002.testingfinal.LoginAndSignUp.LoginCreateAccountActivity;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +42,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                Intent intent = new Intent(SettingActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SettingActivity.this,LoginCreateAccountActivity.class);
                 startActivity(intent);
             }
         });

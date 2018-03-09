@@ -158,6 +158,7 @@
     <orderEntry type="library" name="com.android.support:support-fragment-27.0.2" level="project" />
     <orderEntry type="library" name="com.android.support:support-media-compat-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-11.0.4" level="project" />
+    <orderEntry type="library" name="__local_aars__:C.\Users\along002\AppData\Local\Android\Sdk\build-tools\26.0.2\renderscript\lib\renderscript-v8.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-auth-11.0.4" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-base-11.0.4" level="project" />

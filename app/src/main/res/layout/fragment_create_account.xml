@@ -1,0 +1,92 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.example.along002.testingfinal.LoginAndSignUp.CreateAccountFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparent_white"
+            android:layout_marginBottom="20dp"
+            android:layout_above="@+id/editTextEmail"
+            android:background="@drawable/rounded_transparent_black"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/nameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:drawablePadding="10dp"/>
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:background="@drawable/rounded_transparent_black"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/editTextEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="E-Mail"
+            android:textColorHint="@color/transparent_white"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/transparent_white"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/editTextEmail"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_transparent_black"
+            android:id="@+id/editTextPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword" />
+
+        <TextView
+
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:background="@drawable/rounded_transparent_green"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/rellayoutBot"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/signUpBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  Sign Up  " />
+
+        <RelativeLayout
+            android:id="@+id/rellayoutBot"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/loginTextView"
+                android:textSize="18sp"
+                android:text="  already an account?  "
+                android:textColor="@color/transparent_white"
+                android:background="@drawable/rounded_transparent_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

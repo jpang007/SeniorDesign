@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-android:layout_height="match_parent"
-    android:background="@color/dark_grey">
+android:layout_height="match_parent">
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -39,12 +36,9 @@ android:layout_height="match_parent"
         android:layout_below="@+id/rellayout1"
         android:layout_above="@+id/botNavBar">
 
-
         <include layout="@layout/layout_center_viewpager" />
 
     </RelativeLayout>
-
-
 
     <!-- bottom navigation -->
     <include layout = "@layout/layout_bottom_navigation_view"/>

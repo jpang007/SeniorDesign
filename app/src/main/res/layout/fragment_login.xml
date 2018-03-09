@@ -1,0 +1,83 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.along002.testingfinal.LoginAndSignUp.LoginFragment">
+
+
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:id="@+id/rellayoutMid"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp">
+        </RelativeLayout>
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:layout_above="@+id/rellayoutMid"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/emailTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="20dp"
+            android:background="@drawable/rounded_transparent_black"
+            android:hint="E-Mail"
+            android:textColorHint="@color/transparent_white"
+            android:textColor="@color/white"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"
+            android:background="@drawable/rounded_transparent_black"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rellayoutMid"
+            android:id="@+id/passwordTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColorHint="@color/transparent_white"
+            android:hint="password"
+            android:textColor="@color/white"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:layout_marginBottom="30dp"
+            android:layout_above="@+id/rellayoutBot"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/loginBtn"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_transparent_dark_blue"
+            android:textColor="@color/white"
+            android:text="     Login     " />
+
+        <RelativeLayout
+            android:id="@+id/rellayoutBot"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:background="@drawable/rounded_transparent_black"
+                android:layout_alignParentRight="true"
+                android:id="@+id/TextViewSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Create Account  "
+                android:textSize="18sp"
+                android:textColor="@color/transparent_white"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>
