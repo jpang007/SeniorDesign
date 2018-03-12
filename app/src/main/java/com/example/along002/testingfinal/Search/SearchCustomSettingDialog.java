@@ -28,7 +28,7 @@ public class SearchCustomSettingDialog extends DialogFragment {//DialogSetting f
     private ImageView cancelImageView;
     private TextView continueTextView;
     private RadioGroup radioGroup;
-    private RadioButton defRadioButton, termRadioButton;
+    private RadioButton termRadioButton;
     private EditText timerEditText;
     private CheckBox randomizeCheckbox;
 
@@ -60,7 +60,7 @@ public class SearchCustomSettingDialog extends DialogFragment {//DialogSetting f
 
                 SearchActivity SearchActivity = (SearchActivity) getActivity();
                 SearchActivity.goToSpeedRound(testChoice,Integer.valueOf(timerEditText.getText().toString()),isRandomized);
-
+                SearchActivity.setScreenTransitionUp();
                 getDialog().dismiss();
             }
         });

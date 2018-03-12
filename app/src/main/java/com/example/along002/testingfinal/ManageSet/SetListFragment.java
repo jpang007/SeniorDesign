@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
@@ -58,7 +59,7 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
                     String setId = (String) snapshot.child("flashId").getValue();
                     flashIdList.add(setId);//Add sets to a list for recycler view
                 }
-
+                mSetInfoList.clear();
                 for(int i = 0;i < flashIdList.size(); i++){ //iterate through array list to add to the adapter
                     DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));
                     mFlashcard.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,7 +70,6 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
                             SetPreviewRecyclerAdapter adapter = new SetPreviewRecyclerAdapter(getActivity().getApplicationContext(), mSetInfoList, favMap,SetListFragment.this);
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -92,10 +92,18 @@ public class SetListFragment extends Fragment implements SetPreviewRecyclerAdapt
     @Override
     public void onClick(int position) {
         FlashcardInfo selectedItem = mSetInfoList.get(position);
-        ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-        ManageSetActivity.setFlashcardInfo(selectedItem);
-        mCallback.itemSelected();
-
-
+        final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
+        DatabaseReference mSelectedSet = FirebaseDatabase.getInstance().getReference().child("Flashcards").child(selectedItem.getId());
+        mSelectedSet.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FlashcardInfo tempFlashcardInfo = dataSnapshot.getValue(FlashcardInfo.class);
+                ManageSetActivity.setFlashcardInfo(tempFlashcardInfo);
+                mCallback.itemSelected();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="30dp"
     android:paddingVertical="10dp">
@@ -9,92 +9,109 @@
     <android.support.v7.widget.CardView
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
         app:cardElevation="4dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/parent_layout"
-            android:weightSum="100"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:padding="11dp"
-                android:layout_weight="10"
+                android:layout_centerInParent="true"
+                android:id="@+id/rellayoutMid"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:textColor="@color/black"
-                    android:layout_alignParentBottom="true"
-                    android:id="@+id/setName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Set Name"/>
-
-                <TextView
-                    android:id="@+id/setSize"
-                    android:text="Card Size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_toLeftOf="@+id/rellayoutMid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <RelativeLayout
-                    android:layout_centerVertical="true"
                     android:background="@color/black"
+                    android:id="@+id/rellayoutMidLeft"
+                    android:layout_centerInParent="true"
                     android:layout_width="1dp"
                     android:layout_height="30dp">
 
                 </RelativeLayout>
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:paddingLeft="8dp"
+                    android:paddingTop="10dp"
+                    android:layout_toLeftOf="@id/rellayoutMidLeft"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_weight="80"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="10dp">
+                    <TextView
+                        android:id="@+id/setSize"
+                        android:text="Card Size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/setAuthor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Author"/>
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/setName"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/setSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Set Name"/>
 
-                <TextView
-                    android:id="@+id/setTags"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:text="Tags"/>
-
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:paddingVertical="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/favoriteView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00ffffff"
-                    android:src="@drawable/star_set_display"/>
+                </RelativeLayout>
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_weight="75"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_weight="29"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/setAuthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Author"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/setAuthor"
+                        android:id="@+id/setTags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tags"/>
+
+                    <ImageButton
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/favoriteView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00ffffff"
+                        android:src="@drawable/star_set_display"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

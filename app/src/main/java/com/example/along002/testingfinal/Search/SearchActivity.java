@@ -4,15 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.KeyEvent;
 import android.support.v4.view.ViewPager;
 import android.view.inputmethod.EditorInfo;
 import android.content.Intent;
+import android.widget.Toast;
 
+import com.example.along002.testingfinal.Utils.CustomViewPager;
 import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
@@ -40,8 +47,9 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
     private final int ACTIVITY_NUM = 3;
     private FirebaseAuth mAuth;
     private EditText searchEditText;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
     private String searchTerm;
+    private ImageView backArrowView;
     private FlashcardInfo FlashcardInfo;
     private SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
     private int direction = 0;
@@ -60,6 +68,9 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
             overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             direction = 0;
         }
+    }
+    public ImageView getBackArrowView(){
+        return this.backArrowView;
     }
     public void setSearchTerm(String searchTerm){
         this.searchTerm = searchTerm;
@@ -87,9 +98,10 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(currentUser.getUid());
 
-
+        backArrowView = findViewById(R.id.backArrowView);
         mViewPager = findViewById(R.id.container);
         searchEditText = findViewById(R.id.searchEditText);
+        mViewPager.disableScroll(true);
 
         TextView.OnEditorActionListener searchListener = new TextView.OnEditorActionListener() {
             @Override
@@ -106,8 +118,6 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
         setUpFavoriteList();
         searchEditText.setOnEditorActionListener(searchListener);
     }
-
-
 
     private void setupInitialViewPager(ViewPager viewPager){//initial first screen
         adapter.addFragment(new SearchSetListFragment());//index at 0
@@ -157,6 +167,20 @@ public class SearchActivity extends AppCompatActivity implements SearchSetListFr
         intent.putStringArrayListExtra("defList",FlashcardInfo.getDefinitionList());
         startActivity(intent);
     }
+
+    public void toast_Error(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_wrong_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = (TextView) layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
     @Override
     public void itemSelected() {
         SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)mViewPager.getAdapter();

@@ -40,7 +40,7 @@ public class LatestSetsFragment extends Fragment implements SetPreviewRecyclerAd
 
         recyclerView = view.findViewById(R.id.recyclerView);
         DatabaseReference mLatestSetsRef = FirebaseDatabase.getInstance().getReference().child("Flashcards");
-        Query mLatestSets = mLatestSetsRef.orderByChild("name").startAt("");
+        Query mLatestSets = mLatestSetsRef.orderByChild("name").startAt("").limitToFirst(25);
         HomeActivity HomeActivity = (HomeActivity)getActivity();
         favMap = HomeActivity.getFavMap();
         mCallback = (HomeOnItemSelect) getActivity();

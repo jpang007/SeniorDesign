@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +17,6 @@
             android:layout_height="50dp"
             android:background="@color/top_blue">
 
-
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
@@ -28,34 +26,50 @@
                 android:text="Settings"
                 android:textSize="30sp"
                 android:textColor="@color/white" />
+
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rellayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rellayout1">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rellayout1"
+            android:layout_above="@+id/botNavBar">
 
-            <Button
-                android:id="@+id/oldCodeBtn"
+            <RelativeLayout
+                android:paddingLeft="20dp"
+                android:background="@drawable/top_bottom_stroke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="30dp"
+                    android:id="@+id/userName"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "/>
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="145dp"
-                android:text="Go to old Code" />
+                android:background="@drawable/top_bottom_stroke">
 
-            <TextView
-                android:id="@+id/logoutTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/oldCodeBtn"
-                android:text="Log Out"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/red"
-                android:textSize="28dp"/>
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/logoutTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log Out"
+                    android:textColor="@color/red"
+                    android:textSize="28dp"/>
+
+            </RelativeLayout>
+
+
 
         </RelativeLayout>
 

@@ -37,22 +37,97 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
     private ArrayList<String> mDefList = new ArrayList<>();
     private EditText setTitle, setTag;
     private TextView updateTextView;
-    private RadioButton radioButtonPublic, radioButtonPrivate, radioButton;
+    private RadioButton radioButtonPublic, radioButtonPrivate;
     private RadioGroup radioGroup;
-    private  MakeSetRecyclerViewAdapter adapter;
+    private MakeSetRecyclerViewAdapter adapter;
+    private View view;
 
     public EditFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_edit, container, false);
+        view = inflater.inflate(R.layout.fragment_edit, container, false);
+
+        return view;
+    }
+
+    private void setTags(FlashcardInfo newFlashcardInfo, String Privacy){//deletes old reference of tags and setting new ones
+        ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
+        FlashcardInfo oldFlashcardInfo = ManageSetActivity.getFlashcardInfo();
+        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference()
+                .child("tags");
+        for(int i = 0; i < oldFlashcardInfo.getTagList().size(); i++) {
+            mTagRef.child(oldFlashcardInfo.getTagList().get(i)).child(oldFlashcardInfo.getId()).removeValue();
+        }
+        if (Privacy.equals("Public")) {
+            for (int i = 0; i < newFlashcardInfo.getTagList().size(); i++) {
+                mTagRef.child(newFlashcardInfo.getTagList().get(i)).child(newFlashcardInfo.getId()).child("FlashId").setValue(newFlashcardInfo.getId());
+            }
+        }
+    }
+
+    private boolean isValid(FlashcardInfo FlashcardInfo){ //checks if set is valid for update
+        ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
+
+        if (FlashcardInfo.getName().equals("")){
+            ManageSetActivity.toast_Error("Title can not be empty");
+            return false;
+        }
+        if (FlashcardInfo.getTagList().size() == 0){
+            ManageSetActivity.toast_Error("Set needs at least one tag");
+            return false;
+        }
+        if (FlashcardInfo.getDefinitionList().size() == 0){
+            ManageSetActivity.toast_Error("Set needs at least one card");
+            return false;
+        }
+        for (int i = 0; i < FlashcardInfo.getDefinitionList().size(); i++){
+            if (FlashcardInfo.getTermList().get(i).equals("")){
+                ManageSetActivity.toast_Error("A term is empty");
+                return false;
+            }
+            if (FlashcardInfo.getDefinitionList().get(i).equals("")){
+                ManageSetActivity.toast_Error("A definition is empty");
+                return false;
+            }
+        }
+        for (int i = 0; i < FlashcardInfo.getTagList().size(); i++){
+            if (FlashcardInfo.getTagList().get(i).equals("")){
+                ManageSetActivity.toast_Error("A tag can not be empty");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        // remove the item from recycler view
+        adapter.removeItem(viewHolder.getAdapterPosition());
+    }
+
+    public void deepCopyFlashCards(FlashcardInfo newSet, FlashcardInfo oldSet){
+        newSet.setPrivacy(oldSet.getPrivacy());
+        newSet.setAuthor(oldSet.getAuthor());
+        newSet.setCreator(oldSet.getCreator());
+        newSet.setDefinitionList(oldSet.getDefinitionList());
+        newSet.setId(oldSet.getId());
+        newSet.setName(oldSet.getName());
+        newSet.setSize(oldSet.getSize());
+        newSet.setTagList(oldSet.getTagList());
+        newSet.setTermList(oldSet.getTermList());
+    }
+
+    public void startEditFragment(){
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-        final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+
+        final FlashcardInfo flashcardInfo = new FlashcardInfo();
+        deepCopyFlashCards(flashcardInfo, ManageSetActivity.getFlashcardInfo());
+//        final FlashcardInfo flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
 
         mTermList = flashcardInfo.getTermList();
         mDefList = flashcardInfo.getDefinitionList();
@@ -60,6 +135,7 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
         updateTextView = view.findViewById(R.id.updateTextView);
         setTitle = view.findViewById(R.id.setTitle);
         setTag = view.findViewById(R.id.set_Tag);
+
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButtonPrivate = view.findViewById(R.id.privateRadioButton);
         radioButtonPublic = view.findViewById(R.id.publicRadioButton);
@@ -84,6 +160,21 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
             radioButtonPublic.setChecked(false);
             radioButtonPrivate.setChecked(true);
         }
+
+        radioButtonPrivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioButtonPrivate.setChecked(true);
+                radioButtonPublic.setChecked(false);
+            }
+        });
+        radioButtonPublic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radioButtonPublic.setChecked(true);
+                radioButtonPrivate.setChecked(false);
+            }
+        });
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         adapter = new MakeSetRecyclerViewAdapter(getActivity().getApplicationContext(),mTermList,mDefList);
@@ -121,9 +212,12 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
                 updatedFlashcard.setCreator(flashcardInfo.getCreator());
                 updatedFlashcard.setSize(Integer.toString(adapter.getmDefList().size()));
 
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = view.findViewById(selectedId);
-                updatedFlashcard.setPrivacy(radioButton.getText().toString());
+                if (radioButtonPublic.isChecked() == true){
+                    updatedFlashcard.setPrivacy(radioButtonPublic.getText().toString());
+                }
+                else{
+                    updatedFlashcard.setPrivacy(radioButtonPrivate.getText().toString());
+                }
 
                 final String tempString = setTag.getText().toString();
                 List<String> testList = new ArrayList<>(Arrays.asList(tempString.split(", |,| ")));
@@ -135,8 +229,6 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
 
                 updatedFlashcard.setTagList(mTagList);
 
-
-
                 if (isValid(updatedFlashcard) == true){
                     DatabaseReference mUpdate = FirebaseDatabase.getInstance().getReference();
                     mUpdate.child("Flashcards").child(updatedFlashcard.getId())
@@ -144,68 +236,13 @@ public class EditFragment extends Fragment implements RecyclerItemTouchHelper.Re
 
                     setTags(updatedFlashcard, updatedFlashcard.getPrivacy()); //deleting old reference and setting new one for tags branch
 
-                    Toast.makeText(getActivity().getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
                     ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
-                    ManageSetActivity.setupViewPager();
+                    ManageSetActivity.toast_Correct("Updated");
+                    ManageSetActivity.itemSelected();
                     ManageSetActivity.setViewPager(1);
                 }
             }
         });
-
-        return view;
     }
 
-    private void setTags(FlashcardInfo newFlashcardInfo, String Privacy){//deletes old reference of tags and setting new ones
-        ManageSetActivity ManageSetActivity = (com.example.along002.testingfinal.ManageSet.ManageSetActivity) getActivity();
-        FlashcardInfo oldFlashcardInfo = ManageSetActivity.getFlashcardInfo();
-        DatabaseReference mTagRef = FirebaseDatabase.getInstance().getReference()
-                .child("tags");
-        for(int i = 0; i < oldFlashcardInfo.getTagList().size(); i++) {
-            mTagRef.child(oldFlashcardInfo.getTagList().get(i)).child(oldFlashcardInfo.getId()).removeValue();
-        }
-        if (Privacy.equals("Public")) {
-            for (int i = 0; i < newFlashcardInfo.getTagList().size(); i++) {
-                mTagRef.child(newFlashcardInfo.getTagList().get(i)).child(newFlashcardInfo.getId()).child("FlashId").setValue(newFlashcardInfo.getId());
-            }
-        }
-
-    }
-
-    private boolean isValid(FlashcardInfo FlashcardInfo){ //checks if set is valid for update
-        if (FlashcardInfo.getName().equals("")){
-            Toast.makeText(getActivity().getApplicationContext(), "Title can not be empty", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (FlashcardInfo.getTagList().size() == 0){
-            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one tag", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (FlashcardInfo.getDefinitionList().size() == 0){
-            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one card", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        for (int i = 0; i < FlashcardInfo.getDefinitionList().size(); i++){
-            if (FlashcardInfo.getTermList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "A term is empty", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            if (FlashcardInfo.getDefinitionList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "A definition is empty", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        for (int i = 0; i < FlashcardInfo.getTagList().size(); i++){
-            if (FlashcardInfo.getTagList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "Error with Tags List, empty String should not get this msg", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        // remove the item from recycler view
-        adapter.removeItem(viewHolder.getAdapterPosition());
-    }
 }

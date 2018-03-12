@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:padding="10dp">
+
         <ImageView
             android:id="@+id/cancelImageView"
             android:layout_width="wrap_content"
@@ -15,6 +16,21 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:src="@drawable/ic_cancel"/>
+
+        <RelativeLayout
+            android:layout_above="@id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Select Terms or Definition"
+                android:textColor="@color/black"/>
+
+        </RelativeLayout>
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -51,17 +67,20 @@
             android:layout_below="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/relmid"></RelativeLayout>
+
             <EditText
-                android:layout_toLeftOf="@id/relmid"
                 android:id="@+id/timerEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Set Time"/>
+                android:layout_toLeftOf="@id/relmid"
+                android:hint="Set Time (s)"
+                android:inputType="number" />
 
             <CheckBox
                 android:id="@+id/randomizeCheckbox"
@@ -73,12 +92,6 @@
 
         </RelativeLayout>
 
-
-
-
     </RelativeLayout>
 
 </RelativeLayout>
-
-
-

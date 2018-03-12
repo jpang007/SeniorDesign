@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,14 +20,14 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 public class SpeedRoundActivity extends AppCompatActivity {
 
     private static final String TAG = "SpeedRoundActivity";
     private EditText inputEditText1, inputEditText2;
-    private TextView testTextView1, testTextView2, cardNumTextView1, cardNumTextView2, timerTextView;
+    private TextView testTextView1, testTextView2, cardNumTextView1, cardNumTextView2,
+                        timerTextView1,timerTextView2;
     private EasyFlipView easyFlipView;
     private ImageView cancelImageView, guessArrow1, guessArrow2;
     private String testChoice;
@@ -57,7 +60,8 @@ public class SpeedRoundActivity extends AppCompatActivity {
         guessArrow2 = findViewById(R.id.guessArrow2);
         cardNumTextView1 = findViewById(R.id.cardNumTextView1);
         cardNumTextView2 = findViewById(R.id.cardNumTextView2);
-        timerTextView = findViewById(R.id.timerTextView);
+        timerTextView1 = findViewById(R.id.timerTextView1);
+        timerTextView2 = findViewById(R.id.timerTextView2);
 
         if (isRandomized == true){
             shuffleLists();
@@ -67,13 +71,13 @@ public class SpeedRoundActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                timerTextView.setText(String.valueOf(((timerCnt)/1000) - counter));
+                timerTextView1.setText(String.valueOf(((timerCnt)/1000) - counter) + "s");
+                timerTextView2.setText(String.valueOf(((timerCnt)/1000) - counter) + "s");
                 counter++;
             }
 
             @Override
             public void onFinish() {
-                timerTextView.setText("Time Over");
                 showTimesUpAlertDialog();
 
             }
@@ -129,7 +133,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(SpeedRoundActivity.this, "Place Holder, Wrong Guess", Toast.LENGTH_SHORT).show();
+                    toast_Error("Wrong");
                 }
             }
         });
@@ -157,7 +161,7 @@ public class SpeedRoundActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(SpeedRoundActivity.this, "Place Holder, Wrong Guess", Toast.LENGTH_SHORT).show();
+                    toast_Error("Wrong");
                 }
             }
         });
@@ -192,6 +196,19 @@ public class SpeedRoundActivity extends AppCompatActivity {
 
         termList = tempTermList;
         defList = tempDefList;
+    }
+
+    public void toast_Error(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_wrong_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = (TextView) layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
     public void showTimesUpAlertDialog(){ //Times Up ask to retry or not

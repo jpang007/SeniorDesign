@@ -48,13 +48,6 @@ public class HomeCustomSettingDialog extends DialogFragment {//DialogSetting for
         randomizeCheckbox = view.findViewById(R.id.randomizeCheckbox);
         termRadioButton.setChecked(true);
 
-//        randomizeCheckbox.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity().getApplicationContext(), Boolean.toString(randomizeCheckbox.isChecked()), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         cancelImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +65,7 @@ public class HomeCustomSettingDialog extends DialogFragment {//DialogSetting for
 
                 HomeActivity HomeActivity = (HomeActivity) getActivity();
                 HomeActivity.goToSpeedRound(testChoice,Integer.valueOf(timerEditText.getText().toString()),isRandomized);
-
+                HomeActivity.setScreenTransitionUp();
                 getDialog().dismiss();
             }
         });

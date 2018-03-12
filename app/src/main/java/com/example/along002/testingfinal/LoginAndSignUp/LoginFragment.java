@@ -6,10 +6,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ public class LoginFragment extends Fragment {
     EditText emailEditText, passwordEditText;
     TextView TextViewSignUp;
     TextView loginBtn;
+    ProgressBar progressBar;
+    private LoginCreateAccountActivity LoginCreateAccountActivity;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -44,12 +48,9 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         emailEditText = view.findViewById(R.id.emailTxt);
         passwordEditText = view.findViewById(R.id.passwordTxt);
-//        emailEditText.setSelection(3);
-//        passwordEditText.setSelection(3);
+        progressBar = view.findViewById(R.id.progressBar);
 
-        final LoginCreateAccountActivity LoginCreateAccountActivity = (LoginCreateAccountActivity)getActivity();
-
-
+        LoginCreateAccountActivity = (LoginCreateAccountActivity)getActivity();
 
         loginBtn = view.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,25 +81,36 @@ public class LoginFragment extends Fragment {
         return view;
     }
     private void loginUser(){
+        progressBar.setVisibility(View.VISIBLE);
+        loginBtn.setVisibility(View.GONE);
+
         String eMail = emailEditText.getText().toString().trim();
         String pass = passwordEditText.getText().toString().trim();
 
         //HARDCODED ACCOUNT CUZ IM LAZY
-        eMail = "1@gmail.com";
-        pass = "123456";
+//        eMail = "1@gmail.com";
+//        pass = "123456";
+        if (eMail.equals("") || pass.equals("")){
+            LoginCreateAccountActivity.toast_Error("Unsuccessful Login");
+            progressBar.setVisibility(View.GONE);
+            loginBtn.setVisibility(View.VISIBLE);
+        }
+        else {
+            mAuth.signInWithEmailAndPassword(eMail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
 
-        //EMAIL AND PASSWORD PARSING GO HERE TO MAKE SURE THEY ARE VALID EMAILS AND PASS
-        mAuth.signInWithEmailAndPassword(eMail, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+                    }
+                    else{
+                        progressBar.setVisibility(View.GONE);
+                        loginBtn.setVisibility(View.VISIBLE);
+                        LoginCreateAccountActivity.toast_Error("Unsuccessful Login");
+                    }
+                }
+            });
+        }
 
-                }
-                else{
-                    Toast.makeText(getContext().getApplicationContext(), "Unsuccessful Login", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

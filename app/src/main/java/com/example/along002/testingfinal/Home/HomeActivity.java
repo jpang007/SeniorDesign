@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
+import com.example.along002.testingfinal.Utils.CustomViewPager;
 import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.BottomNavigationViewHelper;
@@ -28,7 +31,7 @@ import java.util.HashMap;
 public class HomeActivity extends AppCompatActivity implements LatestSetsFragment.HomeOnItemSelect, FavoritesFragment.HomeOnItemSelect {
     private static final String TAG = "HomeActivity";
     private final int ACTIVITY_NUM = 0;
-    private ViewPager viewPager;
+    private CustomViewPager viewPager;
     private FirebaseAuth mAuth;
     private FlashcardInfo FlashcardInfo = new FlashcardInfo();
     private int direction = 0;
@@ -79,6 +82,7 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         viewPager = findViewById(R.id.container);
+        viewPager.disableScroll(true);
 
         setUpFavoriteList();
         setupBottomNavigationView();
@@ -120,8 +124,8 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
 
 
         viewPager.setAdapter(adapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("All Sets"));
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("Preview Sets"));
         tabLayout.addTab(tabLayout.newTab().setText("Favorites"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -135,6 +139,8 @@ public class HomeActivity extends AppCompatActivity implements LatestSetsFragmen
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                setViewPager(position);
             }
         });
     }

@@ -69,7 +69,8 @@ public class SearchSetListFragment extends Fragment implements SetPreviewRecycle
                     flashIdList.add(flashId);
                 }
                 if(flashIdList.size() == 0){
-                    Toast.makeText(SearchActivity, "No Results", Toast.LENGTH_SHORT).show();
+                    SearchActivity.toast_Error("No Results");
+
                 }
                 for (int i = 0; i < flashIdList.size(); i++){
                     DatabaseReference mFlashcard = mFlashSearch.child(flashIdList.get(i));

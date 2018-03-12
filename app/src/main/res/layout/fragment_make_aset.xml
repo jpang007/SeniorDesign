@@ -12,6 +12,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -44,33 +45,65 @@
                             android:id="@+id/set_Tag"
                             android:hint="Tags"
                             android:textSize="18sp"/>
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_below="@+id/set_Tag"
                             android:layout_height="30dp">
+
                         <RadioGroup
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:orientation="horizontal"
                             android:id="@+id/radioGroup">
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Public"
-                                android:layout_marginLeft="40dp"
-                                android:id="@+id/publicRadioButton"/>
 
-                            <RadioButton
-                                android:id="@+id/privateRadioButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Private"
-                                android:layout_marginLeft="140dp"
-                                android:layout_toRightOf="@+id/publicRadioButton"
-                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/rellayoutMid"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_toLeftOf="@id/rellayoutMid">
+
+                                    <RadioButton
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Public"
+                                        android:layout_centerInParent="true"
+                                        android:id="@+id/publicRadioButton"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_toRightOf="@id/rellayoutMid">
+
+                                    <RadioButton
+                                        android:id="@+id/privateRadioButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Private"
+                                        android:layout_centerInParent="true"
+                                        />
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
 
                         </RadioGroup>
+
                         </RelativeLayout>
+
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>

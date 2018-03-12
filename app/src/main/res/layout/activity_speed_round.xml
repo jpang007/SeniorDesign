@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
         app:cardElevation="4dp">
+
         <RelativeLayout
             android:id="@+id/rellayout1"
             android:layout_width="match_parent"
@@ -25,20 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_cancel"/>
-            <TextView
-                android:textSize="20dp"
-                android:id="@+id/timerTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Timer"/>
 
         </RelativeLayout>
 
-
     </android.support.v7.widget.CardView>
-
-
 
     <RelativeLayout
         android:padding="15dp"
@@ -55,21 +46,33 @@
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <android.support.v7.widget.CardView
                     app:contentPadding="10dp"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <TextView
                             android:textSize="20dp"
                             android:id="@+id/cardNumTextView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CardNum"/>
+
+                        <TextView
+                            android:id="@+id/timerTextView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="timer"
+                            android:textColor="@color/transparent_black"
+                            android:textSize="20dp" />
 
                         <TextView
                             android:id="@+id/testTextView1"
@@ -85,6 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/testTextView1"
+                            android:maxLines="1"
                             android:hint="Guess"/>
                         <ImageView
                             android:id="@+id/guessArrow1"
@@ -95,20 +99,25 @@
                             android:layout_toRightOf="@+id/inputEditText1"
 
                             android:src="@drawable/ic_arrow_right"/>
+
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
+
             </RelativeLayout>
+
             <RelativeLayout
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <android.support.v7.widget.CardView
                     app:contentPadding="10dp"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -119,6 +128,16 @@
                             android:layout_height="wrap_content"
                             android:text="cardNum"
                             android:textSize="20dp"/>
+
+                        <TextView
+                            android:id="@+id/timerTextView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="timer"
+                            android:textColor="@color/transparent_black"
+                            android:textSize="20dp"/>
+
                         <TextView
                             android:id="@+id/testTextView2"
                             android:layout_centerInParent="true"
@@ -133,7 +152,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/testTextView2"
+                            android:maxLines="1"
                             android:hint="Guess"/>
+
                         <ImageView
                             android:id="@+id/guessArrow2"
                             android:layout_marginTop="10dp"
@@ -142,9 +163,11 @@
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/inputEditText2"
                             android:src="@drawable/ic_arrow_right"/>
+
                     </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
+
             </RelativeLayout>
 
         </com.wajahatkarim3.easyflipview.EasyFlipView>

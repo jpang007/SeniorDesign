@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.along002.testingfinal.R;
@@ -87,7 +88,7 @@ public class SetPreviewRecyclerAdapter extends RecyclerView.Adapter<SetPreviewRe
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView setName, setAuthor, setSize, setTags;
         ImageButton favoriteView;
-        LinearLayout parent_layout;
+        RelativeLayout parent_layout;
 
         public ViewHolder(View itemView) {
             super(itemView);

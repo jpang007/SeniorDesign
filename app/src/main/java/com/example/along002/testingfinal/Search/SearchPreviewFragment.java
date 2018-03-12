@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
@@ -60,7 +61,6 @@ public class SearchPreviewFragment extends Fragment{
                     .child(flashcardInfo.getId()).child("FlashId")
                     .removeValue();
         }
-
     }
 
     @Override
@@ -94,6 +94,17 @@ public class SearchPreviewFragment extends Fragment{
                 tagsTextView.setText(tagsTextView.getText().toString() + ", " + flashcardInfo.getTagList().get(i));
             }
         }
+
+        final ImageView backArrowView = SearchActivity.getBackArrowView();
+        backArrowView.setVisibility(View.VISIBLE);
+        backArrowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backArrowView.setVisibility(View.GONE);
+                SearchActivity.setViewPager(0);
+            }
+        });
+
         cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
         cardsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,10 +1,8 @@
 package com.example.along002.testingfinal.LoginAndSignUp;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,26 +10,19 @@ import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.example.along002.testingfinal.Home.HomeActivity;
-import com.example.along002.testingfinal.ManageSet.EditFragment;
-import com.example.along002.testingfinal.ManageSet.PreviewSetFragment;
-import com.example.along002.testingfinal.ManageSet.SetListFragment;
 import com.example.along002.testingfinal.R;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class LoginCreateAccountActivity extends AppCompatActivity {
@@ -86,6 +77,32 @@ public class LoginCreateAccountActivity extends AppCompatActivity {
 
     }
 
+    public void toast_Error(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_wrong_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    public void toast_Correct(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_right_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
     public void setupViewPager(){
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment());//index at 0
@@ -99,7 +116,6 @@ public class LoginCreateAccountActivity extends AppCompatActivity {
 
     private void setUpBGImages() {
 
-//        final int[] imageArray = {R.drawable.image1,R.drawable.image5,R.drawable.image6};
         final int[] imageArray = {R.drawable.image1,R.drawable.image2,R.drawable.image3,
                                 R.drawable.image4,R.drawable.image5,R.drawable.image6,
                                 R.drawable.image7,R.drawable.image8,R.drawable.image9,

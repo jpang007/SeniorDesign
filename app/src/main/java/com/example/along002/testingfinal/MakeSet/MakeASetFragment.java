@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.R;
@@ -44,7 +43,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
     private ArrayList<String> mTermList = new ArrayList<>();
     private ArrayList<String> mDefList = new ArrayList<>();
     private EditText setTitle, setTag;
-    private RadioButton radioButton,publicRadioButton;
+    private RadioButton publicRadioButton,privateRadioButton;
     private RadioGroup radioGroup;
     private TextView publishTextView;
     private MakeSetRecyclerViewAdapter adapter;
@@ -65,8 +64,24 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
         setTag = view.findViewById(R.id.set_Tag);
         radioGroup = view.findViewById(R.id.radioGroup);
         publicRadioButton = view.findViewById(R.id.publicRadioButton);
+        privateRadioButton = view.findViewById(R.id.privateRadioButton);
 
         publicRadioButton.setChecked(true);
+
+        publicRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                publicRadioButton.setChecked(true);
+                privateRadioButton.setChecked(false);
+            }
+        });
+        privateRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                publicRadioButton.setChecked(false);
+                privateRadioButton.setChecked(true);
+            }
+        });
 
         final RecyclerView recyclerView = view.findViewById(R.id.recycler_View);
         adapter = new MakeSetRecyclerViewAdapter(getActivity().getApplicationContext(),mTermList,mDefList);
@@ -82,7 +97,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
-        ImageView addCardImageView = (ImageView) view.findViewById(R.id.addCardImageView);
+        ImageView addCardImageView = view.findViewById(R.id.addCardImageView);
 
         addCardImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +117,12 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 FlashcardInfo.setSize(Integer.toString(adapter.getmDefList().size()));
                 FlashcardInfo.setName(setTitle.getText().toString());
 
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = view.findViewById(selectedId);
-                FlashcardInfo.setPrivacy(radioButton.getText().toString());
-
+                if (publicRadioButton.isChecked() == true){
+                    FlashcardInfo.setPrivacy(publicRadioButton.getText().toString());
+                }
+                else{
+                    FlashcardInfo.setPrivacy(privateRadioButton.getText().toString());
+                }
                 mAuth = FirebaseAuth.getInstance();
                 final FirebaseUser currUser = mAuth.getCurrentUser();
                 FlashcardInfo.setCreator(currUser.getUid());
@@ -118,8 +135,6 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 final ArrayList<String> mTagList = new ArrayList<>(testList.size());
                 mTagList.addAll(testList);
 
-
-
                 FlashcardInfo.setTagList(mTagList);
 
                 mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -127,6 +142,7 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                 FlashcardInfo.setId(mFlashId);
 
                 if (isValid(FlashcardInfo) == true) {
+                    final MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
                     DatabaseReference mPublish = FirebaseDatabase.getInstance().getReference().child("users").child(currUser.getUid());
                     mPublish.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -142,17 +158,17 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
                                 }
                             }
                             mDatabase.child("usersFlash").child(currUser.getUid()).child(mFlashId).child("flashId").setValue(mFlashId);//Placing set reference in user to flash branch
+                            MakeSetActivity.toast_Correct("Set is Published");
+                            MakeSetActivity.restartActivity();
+                            setTag.setText("");
+                            setTitle.setText("");
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            MakeSetActivity.toast_Error("Error Publishing");
                         }
                     });
-                    Toast.makeText(getActivity().getApplicationContext(), "Set is Published", Toast.LENGTH_SHORT).show();
-                    MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
-                    MakeSetActivity.restartActivity();
-                    setTag.setText("");
-                    setTitle.setText("");
+
                 }
 
             }
@@ -161,39 +177,39 @@ public class MakeASetFragment extends Fragment implements RecyclerItemTouchHelpe
         return view;
     }
 
-
     private boolean isValid(FlashcardInfo FlashcardInfo){ // checks if flashcard is valid for publish
+        MakeSetActivity MakeSetActivity = (com.example.along002.testingfinal.MakeSet.MakeSetActivity) getActivity();
+
         if (FlashcardInfo.getName().equals("")){
-            Toast.makeText(getActivity().getApplicationContext(), "Title can not be empty", Toast.LENGTH_SHORT).show();
+            MakeSetActivity.toast_Error("Title can not be empty");
             return false;
         }
         if (FlashcardInfo.getTagList().size() == 0){
-            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one tag", Toast.LENGTH_SHORT).show();
+            MakeSetActivity.toast_Error("Set needs at least one tag");
             return false;
         }
         if (FlashcardInfo.getDefinitionList().size() == 0){
-            Toast.makeText(getActivity().getApplicationContext(), "Set needs at least one card", Toast.LENGTH_SHORT).show();
+            MakeSetActivity.toast_Error("Set needs at least one card");
             return false;
         }
         for (int i = 0; i < FlashcardInfo.getDefinitionList().size(); i++){
             if (FlashcardInfo.getTermList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "A term is empty", Toast.LENGTH_SHORT).show();
+                MakeSetActivity.toast_Error("A term is empty");
                 return false;
             }
             if (FlashcardInfo.getDefinitionList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "A definition is empty", Toast.LENGTH_SHORT).show();
+                MakeSetActivity.toast_Error("A definition is empty");
                 return false;
             }
         }
         for (int i = 0; i < FlashcardInfo.getTagList().size(); i++){
             if (FlashcardInfo.getTagList().get(i).equals("")){
-                Toast.makeText(getActivity().getApplicationContext(), "Error with Tags List, empty String should not get this msg", Toast.LENGTH_SHORT).show();
+                MakeSetActivity.toast_Error("A tag can not be empty");
                 return false;
             }
         }
         return true;
     }
-
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {

@@ -32,7 +32,7 @@ public class CustomSettingDialog extends DialogFragment {//DialogSetting for spe
     private ImageView cancelImageView;
     private TextView continueTextView;
     private RadioGroup radioGroup;
-    private RadioButton defRadioButton, termRadioButton;
+    private RadioButton termRadioButton;
     private EditText timerEditText;
     private CheckBox randomizeCheckbox;
 
@@ -66,7 +66,7 @@ public class CustomSettingDialog extends DialogFragment {//DialogSetting for spe
 
                 ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
                 ManageSetActivity.goToSpeedRound(testChoice,Integer.valueOf(timerEditText.getText().toString()),isRandomized);
-
+                ManageSetActivity.setScreenTransitionUp();
                 getDialog().dismiss();
             }
         });

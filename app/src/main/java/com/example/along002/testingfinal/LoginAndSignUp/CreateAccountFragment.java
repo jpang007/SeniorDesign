@@ -31,6 +31,7 @@ public class CreateAccountFragment extends Fragment {
     EditText emailEditText, passEditText, nameEditText;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private LoginCreateAccountActivity LoginCreateAccountActivity;
 
     public CreateAccountFragment() {
         // Required empty public constructor
@@ -43,7 +44,7 @@ public class CreateAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
 
-        final LoginCreateAccountActivity LoginCreateAccountActivity = (LoginCreateAccountActivity)getActivity();
+        LoginCreateAccountActivity = (LoginCreateAccountActivity)getActivity();
         mAuth = FirebaseAuth.getInstance();
         emailEditText = view.findViewById(R.id.editTextEmail);
         passEditText = view.findViewById(R.id.editTextPass);
@@ -61,12 +62,9 @@ public class CreateAccountFragment extends Fragment {
         emailImageView.setBounds(0,0,60,60);
         emailImageView.setAlpha(150);
 
-
         nameEditText.setCompoundDrawables(profileImageView,null,null,null);
         passEditText.setCompoundDrawables(passwordImageView,null,null,null);
         emailEditText.setCompoundDrawables(emailImageView,null,null,null);
-
-
 
         signUpBtn = view.findViewById(R.id.signUpBtn);
         signUpBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,13 +96,18 @@ public class CreateAccountFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Account Successfully Made", Toast.LENGTH_SHORT).show();
+                    LoginCreateAccountActivity.toast_Correct("Account Successfully Made");
                     FirebaseUser user = mAuth.getCurrentUser();
                     String currUID = user.getUid();
                     User newUser = new User(eMail,name);
                     mDatabase.child("users").child(currUID).setValue(newUser);
+                    LoginCreateAccountActivity.setViewPager(0);
+                    emailEditText.setText("");
+                    passEditText.setText("");
+                    nameEditText.setText("");
+
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Account Unsuccessfully Made", Toast.LENGTH_SHORT).show();
+                    LoginCreateAccountActivity.toast_Error("Account Unsuccessfully Made");
                 }
             }
         });

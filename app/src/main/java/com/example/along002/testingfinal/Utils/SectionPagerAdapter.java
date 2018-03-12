@@ -25,10 +25,6 @@ public class SectionPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-//        if (fragmentHashMap.get(position) != null){
-//            return fragmentHashMap.get(position)
-//        }
-//
         return mFragmentList.get(position);
     }
 
@@ -36,8 +32,11 @@ public class SectionPagerAdapter extends FragmentPagerAdapter{
     public int getCount() {
         return mFragmentList.size();
     }
+
     public void addFragment(Fragment fragment){
         mFragmentList.add(fragment);
-//        fragmentHashMap.put(mFragmentList.size()-1, fragment);
+    }
+    public void popFragment(){
+        mFragmentList.remove(mFragmentList.size()-1);
     }
 }

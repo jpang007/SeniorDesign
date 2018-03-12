@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.along002.testingfinal.LoginAndSignUp.LoginFragment">
 
-
     <RelativeLayout
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -13,71 +12,118 @@
         <RelativeLayout
             android:layout_centerInParent="true"
             android:id="@+id/rellayoutMid"
-            android:layout_width="wrap_content"
-            android:layout_height="12dp">
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
         </RelativeLayout>
-
-        <EditText
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:layout_above="@+id/rellayoutMid"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/emailTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="20dp"
-            android:background="@drawable/rounded_transparent_black"
-            android:hint="E-Mail"
-            android:textColorHint="@color/transparent_white"
-            android:textColor="@color/white"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:textSize="20dp"
-            android:background="@drawable/rounded_transparent_black"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/rellayoutMid"
-            android:id="@+id/passwordTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textColorHint="@color/transparent_white"
-            android:hint="password"
-            android:textColor="@color/white"
-            android:inputType="textPassword" />
-
-        <TextView
-            android:layout_marginBottom="30dp"
-            android:layout_above="@+id/rellayoutBot"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/loginBtn"
-            android:textSize="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_transparent_dark_blue"
-            android:textColor="@color/white"
-            android:text="     Login     " />
 
         <RelativeLayout
-            android:id="@+id/rellayoutBot"
-            android:layout_alignParentBottom="true"
+            android:layout_above="@id/rellayoutMid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:background="@drawable/rounded_transparent_black"
-                android:layout_alignParentRight="true"
-                android:id="@+id/TextViewSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  Create Account  "
-                android:textSize="18sp"
-                android:textColor="@color/transparent_white"/>
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_below="@+id/rellayoutMid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_alignParentTop="true"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/emailTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textSize="20dp"
+                    android:background="@drawable/rounded_transparent_black"
+                    android:hint="E-Mail"
+                    android:textColorHint="@color/transparent_white"
+                    android:textColor="@color/white"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:layout_below="@+id/emailTxt"
+                    android:layout_marginTop="20dp"
+                    android:drawablePadding="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp"
+                    android:background="@drawable/rounded_transparent_black"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/passwordTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:textColorHint="@color/transparent_white"
+                    android:hint="password"
+                    android:textColor="@color/white"
+                    android:inputType="textPassword" />
+
+                <FrameLayout
+                    android:padding="20dp"
+                    android:layout_below="@id/passwordTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/loginBtn"
+                            android:textSize="30dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_transparent_dark_blue"
+                            android:textColor="@color/white"
+                            android:text="     Login     " />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:visibility="gone"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rellayoutBot"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:background="@drawable/rounded_transparent_black"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/TextViewSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  create account  "
+                        android:textSize="18sp"
+                        android:textColor="@color/transparent_white"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
+
 </FrameLayout>

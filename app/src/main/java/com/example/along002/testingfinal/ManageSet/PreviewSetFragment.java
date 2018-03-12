@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.along002.testingfinal.CardGames.CardFlipPreviewActivity;
@@ -37,12 +38,12 @@ public class PreviewSetFragment extends Fragment{
     private Button deleteSetBtn, editSetBtn, cardsBtn, speedRoundBtn;
     private ImageButton favoriteBtn;
     private FirebaseUser currentUser;
+    private LoadEdit mCallback1;
     private DatabaseReference mFavoriteDatabase;
     private HashMap<String, Boolean> favMap = new HashMap<>();
     ArrayList<String> termList = new ArrayList<>();
     ArrayList<String> defList = new ArrayList<>();
     View view;
-
 
     public void onToggleStar(View v){
         favoriteBtn.setSelected(!favoriteBtn.isSelected());
@@ -61,92 +62,127 @@ public class PreviewSetFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View viewInit = inflater.inflate(R.layout.fragment_preview_set,container,false);
+        view = inflater.inflate(R.layout.fragment_preview_set,container,false);
 
-        view = viewInit;
-
-        return viewInit;
+        return view;
     }
 
     public void startPreview(){
         final ManageSetActivity ManageSetActivity = (ManageSetActivity)getActivity();
-        flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
-        favMap = ManageSetActivity.getFavMap();
-        mFavoriteDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("favorites");
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
 
-        defList = flashcardInfo.getDefinitionList();//def list
-        termList = flashcardInfo.getTermList();//term list
+        if (ManageSetActivity.getFlashcardInfo() != null){
+            flashcardInfo = ManageSetActivity.getFlashcardInfo();//get chosen flashcard set
+            favMap = ManageSetActivity.getFavMap();
+            mFavoriteDatabase = FirebaseDatabase.getInstance().getReference()
+                    .child("favorites");
+            mAuth = FirebaseAuth.getInstance();
+            currentUser = mAuth.getCurrentUser();
 
-        tagsTextView = view.findViewById(R.id.tagsTextView);
-        for (int i = 0; i < flashcardInfo.getTagList().size(); i++){
-            if (i == 0){
-                tagsTextView.setText(flashcardInfo.getTagList().get(i));
+            mCallback1 = (LoadEdit)getActivity();
+
+            defList = flashcardInfo.getDefinitionList();//def list
+            termList = flashcardInfo.getTermList();//term list
+
+            final ImageView backArrowView = ManageSetActivity.getBackArrowView();
+            backArrowView.setVisibility(View.VISIBLE);
+
+            backArrowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ManageSetActivity.setViewPager(0);
+                    backArrowView.setVisibility(View.GONE);
+                }
+            });
+
+            tagsTextView = view.findViewById(R.id.tagsTextView);
+            for (int i = 0; i < flashcardInfo.getTagList().size(); i++){
+                if (i == 0){
+                    tagsTextView.setText(flashcardInfo.getTagList().get(i));
+                }
+                else {
+                    tagsTextView.setText(tagsTextView.getText().toString() + ", " + flashcardInfo.getTagList().get(i));
+                }
             }
-            else {
-                tagsTextView.setText(tagsTextView.getText().toString() + ", " + flashcardInfo.getTagList().get(i));
+
+            cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
+            cardsBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), CardFlipPreviewActivity.class);
+                    intent.putStringArrayListExtra("defList",defList);
+                    intent.putStringArrayListExtra("termList",termList);
+                    ManageSetActivity.setScreenTransitionUp();
+                    startActivity(intent);
+                }
+            });
+
+            favoriteBtn = view.findViewById(R.id.favoriteBtn);
+            if (favMap.containsKey(flashcardInfo.getId()) == true ){
+                favoriteBtn.setSelected(true);
             }
+            favoriteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onToggleStar(v);
+                }
+            });
+
+            speedRoundBtn = view.findViewById(R.id.speedRoundBtn);
+            speedRoundBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ManageSetActivity.setUpDialog();
+                }
+            });
+
+            deleteSetBtn = view.findViewById(R.id.deleteSetBtn);
+            deleteSetBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ManageSetActivity.showDeleteAlertDialog();
+                }
+            });
+
+            editSetBtn = view.findViewById(R.id.editSetBtn);
+            editSetBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCallback1.LoadEditFragment();
+                    ManageSetActivity.setViewPager(2);
+                    backArrowView.setOnClickListener(null);
+                    backArrowView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ManageSetActivity.setViewPager(1);
+                            backArrowView.setOnClickListener(null);
+                            backArrowView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ManageSetActivity.setViewPager(0);
+                                    backArrowView.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            cardSize = view.findViewById(R.id.cardSize);
+            cardSize.setText(flashcardInfo.getSize() + " cards");
+
+            author = view.findViewById(R.id.author);
+            author.setText(flashcardInfo.getAuthor());
+
+            setName = view.findViewById(R.id.setName);
+            setName.setText(flashcardInfo.getName());
+
+            initRecyclerView();
         }
 
-        cardsBtn = view.findViewById(R.id.cardsBtn); //card flip preview
-        cardsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), CardFlipPreviewActivity.class);
-                intent.putStringArrayListExtra("defList",defList);
-                intent.putStringArrayListExtra("termList",termList);
-                ManageSetActivity.setScreenTransitionUp();
-                startActivity(intent);
-            }
-        });
+    }
 
-        favoriteBtn = view.findViewById(R.id.favoriteBtn);
-        if (favMap.containsKey(flashcardInfo.getId()) == true ){
-            favoriteBtn.setSelected(true);
-        }
-        favoriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onToggleStar(v);
-            }
-        });
-
-        speedRoundBtn = view.findViewById(R.id.speedRoundBtn);
-        speedRoundBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ManageSetActivity.setUpDialog();
-            }
-        });
-
-        deleteSetBtn = view.findViewById(R.id.deleteSetBtn);
-        deleteSetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ManageSetActivity.showDeleteAlertDialog();
-            }
-        });
-
-        editSetBtn = view.findViewById(R.id.editSetBtn);
-        editSetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ManageSetActivity.setViewPager(2);
-            }
-        });
-
-        cardSize = view.findViewById(R.id.cardSize);
-        cardSize.setText(flashcardInfo.getSize() + " cards");
-
-        author = view.findViewById(R.id.author);
-        author.setText(flashcardInfo.getAuthor());
-
-        setName = view.findViewById(R.id.setName);
-        setName.setText(flashcardInfo.getName());
-
-        initRecyclerView();
+    public interface LoadEdit {
+        void LoadEditFragment();
     }
 
     private void initRecyclerView(){

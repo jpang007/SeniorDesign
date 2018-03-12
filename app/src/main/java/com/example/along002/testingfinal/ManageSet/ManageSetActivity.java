@@ -8,10 +8,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.along002.testingfinal.CardGames.SpeedRoundActivity;
+import com.example.along002.testingfinal.Utils.CustomViewPager;
 import com.example.along002.testingfinal.Utils.FlashcardInfo;
 import com.example.along002.testingfinal.Utils.SectionPagerAdapter;
 import com.example.along002.testingfinal.R;
@@ -31,14 +40,14 @@ import java.util.HashMap;
  * Created by along002 on 2/1/2018.
  */
 
-public class ManageSetActivity extends AppCompatActivity implements SetListFragment.ManageOnItemSelect {
+public class ManageSetActivity extends AppCompatActivity implements SetListFragment.ManageOnItemSelect, PreviewSetFragment.LoadEdit {
     private static final String TAG = "ManageSetActivity";
     private final int ACTIVITY_NUM = 2;
     private SectionPagerAdapter mSectionStatePagerAdapter;
-    private ViewPager mViewPager;
+    private CustomViewPager mViewPager;
     private FirebaseAuth mAuth;
+    private ImageView backArrowView;
     private HashMap<String, Boolean> favMap = new HashMap<>();
-
     private int direction = 0;
     private FlashcardInfo FlashcardInfo;
 
@@ -53,6 +62,10 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
             overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             direction = 0;
         }
+    }
+
+    public ImageView getBackArrowView(){
+        return this.backArrowView;
     }
 
     public void goToSpeedRound(String testChoice, int timerCnt, boolean isRandomized){//goes to speend round Activity
@@ -96,7 +109,6 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
                     String flashId = (String) snapshot.child("FlashId").getValue();
                     favMap.put(flashId,true);
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -123,22 +135,23 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
         removeFavorites.removeValue();
         removeFlashId.removeValue();
         removeUIDtoFlashId.removeValue();
-        mViewPager = findViewById(R.id.container);
-        setupInitialViewPager(mViewPager);
+        Intent intent = new Intent(ManageSetActivity.this, ManageSetActivity.class);
+        startActivity(intent);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_set);
-        setupBottomNavigationView();
 
         mSectionStatePagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
+        backArrowView = findViewById(R.id.backArrowView);
         mViewPager = findViewById(R.id.container);
-
+        mViewPager.disableScroll(true);
+        
         setUpFavoriteList();
         setupViewPager();
-
+        setupBottomNavigationView();
     }
     public void restartActivity(){
         Intent intent = getIntent();
@@ -172,11 +185,6 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
         AlertDialog alertDialog = alertBuilder.create();
         alertDialog.show();
     }
-    private void setupInitialViewPager(ViewPager viewPager){//initial first screen
-        SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SetListFragment());//index at 0
-        viewPager.setAdapter(adapter);
-    }
 
     public void setupViewPager(){
         SectionPagerAdapter adapter = new SectionPagerAdapter(getSupportFragmentManager());
@@ -190,6 +198,31 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
         mViewPager.setCurrentItem(fragmentNumber);
     }
 
+    public void toast_Error(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_wrong_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
+
+    public void toast_Correct(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_right_toast,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        TextView text = layout.findViewById(R.id.toastTextView);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 120);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+    }
 
     // BottomNavigationView setup
     private void setupBottomNavigationView(){
@@ -207,8 +240,15 @@ public class ManageSetActivity extends AppCompatActivity implements SetListFragm
     public void itemSelected() {
         SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)mViewPager.getAdapter();
         PreviewSetFragment PreviewSetFragment = (PreviewSetFragment) fragmentAdapter.getItem(1);
-
         PreviewSetFragment.startPreview();
+
         setViewPager(1);
+    }
+
+    @Override
+    public void LoadEditFragment() {
+        SectionPagerAdapter fragmentAdapter = (SectionPagerAdapter)mViewPager.getAdapter();
+        EditFragment EditFragment = (EditFragment) fragmentAdapter.getItem(2);
+        EditFragment.startEditFragment();
     }
 }

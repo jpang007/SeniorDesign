@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:padding="10dp">
+
             <ImageButton
                 android:id="@+id/favoriteBtn"
                 android:layout_alignParentRight="true"
@@ -22,11 +24,13 @@
                 android:src="@drawable/star"
                 android:background="#00ffffff"
                 android:onClick="onToggleStar"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Card Size"
                 android:id="@+id/cardSize"/>
+
             <RelativeLayout
                 android:layout_marginLeft="10dp"
                 android:layout_width="1dp"
@@ -44,6 +48,7 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"/>
+
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
@@ -75,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/relativeLayout">
+
                 <android.support.v7.widget.CardView
                     android:layout_toLeftOf="@+id/speedRoundCard"
                     app:cardUseCompatPadding="true"
@@ -106,7 +112,6 @@
                         android:background="#00ffffff"
                         android:text="Speed&#10;Round"
                         android:id="@+id/speedRoundBtn" />
-
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -124,13 +129,12 @@
                         android:background="#00ffffff"
                         android:text="MATCH"
                         android:id="@+id/matchBtn" />
-
                 </android.support.v7.widget.CardView>
 
             </RelativeLayout>
 
-
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_below="@+id/rellayout1"
             android:id="@+id/rellayout2"
@@ -144,5 +148,7 @@
             </android.support.v7.widget.RecyclerView>
 
         </RelativeLayout>
+
     </RelativeLayout>
+
 </ScrollView>

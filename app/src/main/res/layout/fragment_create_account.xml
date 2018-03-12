@@ -3,12 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context="com.example.along002.testingfinal.LoginAndSignUp.CreateAccountFragment">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:id="@+id/rellayoutMid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </RelativeLayout>
 
         <EditText
             android:paddingLeft="10dp"
@@ -58,13 +67,12 @@
             android:inputType="textPassword" />
 
         <TextView
-
             android:textColor="@color/white"
             android:textSize="30dp"
             android:background="@drawable/rounded_transparent_green"
             android:layout_centerHorizontal="true"
-            android:layout_above="@id/rellayoutBot"
-            android:layout_marginBottom="30dp"
+            android:layout_below="@+id/editTextPass"
+            android:layout_marginTop="20dp"
             android:id="@+id/signUpBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +87,7 @@
             <TextView
                 android:id="@+id/loginTextView"
                 android:textSize="18sp"
-                android:text="  already an account?  "
+                android:text="  already have an account?  "
                 android:textColor="@color/transparent_white"
                 android:background="@drawable/rounded_transparent_black"
                 android:layout_width="wrap_content"

@@ -47,6 +47,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <EditText
                     android:singleLine="true"
                     android:id="@+id/termEditText"
@@ -63,7 +64,6 @@
                     android:layout_below="@id/termEditText"
                     android:hint="Definition"
                     android:textSize="18sp"/>
-
 
             </RelativeLayout>
 
